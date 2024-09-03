@@ -1,15 +1,18 @@
-
+/* home.component.scss */
 .marquee {
   overflow: hidden;
   white-space: nowrap;
-  box-sizing: border-box;
   width: 100%;
-  background-color: var(--background-color-oppo);
-  color: var(--primary-color);
-  padding: 10px;
-  border-top: 1px  solid #797979;
-  border-bottom: 1px  solid #797979;
 }
+
+.marquee__slider {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+
+
 h2{
   font-family: "Pixelify Sans", sans-serif;
   font-optical-sizing: 26px;
@@ -22,23 +25,6 @@ h3{
   font-weight: 400;
   color: var(--primary-color);
 }
-
-.marquee__slider {
-  display: inline-block;
-  animation: marquee 25s linear infinite;
-}
-
-.marquee__slider span {
-  padding: 0 20px;
-  font-size: 16px;
-  color: var(--text-color-oppo);
-}
-
-@keyframes marquee {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(-100%, 0); }
-}
-
 /* Today's Articles and Hot Articles */
 .row {
   background-size: cover;

@@ -1,9 +1,12 @@
-<!-- Home Component -->
+<!-- home.component.html -->
 <div class="marquee">
   <div class="marquee__slider">
-    <span *ngFor="let article of articles" [routerLink]="['/article', article.articleId]">{{ article.articleHeadline }}</span>
+    <ng-container *ngFor="let article of articles">
+      <span [routerLink]="['/article', article.articleId]">{{ article.articleHeadline }}</span>
+    </ng-container>
   </div>
 </div>
+
 
 <!-- Section 1: Today's Articles and Top Articles -->
 <div class="section-1 container-fluid mt-4">
@@ -12,15 +15,10 @@
     <div class="col-lg-8 col-md-7 col-sm-12 mb-4">
       <h2>Today's Articles</h2>
       <div class="article-cards d-flex flex-wrap">
-        <a *ngFor="let article of articles" [routerLink]="['/article', article.articleId]" class="article-card rectangle">
+        <a *ngFor="let article of articles" [routerLink]="['/Article', article.articleId]" class="article-card rectangle">
           <div class="card-content">
             <h3>{{ article.articleHeadline }}</h3>
             <p>{{ article.articleDescription }}</p>
-            <div class="article-content">
-              <p><strong>Introduction:</strong> {{ article.articleContent.introduction }}</p>
-              <p><strong>Main Content:</strong> {{ article.articleContent.content }}</p>
-              <p><strong>Conclusion:</strong> {{ article.articleContent.conclusion }}</p>
-            </div>
           </div>
         </a>
       </div>
@@ -34,11 +32,6 @@
           <div class="card-content">
             <h3>{{ topArticle.articleHeadline }}</h3>
             <p>{{ topArticle.articleDescription }}</p>
-            <div class="article-content">
-              <p><strong>Introduction:</strong> {{ topArticle.articleContent.introduction }}</p>
-              <p><strong>Main Content:</strong> {{ topArticle.articleContent.content }}</p>
-              <p><strong>Conclusion:</strong> {{ topArticle.articleContent.conclusion }}</p>
-            </div>
           </div>
         </a>
       </div>
@@ -86,11 +79,6 @@
             <div *ngFor="let article of topicArticles" class="card">
               <h4 class="card-title">{{ article.articleHeadline }}</h4>
               <p class="card-description">{{ article.articleDescription }}</p>
-              <div class="article-content">
-                <p><strong>Introduction:</strong> {{ article.articleContent.introduction }}</p>
-                <p><strong>Main Content:</strong> {{ article.articleContent.content }}</p>
-                <p><strong>Conclusion:</strong> {{ article.articleContent.conclusion }}</p>
-              </div>
               <a [routerLink]="['/article', article.articleId]" class="card-button btn btn-primary">Read More</a>
             </div>
           </div>

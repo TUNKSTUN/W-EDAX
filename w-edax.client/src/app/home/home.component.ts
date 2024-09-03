@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ArticleService } from '../Services/article.services'; // Ensure the path is correct
 import { ArticleModel } from '../models/article.model'; // Import ArticleModel if using it
 import { catchError, lastValueFrom, of } from 'rxjs';
+import { MarqueeService } from '../Services/marquee.service'; // Import the MarqueeService
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,15 @@ import { catchError, lastValueFrom, of } from 'rxjs';
   imports: [RouterLink, CommonModule],
   providers: [ArticleService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   articles: ArticleModel[] = []; // Initialize with an empty array
   topArticles: ArticleModel[] = []; // Initialize with an empty array
   topicArticles: ArticleModel[] = []; // Additional array for topic-specific articles if needed
 
-  constructor(public articleService: ArticleService) { }
+  constructor(
+    public articleService: ArticleService,
+    private marqueeService: MarqueeService // Inject the MarqueeService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -30,6 +34,10 @@ export class HomeComponent implements OnInit {
     } catch (error) {
       console.error('Error fetching articles:', error);
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.marqueeService.setupMarquee(); // Call marquee setup after view initialization
   }
 
   private async fetchArticles(): Promise<ArticleModel[]> {
@@ -53,8 +61,8 @@ export class HomeComponent implements OnInit {
   // Optional method to select topic-specific articles
   private selectTopicSpecificArticles(): void {
     // Example logic: filter articles based on certain keywords or categories
-    this.topicArticles = this.articles.filter(article => 
-      article.articleHeadline.includes('AI') || 
+    this.topicArticles = this.articles.filter(article =>
+      article.articleHeadline.includes('AI') ||
       article.articleHeadline.includes('Security')
     );
   }
