@@ -1,0 +1,101 @@
+Folder PATH listing for volume Windows
+Volume serial number is 2C79-51A0
+C:.
+¦   appsettings.Development.json
+¦   appsettings.json
+¦   CHANGELOG.md
+¦   Dockerfile
+¦   Program.cs
+¦   server.txt
+¦   W-EDAX.Server.csproj
+¦   W-EDAX.Server.csproj.user
+¦   W-EDAX.Server.http
+¦   WeatherForecast.cs
+¦   
++---bin
+¦   +---Debug
+¦       +---net8.0
+¦               appsettings.Development.json
+¦               appsettings.json
+¦               Microsoft.AspNetCore.SpaProxy.dll
+¦               Microsoft.OpenApi.dll
+¦               spa.proxy.json
+¦               Swashbuckle.AspNetCore.Swagger.dll
+¦               Swashbuckle.AspNetCore.SwaggerGen.dll
+¦               Swashbuckle.AspNetCore.SwaggerUI.dll
+¦               W-EDAX.Server.deps.json
+¦               W-EDAX.Server.dll
+¦               W-EDAX.Server.exe
+¦               W-EDAX.Server.pdb
+¦               W-EDAX.Server.runtimeconfig.json
+¦               
++---Controllers
+¦       WeatherForecastController.cs
+¦       
++---obj
+¦   ¦   project.assets.json
+¦   ¦   project.nuget.cache
+¦   ¦   W-EDAX.Server.csproj.nuget.dgspec.json
+¦   ¦   W-EDAX.Server.csproj.nuget.g.props
+¦   ¦   W-EDAX.Server.csproj.nuget.g.targets
+¦   ¦   
+¦   +---Container
+¦   ¦       AbsoluteOutputAssemblyPath.cache
+¦   ¦       AdditionalProbingPaths.cache
+¦   ¦       ContainerCreationResult.cache
+¦   ¦       ContainerDevelopmentMode.cache
+¦   ¦       ContainerId.cache
+¦   ¦       ContainerName.cache
+¦   ¦       ContainerOperatingSystemFlavor.cache
+¦   ¦       ContainerRunContext.cache
+¦   ¦       DebuggeeArguments.cache
+¦   ¦       DebuggeeKillProcessCommand.cache
+¦   ¦       DebuggeeProgram.cache
+¦   ¦       DebuggeeWorkingDirectory.cache
+¦   ¦       DistrolessHelperSupported.cache
+¦   ¦       FastModeProjectMountDirectory.cache
+¦   ¦       ImageBuildContext.cache
+¦   ¦       ImageId.cache
+¦   ¦       LaunchedImageId.cache
+¦   ¦       OperatingSystemName.cache
+¦   ¦       TargetFramework.cache
+¦   ¦       VolumeMappings.cache
+¦   ¦       VolumeMappings2.cache
+¦   ¦       VsDbgScript.cache
+¦   ¦       
+¦   +---Debug
+¦       +---net8.0
+¦           ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦           ¦   apphost.exe
+¦           ¦   spa.proxy.json
+¦           ¦   staticwebassets.build.json
+¦           ¦   W-EDAX.S.C71C2B82.Up2Date
+¦           ¦   W-EDAX.Server.AssemblyInfo.cs
+¦           ¦   W-EDAX.Server.AssemblyInfoInputs.cache
+¦           ¦   W-EDAX.Server.assets.cache
+¦           ¦   W-EDAX.Server.csproj.AssemblyReference.cache
+¦           ¦   W-EDAX.Server.csproj.BuildWithSkipAnalyzers
+¦           ¦   W-EDAX.Server.csproj.CoreCompileInputs.cache
+¦           ¦   W-EDAX.Server.csproj.FileListAbsolute.txt
+¦           ¦   W-EDAX.Server.dll
+¦           ¦   W-EDAX.Server.GeneratedMSBuildEditorConfig.editorconfig
+¦           ¦   W-EDAX.Server.genruntimeconfig.cache
+¦           ¦   W-EDAX.Server.GlobalUsings.g.cs
+¦           ¦   W-EDAX.Server.MvcApplicationPartsAssemblyInfo.cache
+¦           ¦   W-EDAX.Server.MvcApplicationPartsAssemblyInfo.cs
+¦           ¦   W-EDAX.Server.pdb
+¦           ¦   
+¦           +---ref
+¦           ¦       W-EDAX.Server.dll
+¦           ¦       
+¦           +---refint
+¦           ¦       W-EDAX.Server.dll
+¦           ¦       
+¦           +---staticwebassets
+¦                   msbuild.build.W-EDAX.Server.props
+¦                   msbuild.buildMultiTargeting.W-EDAX.Server.props
+¦                   msbuild.buildTransitive.W-EDAX.Server.props
+¦                   
++---Properties
+        launchSettings.json
+        

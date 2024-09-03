@@ -1,0 +1,60 @@
+Directory Structure
+Folder PATH listing for volume Windows
+Volume serial number is 2C79-51A0
+C:.
+¦   app.component.html
+¦   app.component.scss
+¦   app.component.spec.ts
+¦   app.component.ts
+¦   app.config.server.ts
+¦   app.config.ts
+¦   app.modules.ts
+¦   directory_structure.txt
+¦   file_contents.txt
+¦   my_content.bat
+¦   routes.ts
+¦   
++---about
+¦       about.component.html
+¦       about.component.scss
+¦       about.component.spec.ts
+¦       about.component.ts
+¦       
++---article
+¦       article.component.html
+¦       article.component.scss
+¦       article.component.spec.ts
+¦       article.component.ts
+¦       
++---assets
++---contact
+¦       contact.component.html
+¦       contact.component.scss
+¦       contact.component.spec.ts
+¦       contact.component.ts
+¦       
++---footer
+¦       footer.component.html
+¦       footer.component.scss
+¦       footer.component.spec.ts
+¦       footer.component.ts
+¦       
++---guestbook
+¦       guestbook.component.html
+¦       guestbook.component.scss
+¦       guestbook.component.spec.ts
+¦       guestbook.component.ts
+¦       
++---home
+¦       home.component.html
+¦       home.component.scss
+¦       home.component.spec.ts
+¦       home.component.ts
+¦       
++---navbar
+        navbar.component.html
+        navbar.component.scss
+        navbar.component.spec.ts
+        navbar.component.ts
+        
+ 

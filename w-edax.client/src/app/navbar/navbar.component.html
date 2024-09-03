@@ -1,0 +1,45 @@
+<nav class="navbar-top navbar-light">
+    <!-- Logo and Slogan in the Middle -->
+    <div class="logo-container">
+      <div style="margin: 0; padding: 0; align-items: center;">
+        <a class="navbar-brand" href="/">
+          W_EDAX
+        </a>
+      </div>
+      <div style="margin: 0; padding: 0; align-items: center;">
+        <p class="navbar-text width: 100%">
+          <span class="typewriter-text"></span>
+        </p>
+      </div>
+    </div>
+    <!-- Links on the Far Right -->
+    <div class="justify-content-end" id="navbarLinks">
+          <a class="nav-link" aria-label="Guestbook">
+            <button class="toggler" (click)="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+          </a>
+    </div>
+  </nav>
+  
+  <nav class="navbar-bottom navbar-expand-lg navbar-light" [class.sticky]="isSticky">
+    <div class="container-fluid">
+      <!-- Links Container -->
+      <div class="navbar-collapse" id="navbarBottomLinks">
+        <ul class="navbar-nav">
+          <!-- Centered Links with Gaps -->
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/guestbook">Guest Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

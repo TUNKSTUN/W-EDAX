@@ -1,0 +1,2038 @@
+File Contents
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.html 
+<body class="app-component-body">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</body> 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.scss 
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.spec.ts 
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'W_EDAX' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('W_EDAX');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, W_EDAX');
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.ts 
+import { Component } from '@angular/core';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { GuestbookComponent } from './guestbook/guestbook.component';
+import { FooterComponent } from './footer/footer.component';
+@Component({
+  selector: 'app-root',
+  templateUrl:`./app.component.html`,
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent]
+})
+export class AppComponent {
+  title: any;
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.config.server.ts 
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { appConfig } from './app.config';
+
+const serverConfig: ApplicationConfig = {
+  providers: [
+    provideServerRendering()
+  ]
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.config.ts 
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './routes';
+import { provideClientHydration } from '@angular/platform-browser';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+};
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.modules.ts 
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router'; // Import RouterModule
+
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { GuestbookComponent } from './guestbook/guestbook.component';
+import { routes } from './routes'; // Import routes
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent,
+    GuestbookComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes) // Configure the router with the routes
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\directory_structure.txt 
+Directory Structure
+Folder PATH listing for volume Windows
+Volume serial number is 2C79-51A0
+C:.
+¶   app.component.html
+¶   app.component.scss
+¶   app.component.spec.ts
+¶   app.component.ts
+¶   app.config.server.ts
+¶   app.config.ts
+¶   app.modules.ts
+¶   directory_structure.txt
+¶   file_contents.txt
+¶   my_content.bat
+¶   routes.ts
+¶   
++---about
+¶       about.component.html
+¶       about.component.scss
+¶       about.component.spec.ts
+¶       about.component.ts
+¶       
++---article
+¶       article.component.html
+¶       article.component.scss
+¶       article.component.spec.ts
+¶       article.component.ts
+¶       
++---assets
++---contact
+¶       contact.component.html
+¶       contact.component.scss
+¶       contact.component.spec.ts
+¶       contact.component.ts
+¶       
++---footer
+¶       footer.component.html
+¶       footer.component.scss
+¶       footer.component.spec.ts
+¶       footer.component.ts
+¶       
++---guestbook
+¶       guestbook.component.html
+¶       guestbook.component.scss
+¶       guestbook.component.spec.ts
+¶       guestbook.component.ts
+¶       
++---home
+¶       home.component.html
+¶       home.component.scss
+¶       home.component.spec.ts
+¶       home.component.ts
+¶       
++---navbar
+        navbar.component.html
+        navbar.component.scss
+        navbar.component.spec.ts
+        navbar.component.ts
+        
+ 
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\file_contents.txt 
+File Contents
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.html 
+<body class="app-component-body">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</body> 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.scss 
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.spec.ts 
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'W_EDAX' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('W_EDAX');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, W_EDAX');
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.ts 
+import { Component } from '@angular/core';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { GuestbookComponent } from './guestbook/guestbook.component';
+import { FooterComponent } from './footer/footer.component';
+@Component({
+  selector: 'app-root',
+  templateUrl:`./app.component.html`,
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent]
+})
+export class AppComponent {
+  title: any;
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.config.server.ts 
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { appConfig } from './app.config';
+
+const serverConfig: ApplicationConfig = {
+  providers: [
+    provideServerRendering()
+  ]
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.config.ts 
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './routes';
+import { provideClientHydration } from '@angular/platform-browser';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+};
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.modules.ts 
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router'; // Import RouterModule
+
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { GuestbookComponent } from './guestbook/guestbook.component';
+import { routes } from './routes'; // Import routes
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent,
+    GuestbookComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes) // Configure the router with the routes
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\directory_structure.txt 
+Directory Structure
+Folder PATH listing for volume Windows
+Volume serial number is 2C79-51A0
+C:.
+¶   app.component.html
+¶   app.component.scss
+¶   app.component.spec.ts
+¶   app.component.ts
+¶   app.config.server.ts
+¶   app.config.ts
+¶   app.modules.ts
+¶   directory_structure.txt
+¶   file_contents.txt
+¶   my_content.bat
+¶   routes.ts
+¶   
++---about
+¶       about.component.html
+¶       about.component.scss
+¶       about.component.spec.ts
+¶       about.component.ts
+¶       
++---article
+¶       article.component.html
+¶       article.component.scss
+¶       article.component.spec.ts
+¶       article.component.ts
+¶       
++---assets
++---contact
+¶       contact.component.html
+¶       contact.component.scss
+¶       contact.component.spec.ts
+¶       contact.component.ts
+¶       
++---footer
+¶       footer.component.html
+¶       footer.component.scss
+¶       footer.component.spec.ts
+¶       footer.component.ts
+¶       
++---guestbook
+¶       guestbook.component.html
+¶       guestbook.component.scss
+¶       guestbook.component.spec.ts
+¶       guestbook.component.ts
+¶       
++---home
+¶       home.component.html
+¶       home.component.scss
+¶       home.component.spec.ts
+¶       home.component.ts
+¶       
++---navbar
+        navbar.component.html
+        navbar.component.scss
+        navbar.component.spec.ts
+        navbar.component.ts
+        
+ 
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\file_contents.txt 
+File Contents
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.html 
+<body class="app-component-body">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</body> 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\app.component.scss  
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\my_content.bat 
+@echo off
+setlocal enabledelayedexpansion
+
+rem Define output files
+set DIR_OUTPUT_FILE=directory_structure.txt
+set CONTENT_OUTPUT_FILE=file_contents.txt
+
+rem Clear the output files
+> %DIR_OUTPUT_FILE% echo Directory Structure
+> %CONTENT_OUTPUT_FILE% echo File Contents
+
+rem List directory structure and add it to the directory structure file
+tree /F >> %DIR_OUTPUT_FILE%
+echo. >> %DIR_OUTPUT_FILE%
+
+rem Read each file and append its content to the file contents file
+for /r %%F in (*) do (
+    echo File: %%F >> %CONTENT_OUTPUT_FILE%
+    type "%%F" >> %CONTENT_OUTPUT_FILE%
+    echo. >> %CONTENT_OUTPUT_FILE%
+)
+
+echo Done.
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\routes.ts 
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { GuestbookComponent } from './guestbook/guestbook.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'guestbook', component: GuestbookComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
+];
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\about\about.component.html 
+<section class="about">
+    <h1>About Us</h1>
+    <div class="about-content">
+        <div class="intro">
+            <p>Welcome to W_EDAX, where we blend the art of ethical hacking with the passion of a student's curiosity. We're on a mission to demystify the world of cybersecurity through insightful blogs and research. Our goal is to equip you with the knowledge to stay ahead of potential threats and navigate the digital landscape with confidence.</p>
+        </div>
+        
+        <div class="mission">
+            <h2>Our Mission</h2>
+            <p>At W_EDAX, our mission is to lead the charge in ethical hacking and cybersecurity awareness. We strive to become the foremost authority in ethical hacking, providing valuable information to help people worldwide protect themselves against cyber threats. Our aim is to foster a global community of ethical hackers dedicated to preemptively combating exploiters and safeguarding the digital realm before breaches occur.</p>
+        </div>
+        
+        <div class="team">
+            <h2>Meet the Author</h2>
+            <div class="team-member">
+                <div class="image-container">
+                    <img src="assets/yaya.png" alt="Author" class="Image">
+                </div>
+                <h3>Yahya</h3>
+            <p>Meet Yahya, an average student who, after grappling with the chaos of modern digital security, decided to turn his passion for ethical hacking into a full-fledged blog. With a background in DevOps and a collection of certifications in networking and cloud computing, Yahya has ventured into the world of ethical hacking not just as a hobby, but as a mission. He combines his expertise with a dash of humor and a lot of curiosity, blogging about vulnerabilities, attacks, and ways to thwart them‚Äîbecause if there's one thing he's learned, it's that even the most secure systems have a few tricks up their sleeves.</p>
+            <div class="icons">
+                <h4 class="socials">Socials:</h4>    
+                    <a href="https://signal.org" target="_blank">
+                        <i class="fa-brands fa-signal-messenger signal"></i>
+                    </a>
+                    <a href="https://www.instagram.com/solo_perfecto24" target="_blank">
+                        <i class="fa-brands fa-square-instagram instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ykinw24" target="_blank">
+                        <i class="fab fa-linkedin-in linkedin"></i>
+                    </a>
+                </div>                
+            </div>            
+        </div>
+        
+        
+        <div class="history">
+            <h2>Our Story</h2>
+            <p>Our journey began with a hacker's worst nightmare: Yahya's own email and social media accounts were compromised. What followed was a whirlwind of account recovery and a deep dive into the world of cybersecurity. Faced with the challenge of understanding how such breaches occurred, Yahya decided to channel his newfound knowledge into something constructive. Thus, W_EDAX was born‚Äîa blog dedicated to sharing the critical insights he gathered along the way. His curiosity about why even major apps like Instagram face security issues led to a deeper exploration of vulnerabilities and solutions, ultimately culminating in this blog. W_EDAX stands as a testament to the belief that knowledge is the best defense against cyber threats.</p>
+        </div>
+    </div>
+</section>
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\about\about.component.scss 
+.about {
+    padding: 40px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.intro, .mission, .team, .history, .contact {
+    margin-bottom: 40px;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.image-container {
+    margin: 10px;
+    width: 250px;
+    height: 250px;
+    border-top: 3px solid rgb(9, 0, 180); // Border on the top
+    border-bottom: 3px solid rgb(6, 0, 69); // Border on the bottom
+    border-left: none; // No border on the left
+    border-right: none; // No border on the right   
+    border-radius: 10%; 
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-member h3 {
+    margin-top: 10px;
+    font-size: 36px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.team-member p {
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.contact a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+.icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: black;
+    padding: 10px 4%;
+    border-radius: 5px;
+    align-items: center;
+}
+.socials{
+    font-family: 'Courier New', Courier, monospace;
+    color:#f9f9f9;
+}
+.icons i {
+    font-size: 40px;
+    color: #ffffff;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.icons .signal:hover {
+    color: #3a76f0;
+}
+
+.icons .instagram:hover {
+    color: #f20276;
+}
+
+.icons .linkedin:hover {
+    color: #0077b5;
+}
+
+.icons i:hover {
+    transform: scale(1.1);
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\about\about.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AboutComponent } from './about.component';
+
+describe('AboutComponent', () => {
+  let component: AboutComponent;
+  let fixture: ComponentFixture<AboutComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AboutComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AboutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\about\about.component.ts 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-about',
+  standalone: true,
+  imports: [],
+  templateUrl: './about.component.html',
+  styleUrl: './about.component.scss'
+})
+export class AboutComponent {
+
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\article\article.component.html 
+<p>article works!</p>
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\article\article.component.scss 
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\article\article.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ArticleComponent } from './article.component';
+
+describe('ArticleComponent', () => {
+  let component: ArticleComponent;
+  let fixture: ComponentFixture<ArticleComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ArticleComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ArticleComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\article\article.component.ts 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-article',
+  standalone: true,
+  imports: [],
+  templateUrl: './article.component.html',
+  styleUrl: './article.component.scss'
+})
+export class ArticleComponent {
+
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\contact\contact.component.html 
+<div class="contact-page">
+    <div class="form-section">
+       <h2>Contact Us</h2>
+       <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+ 
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+ 
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+ 
+          <button type="submit">Send Message</button>
+       </form>
+    </div>
+ 
+    <div class="social-section">
+       <h2>Follow Us</h2>
+       <ul class="social-links">
+        <li class="FA">
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+        <li class="X">
+            <a href="https://x.com" target="_blank">
+                <i class="fa-brands fa-square-x-twitter"></i>
+            </a>
+        </li>
+        <li class="LI">
+            <a href="https://www.linkedin.com" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+        <li class="SI">
+            <a href="https://signal.org" target="_blank">
+                <i class="fa-brands fa-signal-messenger"></i>
+            </a>
+        </li>
+    </ul>
+    
+    </div>
+ </div>
+  
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\contact\contact.component.scss 
+.contact-page {
+    flex-direction: column;
+    margin-bottom: 5%;
+   
+}
+.contact-page h2{
+    text-align: center;
+}
+.form-section {
+    width: 35%; /* Adjust width as needed */
+    margin: 50px auto; /* Center horizontally with margin on top and bottom */
+    padding: 20px; /* Add padding for better spacing */
+    background-color: #f9f9f9; /* Light background for a cleaner look */
+    border-radius: 8px; /* Rounded corners for a softer appearance */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align form elements to the left */
+    text-align: left;
+    width: 100%; /* Ensure form takes full width */
+}
+
+.form-section label {
+    margin-top: 15px; /* Increase spacing above labels for clarity */
+    font-weight: bold; /* Make labels bold for better readability */
+    text-align: left;
+    width: 100%; /* Take full width to align with input fields */
+}
+
+.form-section input, .form-section textarea {
+    margin-top: 8px; /* Slightly increase space between label and input */
+    padding: 12px; /* Increase padding for better touch/click targets */
+    font-size: 1rem;
+    width: 100%; /* Ensure input fields fill the container */
+    max-width: 500px; /* Set a max-width to prevent excessive stretching */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    border-radius: 4px; /* Rounded corners for input fields */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+.form-section textarea {
+    resize: vertical; /* Allow vertical resizing, disable horizontal */
+    min-height: 100px; /* Set a minimum height for the textarea */
+}
+
+.form-section button {
+    margin-top: 20px;
+    width: 100%; /* Fill width of the container */
+    max-width: 200px; /* Set a max-width for the button */
+    padding: 12px; /* Increase padding for a more prominent button */
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.form-section button:hover {
+    background-color: #555; /* Darken background on hover */
+}
+
+
+.social-section {
+    width: 100%;
+    text-align: center;
+}
+
+.social-section h2 {
+    margin-bottom: 20px;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row; /* Change to row to display items inline */
+    flex-wrap: wrap; /* Allow items to wrap if needed */
+    justify-content: center; /* Center items horizontally */
+}
+
+.social-links li {
+    margin: 0 15px; /* Horizontal spacing between items */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.social-links img {
+    width: 36px; /* Set the size to match other icons */
+    height: 36px; /* Set the size to match other icons */
+    margin-right: 10px;
+    vertical-align: middle; /* Align with text */
+}
+
+.social-links i {
+    font-size: 36px; /* Icon size */
+    color: #555;    /* Default icon color */
+    transition: color 0.3s ease, transform 0.3s ease;
+    margin-right: 10px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #555;   /* Default text color */
+    font-size: 1.2rem; /* Text size */
+    transition: color 0.3s ease;
+}
+
+
+.social-links a:hover i {
+    opacity: 10; /* Change opacity on hover for both SVG and Font Awesome icons */
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+.FA i:hover{
+    color: #0033ff; /* Text color on hover */
+}
+
+.X i:hover{
+    color: #000000; /* Text color on hover */
+}
+
+.LI i:hover {
+    color: #0061c2; /* Text color on hover */
+}
+
+.SI i:hover {
+    color: #0080ff; /* Text color on hover */
+}
+
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\contact\contact.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ContactComponent } from './contact.component';
+
+describe('ContactComponent', () => {
+  let component: ContactComponent;
+  let fixture: ComponentFixture<ContactComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ContactComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ContactComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\contact\contact.component.ts 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [],
+  templateUrl: './contact.component.html',
+  styleUrl: './contact.component.scss'
+})
+export class ContactComponent {
+
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\footer\footer.component.html 
+<footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a routerLink="/about">About</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+          <li><a routerLink="/guestbook">Guestbook</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <ul class="social-icons">
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <p>Email: contact&#64;wedax.com</p>
+        <p>Phone: +123-456-7890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 W_EDAX. All rights reserved.</p>
+    </div>
+  </footer>
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\footer\footer.component.scss 
+.footer {
+    background-color: #000; /* Black theme background */
+    color: #fff; /* White text color */
+    padding: 0px 10px;
+    text-align: center;
+    margin-top: 20px;
+  
+    .footer-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+  
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  
+    .footer-section {
+      flex: 1;
+      margin: 20px;
+      max-width: 200px;
+  
+      h4 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          margin: 10px 0;
+  
+          a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+  
+            &:hover {
+              color: #007bff; /* Blue on hover */
+              transition: color 0.3s ease;
+            }
+          }
+        }
+      }
+  
+      p {
+        margin: 5px 0;
+        font-size: 0.9rem;
+      }
+    }
+  
+    .social-icons {
+      display: flex;
+      justify-content: space-around;
+      
+  
+      li {
+        margin: 0 10px;
+  
+        a {
+          font-size: 1.5rem;
+          color: #fff;
+  
+          &:hover {
+            color: #007bff; /* Blue on hover */
+            transition: color 0.3s ease;
+          }
+        }
+      }
+    }
+  
+    .footer-bottom {
+      background-color: #111;
+      padding: 10px 0;
+      margin-top: 20px;
+  
+      p {
+        margin: 0;
+        font-size: 0.8rem;
+      }
+    }
+  }
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\footer\footer.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { FooterComponent } from './footer.component';
+
+describe('FooterComponent', () => {
+  let component: FooterComponent;
+  let fixture: ComponentFixture<FooterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FooterComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(FooterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\footer\footer.component.ts 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-footer',
+  standalone: true,
+  imports: [],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss'
+})
+export class FooterComponent {
+
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\guestbook\guestbook.component.html 
+<div class="guestbook-container">
+    <!-- Chatbox -->
+    <div class="chatbox">
+      <div class="message" *ngFor="let msg of messages">
+        <div class="message-header">
+          <strong>{{ msg.username }}</strong>
+          <span class="timestamp">{{ msg.timestamp | date:'short' }}</span>
+        </div>
+        <div class="message-body">{{ msg.content }}</div>
+      </div>
+    </div>
+  
+    <!-- Text Area and Emoji Picker -->
+    <div class="message-input">
+      <textarea
+        [(ngModel)]="messageContent"
+        placeholder="Type your message..."
+        rows="3"
+      ></textarea>
+      <button class="emoji-button" (click)="toggleEmojiPicker()">üòä</button>
+      <button class="send-button" (click)="submitMessage()" [disabled]="!messageContent.trim()">Send</button>
+    </div>
+  
+    <!-- Emoji Picker -->
+    <div class="emoji-picker" *ngIf="isEmojiPickerVisible">
+      <button *ngFor="let emoji of emojis" (click)="addEmoji(emoji)">
+        {{ emoji }}
+      </button>
+    </div>
+  
+    <!-- GitHub Login Button -->
+    <div class="login-button" *ngIf="!isLoggedIn">
+      <button (click)="loginWithGitHub()">Login with GitHub</button>
+    </div>
+  </div>
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\guestbook\guestbook.component.scss 
+/* Main container for the guestbook */
+.guestbook-container {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* Full viewport height */
+    padding: 16px;
+    background-color: #111111;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensure padding and border are included in total height */
+  }
+  
+  /* Chatbox styling */
+  .chatbox {
+    flex: content; /* Takes up available space */
+    overflow-y: auto; /* Enables scrolling if needed */
+    margin-bottom: 16px; /* Space between chatbox and input area */
+    padding: 8px; /* Padding inside the chatbox */
+    border: 1px solid #ddd; /* Border around chatbox */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #fff; /* Background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  }
+  
+  /* Individual message styling */
+  .message {
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .message-body {
+    margin-top: 4px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Message input area styling */
+  .message-input {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between textarea and buttons */
+    margin-top: auto; /* Pushes input area to the bottom of the container */
+  }
+  
+  textarea {
+    flex: 1; /* Textarea takes up available space */
+    min-height: 40px; /* Minimum height */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Disable resizing */
+  }
+  
+  .emoji-button, .send-button {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 18px; /* Emoji button size */
+    cursor: pointer; /* Pointer cursor on hover */
+    
+  }
+  
+  .send-button {
+    padding: 8px 16px; /* Button padding */
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+  }
+  
+  .send-button:disabled {
+    background-color: #ccc; /* Disabled button color */
+    cursor: not-allowed; /* Cursor on disabled button */
+  }
+  
+  /* Emoji picker styling */
+  .emoji-picker {
+    position: absolute; /* Position it above other content */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; /* Space between emoji buttons */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    z-index: 1000; /* Ensure it's above other content */
+  }
+  
+  .emoji-picker button {
+     /* No background */
+    border: none; /* No border */
+    font-size: 24px; /* Emoji size */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  /* GitHub login button styling */
+  .login-button {
+    text-align: center;
+    padding: 5px;
+  }
+  
+  .login-button button {
+    padding: 8px 16px;
+    background-color: #333; /* Dark button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .login-button button:hover {
+    background-color: #555; /* Darker shade on hover */
+  }
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\guestbook\guestbook.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { GuestbookComponent } from './guestbook.component';
+
+describe('GuestbookComponent', () => {
+  let component: GuestbookComponent;
+  let fixture: ComponentFixture<GuestbookComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [GuestbookComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(GuestbookComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\guestbook\guestbook.component.ts 
+import { Component, HostListener } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-guestbook',
+  standalone: true,
+  imports: [FormsModule, CommonModule], 
+  providers: [DatePipe], // Provide DatePipe if used in the component
+  templateUrl: './guestbook.component.html',
+  styleUrls: ['./guestbook.component.scss']
+})
+export class GuestbookComponent {
+  isLoggedIn = false; // Placeholder for GitHub login logic
+  messageContent = '';
+  messages: { username: string; content: string; timestamp: Date; }[] = [
+    { username: 'User1', content: 'This is a test message.', timestamp: new Date() },
+    { username: 'User2', content: 'Another dummy message!', timestamp: new Date() },
+    { username: 'User3', content: 'Feel free to add your message here.', timestamp: new Date() }
+  ];
+  isEmojiPickerVisible = false;
+  emojis = ['üòä', 'üòÇ', 'üòç', 'ü•∫', 'üòé', 'üëç']; // Add more emojis as needed
+
+  loginWithGitHub() {
+    // const url = `${this.authEndpoint}?client_id=${this.clientId}&redirect_uri=${encodeURIComponent(this.redirectUri)}`;
+    // window.location.href = url;
+  }
+
+  handleOAuthCallback() {
+    // Placeholder for OAuth callback implementation
+  }
+
+  submitMessage() {
+    if (this.messageContent.trim()) {
+      this.messages.push({
+        username: 'User', // Replace with actual username logic
+        content: this.messageContent,
+        timestamp: new Date()
+      });
+      this.messageContent = '';
+      this.scrollToBottom(); // Ensure the latest message is visible
+    }
+  }
+
+  toggleEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+  }
+
+  addEmoji(emoji: string) {
+    this.messageContent += emoji;
+    this.isEmojiPickerVisible = false;
+  }
+
+  @HostListener('window:keydown.enter', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.target instanceof HTMLTextAreaElement && event.target === document.activeElement) {
+      event.preventDefault(); // Prevent the default action of Enter key (e.g., new line)
+      this.submitMessage();
+    }
+  }
+
+  private scrollToBottom() {
+    const chatbox = document.querySelector('.chatbox');
+    if (chatbox) {
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  }
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\home\home.component.html 
+<div class="marquee bg-dark text-light py-2">
+    <div class="container">
+      <div class="marquee-content">
+        <p>Exploring AI Integration in Cloud Platforms</p>
+        <p>Top Trends in Cloud Security for 2024</p>
+        <p>Understanding Quantum Computing's Impact on Cloud Services</p>
+        <p>How to Optimize Your Cloud Storage Solutions</p>
+        <p>Exploring AI Integration in Cloud Platforms</p>
+        <p>Top Trends in Cloud Security for 2024</p>
+        <p>Understanding Quantum Computing's Impact on Cloud Services</p>
+        <p>How to Optimize Your Cloud Storage Solutions</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <!-- Left Section: Today's Articles -->
+      <div class="col-lg-8 col-md-7 col-sm-12 mb-4">
+        <h2>Today's Articles</h2>
+        <div class="article-cards d-flex flex-wrap">
+          <a href="#" class="article-card rectangle">
+            <h3>Tech Trends 2024</h3>
+            <p>Exploring the latest trends in technology.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>AI Innovations</h3>
+            <p>The future of artificial intelligence.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>Future of Cloud Computing</h3>
+            <p>What to expect in the cloud industry.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>Blockchain in Tech</h3>
+            <p>How blockchain is transforming technology.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>5G and Beyond</h3>
+            <p>The impact of 5G on various industries.</p>
+          </a>
+        </div>
+      </div>
+  
+      <!-- Right Section: Hot Articles -->
+      <div class="col-lg-4 col-md-5 col-sm-12">
+        <h2>Top Articles</h2>
+        <div class="hot-articles-container">
+          <a href="#" class="article-card rectangle">
+            <h3>Cloud Security 101</h3>
+            <p>Basics of securing your cloud infrastructure.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>Top Cloud Providers</h3>
+            <p>Comparing the leading cloud service providers.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>Data Privacy in the Cloud</h3>
+            <p>Ensuring data privacy in cloud environments.</p>
+          </a>
+          <a href="#" class="article-card rectangle">
+            <h3>Disaster Recovery Planning</h3>
+            <p>Planning for disaster recovery in cloud settings.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Second Page: Banner -->
+<section id="banner" class="banner">
+    <div class="banner-image">
+      <div class="banner-content">
+        <div class="container">
+          <div class="banner-text text-center">
+            <h2>Community Events</h2>
+            <p>Join us for upcoming community events and activities. Be a part of the action and stay connected!</p>
+          </div>
+          <div class="banner-form">
+            <h3>Stay Updated</h3>
+            <p>Sign up for our newsletter to receive the latest updates on community events.</p>
+            <form action="#submit" method="post" class="form-inline">
+              <input type="email" name="email" placeholder="Enter your email" required class="form-input">
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            <a href="#next-page" class="btn btn-secondary">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  <!-- Third Page: Topic Articles -->
+<section id="topic-articles" class="topic-articles-section">
+    <div class="container mt-4">
+      <header class="topic-articles-header">
+        <h2 class="section-title">Cloud Innovations!</h2>
+        <p class="section-description">Explore the latest advancements and breakthroughs in cloud technology with our curated articles and resources.</p>
+      </header>
+      <div class="topic-articles-content">
+        <div class="row">
+          <div class="col-md-12 mb-4">
+            <h3 class="main-heading">Explore the Latest in Cloud Innovations</h3>
+            <p class="main-description">Discover in-depth articles and resources about the latest advancements in cloud technology.</p>
+          </div>
+          <div class="col-md-12">
+            <div class="topic-articles-cards d-flex flex-wrap">
+              <div class="card">
+                <h4 class="card-title">Innovation 1</h4>
+                <p class="card-description">Description of innovation 1.</p>
+                <a href="#" class="card-button">Read More</a>
+              </div>
+              <div class="card">
+                <h4 class="card-title">Innovation 2</h4>
+                <p class="card-description">Description of innovation 2.</p>
+                <a href="#" class="card-button">Read More</a>
+              </div>
+              <div class="card">
+                <h4 class="card-title">Innovation 3</h4>
+                <p class="card-description">Description of innovation 3.</p>
+                <a href="#" class="card-button">Read More</a>
+              </div>
+              <div class="card">
+                <h4 class="card-title">Innovation 4</h4>
+                <p class="card-description">Description of innovation 4.</p>
+                <a href="#" class="card-button">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\home\home.component.scss 
+/* Marquee Section */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background-color: #000;
+  color: #fff;
+  margin-bottom: 40px; /* Space below the marquee */
+}
+
+.marquee-content {
+  display: flex;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee p {
+  margin: 0;
+  padding: 0 50px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Today's Articles and Hot Articles */
+.article-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px; /* Space below the article cards */
+}
+
+.article-card {
+  flex: 0 1 calc(33.333% - 16px);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.article-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.article-card p {
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rectangle {
+  width: 100%;
+  height: 120px;
+}
+
+.hot-articles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: auto;
+  overflow-y: auto;
+  margin-bottom: 40px; /* Space below hot articles */
+}
+
+.hot-articles-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hot-articles-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .article-card {
+    flex: 0 1 calc(50% - 16px);
+  }
+}
+
+@media (max-width: 576px) {
+  .article-card {
+    flex: 0 1 100%;
+  }
+}
+
+// Styles for the Topic Articles section
+.topic-articles-section {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+
+  .topic-articles-header {
+    margin-bottom: 40px;
+    text-align: center;
+
+    .section-title {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .section-description {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .topic-articles-content {
+    .row {
+      text-align: center;
+
+      .main-heading {
+        font-size: 2rem;
+        color: #222;
+        margin-bottom: 10px;
+      }
+
+      .main-description {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .topic-articles-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: calc(50% - 20px);
+      max-width: 300px;
+      text-align: center;
+
+      .card-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .card-description {
+        font-size: 1rem;
+        color: #777;
+        margin-bottom: 20px;
+      }
+
+      .card-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .topic-articles-cards .card {
+      width: 100%;
+    }
+  }
+}
+
+// Styles for the Banner Section
+.banner {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1504579687459-79570b1d60f3?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2t5c2NyYXBlcnxlbnwwfHwwfHx8MA%3D%3D') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .banner-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-content {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    transform: translateY(-50%);
+    transform: translateX(-30%);
+    background: rgba(0, 0, 0, 0.6); // Translucent dark overlay
+    color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .banner-text {
+        margin-bottom: 20px;
+
+        h2 {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+
+      .banner-form {
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 0.9rem;
+          margin-bottom: 20px;
+        }
+
+        .form-inline {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .form-input {
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+          }
+
+          .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+          }
+
+          .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s;
+            margin-bottom: 5%;
+
+            &:hover {
+              background-color: #0056b3;
+            }
+          }
+
+          .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s;
+
+            &:hover {
+              background-color: #5a6268;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\home\home.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HomeComponent } from './home.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\home\home.component.ts 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
+})
+export class HomeComponent {
+
+}
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\navbar\navbar.component.html 
+<nav class="navbar-top navbar-expand-lg navbar-light">
+    <!-- Logo and Slogan in the Middle -->
+    <div class="mx-auto text-center">
+      <a class="navbar-brand" href="/" style="text-transform: uppercase; font-size: 36px; font-weight:  bold;">
+        W_EDAX
+      </a>
+      <p class="navbar-text">Worldwide Ethical Defense and Attack Exchange</p>
+    </div>
+  
+    <!-- Navbar Toggler for Mobile View -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Links on the Far Right -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarLinks">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/about" aria-label="About">
+            <i class="fas fa-user"></i> <!-- Font Awesome About Icon -->
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact" aria-label="Contact">
+            <i class="fas fa-phone"></i> <!-- Updated Font Awesome Contact Icon -->
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/guestbook" aria-label="Guestbook">
+            <i class="fas fa-book"></i> <!-- Font Awesome Guestbook Icon -->
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <nav class="navbar-bottom navbar-expand-lg navbar-light" [class.sticky]="isSticky">
+    <div class="container-fluid">
+      <!-- Links Container -->
+      <div class="navbar-collapse" id="navbarBottomLinks">
+        <ul class="navbar-nav">
+          <!-- Centered Links with Gaps -->
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/guestbook">Guest Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\navbar\navbar.component.scss 
+// Existing navbar styles
+.navbar-top {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+}
+
+.navbar-top .navbar-brand {
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
+    text-decoration: none;
+    transition: color 0.5s ease; // Smooth color transition
+  }
+  
+  .navbar-top .navbar-brand:hover {
+    color: #0033ff; // Blue color on hover
+  }
+  
+.navbar-top .navbar-text {
+    font-size: 14px;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-top .nav-link {
+    color: black;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    transition: color 0.3s;
+}
+
+.navbar-top .nav-link i {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.navbar-top .nav-link:hover {
+    color: #0033ff;
+    /* Blue color on hover */
+}
+
+.navbar-top .nav-link:hover i {
+    color: #0033ff;
+    /* Blue color on hover for icons */
+}
+
+.navbar-top .navbar-center {
+    width: 100%;
+    z-index: 1;
+}
+
+@media (max-width: 991px) {
+    .navbar-top .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-top .navbar-text {
+        font-size: 12px;
+    }
+
+    .navbar-top .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 1000;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 0 0 4px 4px;
+    }
+
+    .navbar-top .navbar-nav {
+        text-align: right;
+    }
+
+    .navbar-top .nav-item {
+        margin-bottom: 5px;
+    }
+
+    .navbar-top .nav-link {
+        padding: 5px 10px;
+    }
+}
+
+// Styles for navbar-bottom
+.navbar-bottom {
+    background-color: white;
+    /* Light background */
+    padding: 5px 10px;
+    border-top: 1px solid rgb(176, 176, 176); // Border on the top
+    border-bottom: 1px solid rgb(176, 176, 176); // Border on the bottom
+    border-left: none; // No border on the left
+    border-right: none; // No border on the right    
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    /* Center the entire navbar content */
+    align-items: center;
+    text-align: center;
+    transition: transform 0.5s ease;
+
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        /* Create space between links */
+        width: 100%;
+        max-width: 600px;
+        /* Optional: Limit the width of the links container */
+    }
+
+    .nav-item {
+        flex-grow: 1;
+        text-align: center;
+
+    }
+
+    .nav-link {
+        color: #333;
+        font-size: 20px;
+        font-weight: 300;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 5px;
+        transition: color 0.5s ease;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+        /* Blue color on hover */
+    }
+
+    &.sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1020;
+        /* Make sure it's above other content */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* Optional shadow for depth */
+        animation: slideDown 0.5s ease forwards;
+    }
+
+    #navbarBottomLinks {
+        justify-content: space-around;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+} 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\navbar\navbar.component.spec.ts 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NavbarComponent } from './navbar.component';
+
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NavbarComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+ 
+File: C:\Users\Tunkstun\Desktop\Blog Website\W_EDAX\src\app\navbar\navbar.component.ts 
+import { Component, HostListener, Renderer2  } from '@angular/core';
+
+@Component({
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss'
+})
+export class NavbarComponent {
+  isSticky: boolean = false;
+
+  constructor(private renderer: Renderer2) {}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const navbarHeight = document.querySelector('.navbar')?.clientHeight || 0;
+    const offset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    if (offset > navbarHeight) {
+      this.isSticky = true;
+      this.renderer.addClass(document.querySelector('.navbar-bottom'), 'sticky');
+    } else {
+      this.isSticky = false;
+      this.renderer.removeClass(document.querySelector('.navbar-bottom'), 'sticky');
+    }
+  }
+} 

@@ -1,0 +1,101 @@
+<!-- Home Component -->
+<div class="marquee">
+  <div class="marquee__slider">
+    <span *ngFor="let article of articles" [routerLink]="['/article', article.articleId]">{{ article.articleHeadline }}</span>
+  </div>
+</div>
+
+<!-- Section 1: Today's Articles and Top Articles -->
+<div class="section-1 container-fluid mt-4">
+  <div class="row">
+    <!-- Left Section: Today's Articles -->
+    <div class="col-lg-8 col-md-7 col-sm-12 mb-4">
+      <h2>Today's Articles</h2>
+      <div class="article-cards d-flex flex-wrap">
+        <a *ngFor="let article of articles" [routerLink]="['/article', article.articleId]" class="article-card rectangle">
+          <div class="card-content">
+            <h3>{{ article.articleHeadline }}</h3>
+            <p>{{ article.articleDescription }}</p>
+            <div class="article-content">
+              <p><strong>Introduction:</strong> {{ article.articleContent.introduction }}</p>
+              <p><strong>Main Content:</strong> {{ article.articleContent.content }}</p>
+              <p><strong>Conclusion:</strong> {{ article.articleContent.conclusion }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Section: Top Articles -->
+    <div class="col-lg-4 col-md-5 col-sm-12 mb-4">
+      <h3>Top Articles</h3>
+      <div class="hot-articles-container">
+        <a *ngFor="let topArticle of topArticles" [routerLink]="['/article', topArticle.articleId]" class="article-card rectangle">
+          <div class="card-content">
+            <h3>{{ topArticle.articleHeadline }}</h3>
+            <p>{{ topArticle.articleDescription }}</p>
+            <div class="article-content">
+              <p><strong>Introduction:</strong> {{ topArticle.articleContent.introduction }}</p>
+              <p><strong>Main Content:</strong> {{ topArticle.articleContent.content }}</p>
+              <p><strong>Conclusion:</strong> {{ topArticle.articleContent.conclusion }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Page: Banner -->
+<section id="banner" class="banner">
+  <div class="banner-content">
+    <div class="container">
+      <div class="banner-text text-center">
+        <h2>Community Events</h2>
+        <p>Stay connected and engaged with our vibrant community. Explore upcoming events and activities!</p>
+      </div>
+      <div class="banner-form">
+        <h3>Stay Updated</h3>
+        <p>Sign up for our newsletter to get the latest updates on community events directly to your inbox.</p>
+        <form action="#submit" method="post" class="form-inline">
+          <input type="email" name="email" placeholder="Enter your email" required class="form-input" aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <a href="#next-page" class="btn btn-secondary mt-2">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Third Page: Topic Articles -->
+<section id="topic-articles" class="topic-articles-section">
+  <div class="container mt-4">
+    <header class="topic-articles-header text-center">
+      <h2 class="section-title">Insights and Innovations</h2>
+      <p class="section-description">Explore key topics and advancements in cloud computing, ethical hacking, network security, and programming.</p>
+    </header>
+    <div class="topic-articles-content">
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <h3 class="main-heading">Cutting-Edge Topics</h3>
+          <p class="main-description">Stay ahead with the latest insights and advancements in technology.</p>
+        </div>
+        <div class="col-md-12">
+          <div class="topic-articles-cards d-flex flex-wrap">
+            <!-- Example of dynamic article generation -->
+            <div *ngFor="let article of topicArticles" class="card">
+              <h4 class="card-title">{{ article.articleHeadline }}</h4>
+              <p class="card-description">{{ article.articleDescription }}</p>
+              <div class="article-content">
+                <p><strong>Introduction:</strong> {{ article.articleContent.introduction }}</p>
+                <p><strong>Main Content:</strong> {{ article.articleContent.content }}</p>
+                <p><strong>Conclusion:</strong> {{ article.articleContent.conclusion }}</p>
+              </div>
+              <a [routerLink]="['/article', article.articleId]" class="card-button btn btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

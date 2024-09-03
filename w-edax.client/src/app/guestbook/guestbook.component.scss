@@ -1,0 +1,199 @@
+/* Main container for the guestbook */
+.guest-book {
+  display: flex;
+  justify-content: space-between; /* Align items to the start */
+  padding: 10px 30px;
+  gap: 20px;
+}
+
+.content-lx {
+  align-items: start;
+  text-align: justify;
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.content-lx p{
+  text-align: justify;
+}
+h2, h3{
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: 26px;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+h3{
+  text-align: start;
+}
+
+.login-button {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  text-align: start;
+  padding: 10px 0;
+  gap: 10px;
+}
+.login-button i{
+  font-size: larger;
+}
+.login-button button{
+  padding: 0px;
+}
+.login-button p{
+  padding: 0;
+  margin: 0;
+}
+
+.guestbook-boxing {
+  justify-content: center;
+  display: flex;
+  width: 70%; /* Set to full width for mobile */
+  flex-direction: column;
+  height: 75vh; /* 75% of the viewport height */
+  padding: 10px;
+  background-color: var(--background-color);
+  border-left: 1px solid gray;
+  box-sizing: border-box; /* Ensure padding and border are included in total height */
+}
+
+/* Chatbox styling */
+.chatbox {
+  flex: 1; /* Takes up available space */
+  overflow-y: auto; /* Enables scrolling if needed */
+  margin-bottom: 16px; /* Space between chatbox and input area */
+  padding: 8px; /* Padding inside the chatbox */
+  border: 1px solid #ddd; /* Border around chatbox */
+  border-radius: 4px; /* Rounded corners */
+  background-color: var(--background-color); /* Background color */
+  box-shadow: 0 2px 4px var(--background-color-oppo); /* Optional shadow for depth */
+}
+
+/* Individual message styling */
+.message {
+  margin-bottom: 5px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: var(--message-back);
+  border: 1px solid var(--border-color); /* Updated to apply the border color */
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--primary-color);
+  font-size: small;
+}
+
+.message-body {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-color);
+  font-family: cursive;
+}
+
+/* Message input area styling */
+.message-input {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between textarea and buttons */
+  margin-top: auto; /* Pushes input area to the bottom of the container */
+}
+
+textarea {
+  flex: 1; /* Textarea takes up available space */
+  min-height: 40px; /* Minimum height */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; /* Disable resizing */
+}
+
+.emoji-button,
+.send-button {
+  background: none; /* No background */
+  border: none; /* No border */
+  font-size: 18px; /* Emoji button size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.send-button {
+  padding: 8px 16px; /* Button padding */
+  background-color: #0029a5; /* Button color */
+  color: white; /* Text color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+}
+
+.send-button:hover {
+  background-color: #001aff;
+}
+
+.send-button:disabled {
+  background-color: #ccc; /* Disabled button color */
+  cursor: not-allowed; /* Cursor on disabled button */
+}
+
+/* Emoji picker styling */
+.emoji-picker {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px; /* Space between emoji buttons */
+  background-color: var(--background-color-1);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.emoji-picker button {
+  border: none; /* No border */
+  font-size: 24px; /* Emoji size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* GitHub login button styling */
+.login-button button {
+  padding: 8px 16px;
+  background-color: #333; /* Dark button color */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.login-button button:hover {
+  background-color: #555; /* Darker shade on hover */
+}
+
+/* Responsive styling */
+@media (min-width: 992px) {
+  .guest-bk {
+    justify-content: center;
+  }
+  .guestbook-container {
+    width: 50%; /* Reduced width for larger screens */
+  }
+}
+
+@media (max-width: 991px) {
+  .guest-bk{
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  
+  .guestbook-container {
+    width: 100%; /* Full width on smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+  .emoji-picker {
+    right: 20px;
+  }
+}

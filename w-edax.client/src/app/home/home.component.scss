@@ -1,0 +1,357 @@
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--background-color-oppo);
+  color: var(--primary-color);
+  padding: 10px;
+  border-top: 1px  solid #797979;
+  border-bottom: 1px  solid #797979;
+}
+h2{
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: 26px;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+h3{
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: 20px;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+.marquee__slider {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee__slider span {
+  padding: 0 20px;
+  font-size: 16px;
+  color: var(--text-color-oppo);
+}
+
+@keyframes marquee {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+/* Today's Articles and Hot Articles */
+.row {
+  background-size: cover;
+  display: flex;
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.article-cards {
+  background: cover;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px; /* Space below the article cards */
+}
+
+.article-card {
+  flex: 0 1 calc(33.333% - 16px);
+  background-color: var(--background-color); // Use theme background color
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text-color); // Use theme text color
+  box-shadow: 0 2px 4px rgba(39, 236, 0, 0.408);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.article-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.article-card p {
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 8px rgba(26, 255, 0, 0.534);
+  transform: scale(101%);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Top Articles Container */
+.hot-articles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: auto;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 40px; /* Space below hot articles */
+}
+
+.hot-articles-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hot-articles-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .article-card {
+      flex: 0 1 calc(50% - 16px);
+  }
+}
+
+@media (max-width: 576px) {
+  .article-card {
+      flex: 0 1 100%;
+  }
+}
+
+/* Topic Articles Section */
+.topic-articles-section {
+  background-color: var(--background-color); // Use theme background color
+  padding: 40px 0;
+
+  .topic-articles-header {
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--primary-color);
+
+      .section-title {
+          font-size: 2.5rem;
+          color: var(--primary-color); // Use theme text color
+          margin-bottom: 10px;
+          font-family: "Pixelify Sans", sans-serif;
+          font-weight: 400;
+      }
+
+      .section-description {
+          font-size: 1.2rem;
+          color: var(--text-color); // Use theme text color
+          max-width: 800px;
+          margin: 0 auto;
+      }
+  }
+
+  .topic-articles-content {
+      .row {
+          text-align: center;
+
+          .main-heading {
+              font-size: 2rem;
+              color: var(--primary-color); // Use theme text color
+              margin-bottom: 10px;
+              
+          }
+
+          .main-description {
+              font-size: 1.1rem;
+              color: var(--text-color); // Use theme text color
+              line-height: 1.6;
+          }
+      }
+  }
+
+  .topic-articles-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+
+      .card {
+        background: var(--background-color); // Use theme background color
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(32, 194, 0, 0.5);
+        padding: 20px;
+        width: calc(50% - 20px);
+        max-width: 300px;
+        text-align: center;
+        display: flex;
+        flex-direction: column; // Make card a column flex container
+        justify-content: space-between; // Space between content and button
+    
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--primary-color); // Use theme text color
+            margin-bottom: 10px;
+        }
+    
+        .card-description {
+            font-size: 1rem;
+            color: var(--text-color); // Use theme text color
+            margin-bottom: 20px;
+        }
+    
+        .card-button {
+          background-color: var(--hover);
+            color: var(--text-color); // Use theme text color
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin-top: auto; // Push button to the bottom of the card
+        }
+    
+        .card-button:hover {
+            background-color: var(--primary-color); // Use primary color
+
+        }
+    }
+    
+  }
+
+  @media (max-width: 767px) {
+      .topic-articles-cards .card {
+          width: 100%;
+      }
+  }
+}
+
+/* Banner Section */
+.banner {
+  background: url('https://images.unsplash.com/photo-1568027762272-e4da8b386fe9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww') no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Center content by default
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .row {
+    width: 100%;
+    justify-content: center;
+  }
+.banner-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  .banner-content {
+    display: flex;
+    background: rgba(66, 66, 66, 0.4);
+    backdrop-filter: blur(5px); // Translucent overlay
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center; // Center text by default
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-left: auto; // Default to left alignment
+  }
+    
+    h2 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-family: "Pixelify Sans", sans-serif;
+      font-weight: 400;
+    }
+
+    p {
+      font-size: 1rem;
+      color: white;
+    }
+
+  .banner-form {
+    h3 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap; // Wrap elements for better responsiveness
+      justify-content: center;
+      input.form-input {
+        flex: 1;
+        padding: 10px;
+        margin-right: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-width: 200px; // Minimum width for better display on small screens
+      }
+
+      button.btn-primary {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: var(--hover);
+        }
+      }
+    }
+
+    a.btn-secondary {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: var(--secondary-color);
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+
+  // Media query for desktop
+  @media (min-width: 1280px) {
+    
+    .banner-content {
+      justify-content: flex-end; // Align to the right on desktop
+      margin-right: 40px; // Adjust space on the right
+      text-align: left; // Align text to the left
+    }
+  }
+
+  // Media query for tablets and below
+  @media (max-width: 991px) {
+    .banner{
+      height: 100vh;
+    }
+    .banner-content {
+      max-width: 100%;
+      justify-content: center; // Center content on mobile
+      margin: 0 20px;
+      text-align: center;
+    }
+  }
+}

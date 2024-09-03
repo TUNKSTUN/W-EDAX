@@ -1,0 +1,70 @@
+/* styles.scss */
+
+/* Importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');  // Popular sans-serif font
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap'); // Another popular sans-serif font
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); // Pixel font
+
+
+/* Defining font variables */
+:root {
+  --font-primary: 'Roboto', sans-serif;
+  --font-secondary: 'Open Sans', sans-serif;
+  --font-pixel: 'Press Start 2P', sans-serif;
+}
+h2, h3{
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: 26px;
+  font-weight: 400;
+  color: var(--primary-color-oppo);
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary); // Apply primary font
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.light-theme {
+  --background-color: rgb(217, 213, 213);
+  --text-color: #2c2c2c;
+  --text-color-oppo: #dff6ff;
+  --background-color-oppo: rgb(30, 30, 30);
+  --primary-color: rgb(65, 170, 0);
+  --primary-color-oppo: rgb(89, 233, 0);
+  --border-color: #ccc; /* Light theme border color */
+  --background-color-1: rgb(69, 92, 96);
+  --hover: rgb(22, 165, 0) ;
+  --text-color-oppo:#dff6ff;
+  --message-back: hsl(144, 100%, 79%);
+}
+
+.dark-theme {
+  --background-color: #272727;
+  --background-color-oppo: #d8d8d8;
+  --text-color-oppo: #dff6ff;
+  --text-color: #ffffff;
+  --primary-color: rgb(89, 233, 0);
+  --primary-color-oppo: rgb(65, 170, 0);
+  --border-color: #555; /* Dark theme border color */
+  --background-color-1: rgb(117, 160, 167);
+  --hover: rgb(22, 168, 0) ;
+  --text-color-oppo:#272727;
+  --message-back: hwb(144 18% 69%);
+
+  
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Example usage of different fonts */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary); // Use secondary font for headings
+}
+
+.code, pre {
+  font-family: var(--font-pixel); // Use pixel font for code elements
+}
