@@ -1,7 +1,77 @@
-<!-- article.component.html -->
-<div class="article-detail" *ngIf="article">
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.description }}</p>
-    <div>{{ article.content }}</div>
+<div class="article-page">
+  <!-- Back Button -->
+  <div class="back-button">
+    <a routerLink="/previous-page" class="btn-back">← Back</a>
   </div>
-  
+
+  <!-- Article Detail Section -->
+  <div class="article-detail" *ngIf="!loading && article">
+    <!-- Article Date -->
+    <div class="article-date">
+      <p><strong>Date:</strong> {{ article.articleDate | date: 'mediumDate' }}</p>
+    </div>
+
+    <!-- Article Headline and Description -->
+    <h1>{{ article.articleHeadline }}</h1>
+    <p class="desc">{{ article.articleDescription }}</p>
+
+    <!-- Article Content -->
+    <div *ngIf="article.articleContent">
+      <p> {{ article.articleContent.Content }}</p>
+    </div>
+
+    <!-- Media Files -->
+    <div class="media-files">
+      <img *ngFor="let url of article?.mediaFileUrls" [src]="url" alt="Media file" />
+    </div>
+
+  </div>
+
+  <!-- Keywords Container -->
+  <div class="keywords-container">
+    <!-- Tags Title -->
+    <h3>Tags</h3>
+
+    <!-- Keywords Section -->
+    <div class="keywords-section">
+      <div *ngFor="let keyword of article?.keywords" class="keyword">
+        {{ keyword }}
+      </div>
+    </div>
+
+    <!-- Subscription Form -->
+    <div class="subscribe-form">
+      <h4>Subscribe to our Newsletter</h4>
+      <form>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+      <a href="https://facebook.com" target="_blank" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-icon">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-icon">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="social-icon">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+
+  </div>
+    <!-- Next and Previous Article Navigation -->
+    <div class="article-navigation">
+      <a *ngIf="article" [routerLink]="['/article', article.articleId]" class="nav-button prev-button">
+        <i class="fa-regular fa-circle-left" style="margin-right: 10px"></i> Previous Article
+      </a>
+      <a *ngIf="article" [routerLink]="['/article', article.articleId]" class="nav-button next-button">
+        Next Article <i class="fa-regular fa-circle-right" style="margin-left: 10px"></i>
+      </a>
+    </div>
+</div>

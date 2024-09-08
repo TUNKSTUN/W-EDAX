@@ -6,6 +6,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); // Pixel font
 
 
+
+
+
 /* Defining font variables */
 :root {
   --font-primary: 'Roboto', sans-serif;
@@ -26,16 +29,16 @@ body {
 }
 
 .light-theme {
-  --background-color: rgb(217, 213, 213);
+  --background-color: #d9d5d5;
   --text-color: #2c2c2c;
   --text-color-oppo: #dff6ff;
-  --background-color-oppo: rgb(30, 30, 30);
-  --primary-color: rgb(65, 170, 0);
-  --primary-color-oppo: rgb(89, 233, 0);
+  --background-color-oppo: #272727;
+  --primary-color: #41aa00;
+  --primary-color-oppo: #5aeb00;
   --border-color: #ccc; /* Light theme border color */
   --background-color-1: rgb(69, 92, 96);
-  --hover: rgb(22, 165, 0) ;
-  --text-color-oppo:#dff6ff;
+  --hover: #16a500;
+  --text-color-oppo: #dff6ff;
   --message-back: hsl(144, 100%, 79%);
 }
 

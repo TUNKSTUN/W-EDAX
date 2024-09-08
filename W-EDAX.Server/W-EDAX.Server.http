@@ -1,6 +1,6 @@
 @W_EDAX.Server_HostAddress = http://localhost:5017
 
-GET {{W_EDAX.Server_HostAddress}}/weatherforecast/
+GET {{W_EDAX.Server_HostAddress}}/api/Articles
 Accept: application/json
 
 ###

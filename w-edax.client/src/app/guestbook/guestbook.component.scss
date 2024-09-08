@@ -1,199 +1,210 @@
-/* Main container for the guestbook */
+// ========== Guestbook Container ==========
+
+// Main guestbook container for larger screens
 .guest-book {
   display: flex;
-  justify-content: space-between; /* Align items to the start */
+  justify-content: space-between; // Space between content areas
   padding: 10px 30px;
   gap: 20px;
+
+  @media (max-width: 991px) {
+    flex-direction: column;
+    padding: 10px;
+  }
 }
 
+// ========== Sidebar Section ==========
+
 .content-lx {
-  align-items: start;
-  text-align: justify;
-  width: 30%;
-  height: auto;
   display: flex;
   flex-direction: column;
+  width: 30%;
   text-align: center;
+
+  @media (max-width: 991px) {
+    width: 100%;
+    margin-bottom: 20px; // Add space between sections on mobile
+  }
+
+  p {
+    text-align: justify; // Make paragraphs look more natural
+  }
 }
-.content-lx p{
-  text-align: justify;
-}
-h2, h3{
+
+// Headers for the guestbook
+h2, h3 {
   font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: 26px;
   font-weight: 400;
   color: var(--primary-color);
 }
-h3{
-  text-align: start;
+
+h3 {
+  text-align: left;
 }
+
+// ========== GitHub Login Button ==========
 
 .login-button {
   display: flex;
-  justify-content: between;
   align-items: center;
-  text-align: start;
-  padding: 10px 0;
   gap: 10px;
-}
-.login-button i{
-  font-size: larger;
-}
-.login-button button{
-  padding: 0px;
-}
-.login-button p{
-  padding: 0;
-  margin: 0;
+
+  i {
+    font-size: larger;
+  }
+
+  button {
+    background-color: #333; // Dark background
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #555; // Hover effect
+    }
+  }
 }
 
+// ========== Chatbox Section ==========
+
 .guestbook-boxing {
-  justify-content: center;
   display: flex;
-  width: 70%; /* Set to full width for mobile */
   flex-direction: column;
-  height: 75vh; /* 75% of the viewport height */
+  width: 70%;
   padding: 10px;
   background-color: var(--background-color);
   border-left: 1px solid gray;
-  box-sizing: border-box; /* Ensure padding and border are included in total height */
+  height: 75vh;
+  position: relative; // For positioning the emoji picker
+
+  @media (max-width: 991px) {
+    width: 100%; // Full width for mobile
+  }
 }
 
-/* Chatbox styling */
+// Chatbox styling for messages
 .chatbox {
-  flex: 1; /* Takes up available space */
-  overflow-y: auto; /* Enables scrolling if needed */
-  margin-bottom: 16px; /* Space between chatbox and input area */
-  padding: 8px; /* Padding inside the chatbox */
-  border: 1px solid #ddd; /* Border around chatbox */
-  border-radius: 4px; /* Rounded corners */
-  background-color: var(--background-color); /* Background color */
-  box-shadow: 0 2px 4px var(--background-color-oppo); /* Optional shadow for depth */
+  flex: 1;
+  padding: 8px;
+  margin-bottom: 16px;
+  overflow-y: auto; // Scroll if messages exceed height
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  box-shadow: 0 2px 4px var(--background-color-oppo); // Subtle shadow
 }
 
-/* Individual message styling */
+// Message bubble styling
 .message {
   margin-bottom: 5px;
   padding: 8px;
-  border-radius: 4px;
   background-color: var(--message-back);
-  border: 1px solid var(--border-color); /* Updated to apply the border color */
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
 }
 
+// Message header with user details
 .message-header {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--primary-color);
-  font-size: small;
 }
 
+// Message body styling
 .message-body {
   margin-top: 4px;
-  font-size: 14px;
-  color: var(--text-color);
   font-family: cursive;
+  color: var(--text-color);
 }
 
-/* Message input area styling */
+// ========== Input Section ==========
+
+// Input area for sending messages
 .message-input {
   display: flex;
-  align-items: center;
-  gap: 8px; /* Space between textarea and buttons */
-  margin-top: auto; /* Pushes input area to the bottom of the container */
+  gap: 8px;
+  margin-top: auto;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 textarea {
-  flex: 1; /* Textarea takes up available space */
-  min-height: 40px; /* Minimum height */
+  flex: 1;
   padding: 8px;
-  border: 1px solid #ccc;
+  min-height: 40px;
   border-radius: 4px;
-  resize: none; /* Disable resizing */
+  border: 1px solid #ccc;
+  resize: none; // Prevent resizing
+
+  &:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+  }
 }
 
-.emoji-button,
+// Emoji and send buttons
+.emoji-button, .send-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
 .send-button {
-  background: none; /* No background */
-  border: none; /* No border */
-  font-size: 18px; /* Emoji button size */
-  cursor: pointer; /* Pointer cursor on hover */
+  padding: 8px 16px;
+  background-color: #0029a5;
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #001aff;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
 
-.send-button {
-  padding: 8px 16px; /* Button padding */
-  background-color: #0029a5; /* Button color */
-  color: white; /* Text color */
-  border-radius: 4px; /* Rounded corners */
-  font-size: 14px; /* Font size */
-}
+// ========== Emoji Picker ==========
 
-.send-button:hover {
-  background-color: #001aff;
-}
-
-.send-button:disabled {
-  background-color: #ccc; /* Disabled button color */
-  cursor: not-allowed; /* Cursor on disabled button */
-}
-
-/* Emoji picker styling */
 .emoji-picker {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px; /* Space between emoji buttons */
-  background-color: var(--background-color-1);
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  gap: 4px;
   padding: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-  z-index: 1000; /* Ensure it's above other content */
-}
-
-.emoji-picker button {
-  border: none; /* No border */
-  font-size: 24px; /* Emoji size */
-  cursor: pointer; /* Pointer cursor on hover */
-}
-
-/* GitHub login button styling */
-.login-button button {
-  padding: 8px 16px;
-  background-color: #333; /* Dark button color */
-  color: white; /* Text color */
-  border: none;
+  background-color: var(--background-color-1);
   border-radius: 4px;
-  cursor: pointer; /* Pointer cursor on hover */
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  right: 20px; // Adjust for mobile
+
+  button {
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
 }
 
-.login-button button:hover {
-  background-color: #555; /* Darker shade on hover */
-}
+// ========== Responsive Styles ==========
 
-/* Responsive styling */
+// Responsive adjustments for large screens
 @media (min-width: 992px) {
-  .guest-bk {
-    justify-content: center;
-  }
   .guestbook-container {
-    width: 50%; /* Reduced width for larger screens */
-  }
-}
-
-@media (max-width: 991px) {
-  .guest-bk{
-    display: flex;
-    flex-direction: column;
-
-  }
-  
-  
-  .guestbook-container {
-    width: 100%; /* Full width on smaller screens */
-    padding: 10px; /* Adjust padding for smaller screens */
-  }
-  .emoji-picker {
-    right: 20px;
+    width: 50%; // Narrower guestbook on larger screens
   }
 }

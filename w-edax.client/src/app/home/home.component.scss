@@ -1,30 +1,43 @@
+/* Marquee Section */
+.marquee-section {
+  background-color: var(--background-color-oppo);
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.marquee-container {
+  text-align: center;
+}
+
+.marquee-text {
+  font-family: var(--font-secondary);
+  font-size: 18px;
+  color: var(--text-color-oppo);
+  text-shadow: 1px 1px var(--primary-color-oppo);
+}
+
+/* Hover effect for marquee */
+.marquee-text:hover {
+  color: var(--hover);
+  text-shadow: 2px 2px var(--primary-color-oppo);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
 /* home.component.scss */
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.marquee__slider {
-  display: inline-block;
-  white-space: nowrap;
-  will-change: transform;
-}
-
-
-
-h2{
+h2 {
   font-family: "Pixelify Sans", sans-serif;
   font-optical-sizing: 26px;
   font-weight: 400;
   color: var(--primary-color);
 }
-h3{
+
+h3 {
   font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: 20px;
+  font-optical-sizing: 22px;
   font-weight: 400;
   color: var(--primary-color);
 }
+
 /* Today's Articles and Hot Articles */
 .row {
   background-size: cover;
@@ -51,6 +64,9 @@ h3{
   color: var(--text-color); // Use theme text color
   box-shadow: 0 2px 4px rgba(39, 236, 0, 0.408);
   transition: box-shadow 0.3s ease-in-out;
+  overflow: hidden; // Ensure content doesn't overflow card boundaries
+  display: flex;
+  flex-direction: column; // Ensure vertical stacking
 }
 
 .article-card h3 {
@@ -93,13 +109,14 @@ h3{
 
 @media (max-width: 991px) {
   .article-card {
-      flex: 0 1 calc(50% - 16px);
+    flex: 0 1 calc(50% - 16px); // Two cards per row on tablets
   }
 }
 
 @media (max-width: 576px) {
   .article-card {
-      flex: 0 1 100%;
+    flex: 0 1 100%; // Full width on mobile
+    max-width: 100%; // Ensure no exceeding of parent width
   }
 }
 
@@ -109,99 +126,96 @@ h3{
   padding: 40px 0;
 
   .topic-articles-header {
-      margin-bottom: 40px;
-      text-align: center;
-      color: var(--primary-color);
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--primary-color);
 
-      .section-title {
-          font-size: 2.5rem;
-          color: var(--primary-color); // Use theme text color
-          margin-bottom: 10px;
-          font-family: "Pixelify Sans", sans-serif;
-          font-weight: 400;
-      }
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--primary-color); // Use theme text color
+      margin-bottom: 10px;
+      font-family: "Pixelify Sans", sans-serif;
+      font-weight: 400;
+    }
 
-      .section-description {
-          font-size: 1.2rem;
-          color: var(--text-color); // Use theme text color
-          max-width: 800px;
-          margin: 0 auto;
-      }
+    .section-description {
+      font-size: 1.2rem;
+      color: var(--text-color); // Use theme text color
+      max-width: 800px;
+      margin: 0 auto;
+    }
   }
 
   .topic-articles-content {
-      .row {
-          text-align: center;
+    .row {
+      text-align: center;
 
-          .main-heading {
-              font-size: 2rem;
-              color: var(--primary-color); // Use theme text color
-              margin-bottom: 10px;
-              
-          }
-
-          .main-description {
-              font-size: 1.1rem;
-              color: var(--text-color); // Use theme text color
-              line-height: 1.6;
-          }
+      .main-heading {
+        font-size: 2rem;
+        color: var(--primary-color); // Use theme text color
+        margin-bottom: 10px;
       }
+
+      .main-description {
+        font-size: 1.1rem;
+        color: var(--text-color); // Use theme text color
+        line-height: 1.6;
+      }
+    }
   }
 
   .topic-articles-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    .card {
+      background: var(--background-color); // Use theme background color
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(32, 194, 0, 0.5);
+      padding: 20px;
+      width: calc(50% - 20px);
+      max-width: 300px;
+      text-align: center;
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
+      flex-direction: column; // Make card a column flex container
+      justify-content: space-between; // Space between content and button
 
-      .card {
-        background: var(--background-color); // Use theme background color
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(32, 194, 0, 0.5);
-        padding: 20px;
-        width: calc(50% - 20px);
-        max-width: 300px;
-        text-align: center;
-        display: flex;
-        flex-direction: column; // Make card a column flex container
-        justify-content: space-between; // Space between content and button
-    
-        .card-title {
-            font-size: 1.5rem;
-            color: var(--primary-color); // Use theme text color
-            margin-bottom: 10px;
-        }
-    
-        .card-description {
-            font-size: 1rem;
-            color: var(--text-color); // Use theme text color
-            margin-bottom: 20px;
-        }
-    
-        .card-button {
-          background-color: var(--hover);
-            color: var(--text-color); // Use theme text color
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-            margin-top: auto; // Push button to the bottom of the card
-        }
-    
-        .card-button:hover {
-            background-color: var(--primary-color); // Use primary color
+      .card-title {
+        font-size: 1.5rem;
+        color: var(--primary-color); // Use theme text color
+        margin-bottom: 10px;
+      }
 
-        }
+      .card-description {
+        font-size: 1rem;
+        color: var(--text-color); // Use theme text color
+        margin-bottom: 20px;
+      }
+
+      .card-button {
+        background-color: var(--hover);
+        color: var(--text-color); // Use theme text color
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+        margin-top: auto; // Push button to the bottom of the card
+      }
+
+      .card-button:hover {
+        background-color: var(--primary-color); // Use primary color
+      }
     }
-    
   }
 
   @media (max-width: 767px) {
-      .topic-articles-cards .card {
-          width: 100%;
-      }
+    .topic-articles-cards .card {
+      width: 100%;
+    }
   }
 }
 
@@ -213,7 +227,6 @@ h3{
   width: 100%;
   display: flex;
   align-items: center;
-  
 
   .container {
     display: flex;
@@ -230,11 +243,13 @@ h3{
     width: 100%;
     justify-content: center;
   }
-.banner-image{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
+  .banner-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .banner-content {
     display: flex;
     background: rgba(66, 66, 66, 0.4);
@@ -247,19 +262,19 @@ h3{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-left: auto; // Default to left alignment
   }
-    
-    h2 {
-      font-size: 2.2rem;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-      font-family: "Pixelify Sans", sans-serif;
-      font-weight: 400;
-    }
 
-    p {
-      font-size: 1rem;
-      color: white;
-    }
+  h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-family: "Pixelify Sans", sans-serif;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 1rem;
+    color: white;
+  }
 
   .banner-form {
     h3 {
@@ -276,68 +291,30 @@ h3{
 
     form {
       display: flex;
-      flex-wrap: wrap; // Wrap elements for better responsiveness
+      flex-wrap: wrap; // Wrap form elements on smaller screens
+      gap: 10px;
       justify-content: center;
-      input.form-input {
-        flex: 1;
-        padding: 10px;
-        margin-right: 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        min-width: 200px; // Minimum width for better display on small screens
+
+      input, button {
+        width: 100%; // Full width for inputs and button on mobile
       }
 
-      button.btn-primary {
-        padding: 10px 20px;
-        background-color: var(--primary-color);
-        color: var(--text-color);
+      button {
+        margin-top: 10px;
+        background-color: var(--primary-color); // Use primary color
+        color: var(--text-color); // Use theme text color
         border: none;
-        border-radius: 4px;
+        border-radius: 5px;
+        padding: 10px;
         cursor: pointer;
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: var(--hover);
+          background-color: var(--hover); // Use hover color
         }
       }
     }
-
-    a.btn-secondary {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: var(--secondary-color);
-      color: #fff;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #333;
-      }
-    }
-  }
-
-  // Media query for desktop
-  @media (min-width: 1280px) {
-    
-    .banner-content {
-      justify-content: flex-end; // Align to the right on desktop
-      margin-right: 40px; // Adjust space on the right
-      text-align: left; // Align text to the left
-    }
-  }
-
-  // Media query for tablets and below
-  @media (max-width: 991px) {
-    .banner{
-      height: 100vh;
-    }
-    .banner-content {
-      max-width: 100%;
-      justify-content: center; // Center content on mobile
-      margin: 0 20px;
-      text-align: center;
-    }
   }
 }
+
+/* Add responsive media queries as needed to ensure mobile-first approach */

@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Hosting;
+using Serilog;
+using Serilog.Events;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,18 +10,34 @@ builder.Services.AddControllersWithViews();
 // Register FirebaseService
 builder.Services.AddSingleton<FirebaseService>();
 
+// Register CachingService
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<CachingService>(); // or AddScoped/AddTransient based on your use case
+
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(policy =>
     {
-        builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .AllowCredentials();
+        policy.WithOrigins("https://localhost:4200")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
+// Configure Serilog
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .MinimumLevel.Information()
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+        .Enrich.FromLogContext()
+        .WriteTo.Console()
+        .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day);
+});
+
+// Add Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -41,10 +61,12 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
 
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseDeveloperExceptionPage();
+
 
 app.Run();

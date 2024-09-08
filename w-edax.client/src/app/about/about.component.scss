@@ -12,6 +12,29 @@ $hover-color-linkedin: #0077b5;
 $hover-color-link: var(--primary-color);
 
 
+
+.diagonal-grid-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.diagonal-grid-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-flow: column;
+  gap: 10px;
+  background-color: green;
+  transform: rotate(45deg);
+  z-index: -1; /* Place the grid behind the content */
+}
 // Base Styles
 .about {
     padding: $padding;
@@ -202,7 +225,7 @@ h2, h3{
 }
 img{
     border-style: groove;
-    border-width: 1px;    
+    border-width: 1px;
     border-color: var(--background-color);
     width: 50px;
     height: 50px;

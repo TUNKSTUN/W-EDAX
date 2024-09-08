@@ -1,40 +1,55 @@
 <div class="guest-book">
   <div class="content-lx">
-    <h2>Guest Book </h2>
-    <p>This is a space where you, as part of the WEDAX community, can share your thoughts, insights, and feedback on the latest in ethical hacking, cloud security, and cybersecurity. After logging in through GitHub, feel free to leave a message—whether it's a question, a comment on recent exploits and mitigation strategies, or your own experiences in the cybersecurity world. Your contributions help us build a stronger, more informed community that stays ahead of the latest threats. Welcome aboard, and let's secure the future together!</p>
-    <div class="login-button" *ngIf="!isLoggedIn">
-      <p>Login with GitHub:</p>
-      <button (click)="loginWithGitHub()" style="text-indent: 5px;">GitHub<i class="fa-brands fa-github"></i></button>
+    <h2>Guest Book</h2>
+    <p>
+      Welcome to the WEDAX community guestbook! Here, you can share your thoughts, insights, and feedback on ethical hacking, cloud security, and cybersecurity.
+      After logging in through GitHub, feel free to leave a message—whether it's a question, a comment on recent exploits and mitigation strategies, or your experiences
+      in the cybersecurity world. Together, let's build a stronger, more informed community that stays ahead of the latest threats.
+    </p>
+
+    <div class="login-button">
+      <button (click)="toggleAuth()" class="github-button">
+        <i class="fa-brands fa-github"></i> {{ isLoggedIn ? 'Logout' : 'Login with GitHub' }}
+      </button>
     </div>
-    <br/>
-      <h3>Interested in Contributing Your Articles?</h3>
-      <p>If you're passionate about sharing your knowledge and would like to contribute your expertise and knowledge, feel free to reach out to us at <a href="info@w-edax.com">info&#64;w-edax.com</a></p>
+
+    <br />
+
+    <h3>Interested in Contributing Articles?</h3>
+    <p>
+      If you're passionate about sharing your knowledge, reach out to us at
+      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> to contribute articles on cybersecurity, ethical hacking, or cloud security.
+    </p>
   </div>
+
   <div class="guestbook-boxing">
-    <!-- Chatbox -->
     <div class="chatbox">
       <div class="message" *ngFor="let msg of messages">
         <div class="message-header">
-          <strong>{{ msg.username }}</strong>
-          <span class="timestamp">{{ msg.timestamp | date:'short' }}</span>
+          <strong>{{ msg.guestName }}</strong>
+          <span class="timestamp">{{ msg.datePosted | date:'short' }}</span>
         </div>
-        <div class="message-body">{{ msg.content }}</div>
+        <div class="message-body">{{ msg.message }}</div>
       </div>
     </div>
 
-    <!-- Text Area and Emoji Picker -->
     <div class="message-input">
-      <textarea [(ngModel)]="messageContent" placeholder="Type your message..." rows="3"></textarea>
-      <div>
-        <button class="emoji-button" (click)="toggleEmojiPicker()">😊</button>
-        <!-- Emoji Picker -->
-        <div class="emoji-picker" *ngIf="isEmojiPickerVisible">
+      <textarea [(ngModel)]="messageContent"
+                placeholder="{{ isLoggedIn ? 'Type your message...' : 'Please log in to leave a message' }}"
+                rows="3"
+                [disabled]="!isLoggedIn">
+      </textarea>
+      <div class="emoji-and-send">
+        <button class="emoji-button" (click)="toggleEmojiPicker()" [disabled]="!isLoggedIn">😊</button>
+
+        <div class="emoji-picker" *ngIf="isEmojiPickerVisible && isLoggedIn">
           <button *ngFor="let emoji of emojis" (click)="addEmoji(emoji)">
             {{ emoji }}
           </button>
         </div>
+
+        <button class="send-button" (click)="submitMessage()" [disabled]="!isLoggedIn || !messageContent.trim()">Send</button>
       </div>
-      <button class="send-button" (click)="submitMessage()" [disabled]="!messageContent.trim()">Send</button>
     </div>
   </div>
 </div>

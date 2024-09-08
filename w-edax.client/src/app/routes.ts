@@ -10,6 +10,6 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'guestbook', component: GuestbookComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
   { path: 'article/:id', component: ArticlesComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }, // Wildcard route should be last
 ];

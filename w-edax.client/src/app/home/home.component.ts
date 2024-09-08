@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { ArticleService } from '../Services/article.services'; // Ensure the path is correct
-import { ArticleModel } from '../models/article.model'; // Import ArticleModel if using it
-import { catchError, lastValueFrom, of } from 'rxjs';
-import { MarqueeService } from '../Services/marquee.service'; // Import the MarqueeService
+import { ArticleService } from '../Services/article.services'; // Updated path to lowercase
+import { ArticleModel } from '../models/article.model';
+import { catchError, map, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,63 +14,68 @@ import { MarqueeService } from '../Services/marquee.service'; // Import the Marq
   imports: [RouterLink, CommonModule],
   providers: [ArticleService]
 })
-export class HomeComponent implements OnInit, AfterViewInit {
-  articles: ArticleModel[] = []; // Initialize with an empty array
-  topArticles: ArticleModel[] = []; // Initialize with an empty array
-  topicArticles: ArticleModel[] = []; // Additional array for topic-specific articles if needed
+export class HomeComponent implements OnInit {
+  articles: ArticleModel[] = [];
+  topArticles: ArticleModel[] = [];
+  topicArticles: ArticleModel[] = [];
+  selectedArticle: ArticleModel | null = null;
 
-  constructor(
-    public articleService: ArticleService,
-    private marqueeService: MarqueeService // Inject the MarqueeService
-  ) { }
+  constructor(private articleService: ArticleService, private router: Router) { }
 
-  async ngOnInit(): Promise<void> {
-    try {
-      // Fetch articles and assign a default empty array if the API response is undefined
-      this.articles = await this.fetchArticles() || [];
-      this.selectRandomTopArticles();
-      this.selectTopicSpecificArticles(); // Optional: Filter for topic-specific articles
-    } catch (error) {
-      console.error('Error fetching articles:', error);
-    }
+  ngOnInit(): void {
+    this.loadArticles();
   }
 
-  ngAfterViewInit(): void {
-    this.marqueeService.setupMarquee(); // Call marquee setup after view initialization
-  }
-
-  private async fetchArticles(): Promise<ArticleModel[]> {
-    return lastValueFrom(
-      this.articleService.getArticles().pipe(
-        catchError(error => {
-          console.error('Error in fetchArticles:', error);
-          return of([]); // Return an empty array on error
-        })
-      )
-    );
+  private loadArticles(): void {
+    this.articleService.getArticles().pipe(
+      catchError(error => {
+        console.error('Error fetching articles:', error);
+        this.showErrorNotification('Failed to fetch articles. Please try again later.');
+        return of([]); // Return an empty array on error
+      }),
+      map((articles: ArticleModel[]) => {
+        this.articles = articles;
+        this.selectRandomTopArticles();
+        this.selectTopicSpecificArticles();
+      })
+    ).subscribe();
   }
 
   private selectRandomTopArticles(): void {
-    const numberOfTopArticles = 3; // Number of top articles to select
-
-    // Shuffle the articles array and select the first 'numberOfTopArticles' items
+    const numberOfTopArticles = 3;
     this.topArticles = this.shuffleArray(this.articles).slice(0, numberOfTopArticles);
   }
 
-  // Optional method to select topic-specific articles
   private selectTopicSpecificArticles(): void {
-    // Example logic: filter articles based on certain keywords or categories
+    const keywords = ['Cloud', 'Security'];
+
     this.topicArticles = this.articles.filter(article =>
-      article.articleHeadline.includes('AI') ||
-      article.articleHeadline.includes('Security')
+      article.articleHeadline?.trim() // Ensure ArticleHeadline is defined and not empty
+      && keywords.some(keyword => article.articleHeadline.includes(keyword))
     );
   }
 
   private shuffleArray(array: ArticleModel[]): ArticleModel[] {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-    }
-    return array;
+    return array.sort(() => Math.random() - 0.5); // Simplified shuffling
   }
+
+  private showErrorNotification(message: string): void {
+    // Replace with a proper UI notification system
+    console.error(message);
+    alert(message);
+  }
+  // Inside your component.ts file
+loadArticleDetails(articleId: string) {
+  // Find the selected article by ID
+  this.selectedArticle = this.articles.find(article => article.articleId === articleId) || null;
+
+  // Log article for debugging
+  console.log(this.selectedArticle); // Instead of just logging the articleId
+
+  // If using routing to show the article details page, navigate there
+  // Example:
+  this.router.navigate(['/article', articleId]);
+}
+
+
 }

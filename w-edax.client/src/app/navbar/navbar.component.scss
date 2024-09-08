@@ -40,7 +40,7 @@
 }
 
 .navbar-text::after {
-    content: '|';
+    content: '_';
     position: absolute;
     left: 100%; /* Positioned right after the text */
     margin-left: 2px; /* Small margin for better spacing */
