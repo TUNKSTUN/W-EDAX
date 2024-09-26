@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, from, Subject, Subscription } from 'rxjs';
 import { catchError, tap, map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { GuestBookModel } from '../models/guestbook.model';
 import Gun from 'gun';
 import { AuthService } from './auth.service';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Subject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,17 +25,11 @@ export class GuestBookService {
   ) {
     this.initGun();
     this.setupMessageListener();
-    this.gun.get('messages').map().on((message: GuestBookModel, key: string) => {
-      if (message) {
-        message.MessageId = key;
-        this.messageSubject.next(message); // Emit the message to all subscribers
-      }
-    });
   }
 
   private initGun(): void {
-    // Replace the following line with your EC2 instance's public address
-    const peerRelays = ['wss://chat-relay-ALB-1778665202.us-east-1.elb.amazonaws.com:3010'];
+    // Update the peer address to your relay server's address
+    const peerRelays = ['wss://34.211.200.85:10000']; // Replace with your actual relay server address
     this.gun = Gun({ peers: peerRelays, localStorage: true, retry: Infinity });
   }
 
@@ -110,6 +103,7 @@ export class GuestBookService {
           message.DatePosted = new Date(message.DatePosted);
         }
         this.messagesSubject.next(this.messagesSubject.value.concat(message));
+        this.messageSubject.next(message); // Emit the message to subscribers
       }
     });
   }
