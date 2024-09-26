@@ -14,7 +14,7 @@ import { FooterComponent } from './footer/footer.component';
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet],
+  imports: [ NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet],
 })
 export class AppComponent {
   title: any;

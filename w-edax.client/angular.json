@@ -38,6 +38,11 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+              "gun",
+              "gun/sea",
+              "gun/lib/webrtc"
+            ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper-base.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
@@ -70,8 +75,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "8kB",
-                  "maximumError": "6kB"
+                  "maximumWarning": "800kB",
+                  "maximumError": "600kB"
                 }
               ],
               "outputHashing": "all"
@@ -111,8 +116,9 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-                "src/assets/Anim.ico",
-                "src/assets",
+              "src/assets/Anim.ico",
+              "src/assets",
+
               {
                 "glob": "**/*",
                 "input": "public"

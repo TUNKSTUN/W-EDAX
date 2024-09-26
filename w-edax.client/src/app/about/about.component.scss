@@ -12,47 +12,67 @@ $hover-color-linkedin: #0077b5;
 $hover-color-link: var(--primary-color);
 
 
-
-.diagonal-grid-container {
+// about.component.scss
+.wavy-grid-container {
+  width: 50vh;
+  height: 50vh;
   position: relative;
-  width: 100%;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 10fr));
+  grid-template-rows: repeat(auto-fill, minmax(70px, 10fr));
+  gap: 5px; // Adjust the gap between blocks
+  // Creating the wavy effect for the blocks
+  & > div {
+      align-items: center;
+      justify-content: center;
+    background-color: var(--primary-color); // Semi-transparent green
+    left: 12px;
+    top: 12px;
+    transform: rotate(45deg); // Initial rotation
+    width: 70%;
+    height: 70%; // Adjust to fit within the grid
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%); // Diamond shape
+    position: relative; // Position relative to allow proper layering
+    border-radius: 200px;
+    transition: transform 0.5s ease; // Smooth transition for rotation
+    cursor: pointer; // Indicate that the blocks are clickable
+    // Gradient ripple effect on hover
+    &:hover {
+      transform: rotate(405deg); // Rotate to 360 degrees + 45 degrees from original
+    }
+  }
+  // Creating the wavy effect background
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient( 135deg, #00800033 0, #00800033 20px, #00800033 20px, #00800033 40px );
+    opacity: 1;
+    z-index: 1; // Place background behind the blocks
+  }
 }
 
-.diagonal-grid-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-flow: column;
-  gap: 10px;
-  background-color: green;
-  transform: rotate(45deg);
-  z-index: -1; /* Place the grid behind the content */
-}
-// Base Styles
 .about {
-    padding: $padding;
-    text-align: start;
-    padding: 10px;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: $padding;
+  text-align: start;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Courier New", monospace;
 }
 
 .about-content {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: $gap + 100;
-    padding: 10px;
+  display: flex;
+    padding: 20px;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: $gap + 50;
+  align-items: center;
 }
 p{
     text-align: justify;
@@ -66,7 +86,8 @@ p{
 .left-section {
     display: flex;
     flex-direction: column;
-    gap: $gap;
+    align-items: center;
+    justify-content: center;
 }
 
 .right-section {
@@ -77,13 +98,19 @@ p{
 }
 h2, h3{
     font-family: "Pixelify Sans", sans-serif;
-    font-optical-sizing: 26px;
+    font-size: 36px;
     font-weight: 400;
     color: var(--primary-color);
 }
 
 .meet-author h2, h3{
-    color: var(--primary-color-oppo);
+    color: var(--primary-color);
+}
+.meet-author h3{
+    border-bottom:  solid thick var(--background-color-oppo);
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 // Section Styles
@@ -96,19 +123,20 @@ h2, h3{
 }
 
 .meet-author {
-    border-radius: 2%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: $padding;
-    padding: $padding;
-    width: auto;
-    border-top: 2px solid var(--border-color);
-    background-color: var(--background-color-oppo);
-    color: var(--text-color-oppo);
-
+  border-right: 2px groove var(--text-color);
+  border-radius: 2%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: $padding;
+  padding: $padding;
+  width: auto;
+  border-bottom: 3px groove var(--text-color);
+  background-color: var(--card-background);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
 }
 
 // Team Member Styles
@@ -155,62 +183,78 @@ h2, h3{
     justify-content: space-between;
     width: auto;
     gap: 15px;
-    background-color: var(--background-color-oppo);
     border-radius: 5px;
     align-items: center;
 }
 
 .socials {
     margin-top: 5px;
-    color: var(--background-color);
+    color: var(--text-color);
 }
 
 .icons i {
-    color: var(--background-color);
+  
+  color: var(--text-color);
+  font-size: $icon-size - 5;
+  transition: color $transition-duration ease, transform $transition-duration ease;
+  cursor: pointer;
 
-    font-size: $icon-size - 5;
-    transition: color $transition-duration ease, transform $transition-duration ease;
-    cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 
-    &:hover {
-        transform: scale(1.1);
-    }
+  &.signal:hover {
+    color: $hover-color-signal;
+  }
 
-    &.signal:hover {
-        color: $hover-color-signal;
-    }
+  &.instagram:hover {
+    color: $hover-color-instagram;
+  }
 
-    &.instagram:hover {
-        color: $hover-color-instagram;
-    }
+  &.linkedin:hover {
+    color: $hover-color-linkedin;
+  }
 
-    &.linkedin:hover {
-        color: $hover-color-linkedin;
-    }
-    &.link:hover{
-        color: $hover-color-link
-    }
+  &.link:hover {
+    color: $hover-color-link
+  }
 }
 
 // Responsive Design
 @media (max-width: 768px) {
+  .wavy-grid-container {
+    width: 100%;
+    min-height: 50vh;
+
+    & > div {
+        left: 10px;
+    }
+    }
+
     .about-content {
-        flex-direction: column;
+      flex-direction: column;
     }
 
     .left-section, .right-section {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
+      gap:0;
     }
-    .meet-author{
-        width: 100%;
+
+    .meet-author {
+      width: 100%;
     }
-    .icons i{
-        font-size: $icon-size - 10;
+
+    .icons i {
+      font-size: $icon-size - 10;
     }
-    .icons{
-        width: 50%;
+
+    .icons {
+      width: 50%;
     }
-}
+    .history{
+        gap: 0;
+    }
+  }
 .container-socials{
     display: flex;
     justify-content: end;

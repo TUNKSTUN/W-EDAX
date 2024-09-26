@@ -1,59 +1,106 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GithubAuthProvider, signOut, User } from '@angular/fire/auth';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, map } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { GithubAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 import { environment } from '../../environments/environment';
+
+interface UserResponse {
+  uid: string;
+  name: string;
+  photoURL: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<User | null>;
+  private apiUrl = `${environment.apiUrl}/auth`;
+  private currentUserSubject = new BehaviorSubject<UserResponse | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private auth: Auth, private http: HttpClient) {
-    // Set up user observable to track authentication state
-    this.user$ = new Observable<User | null>(observer => {
-      const unsubscribe = this.auth.onAuthStateChanged(user => {
-        observer.next(user);
-      });
-      return () => unsubscribe();
+  constructor(private afAuth: AngularFireAuth, private http: HttpClient) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.setCurrentUser({
+          uid: user.uid,
+          name: user.displayName || 'Guest',
+          photoURL: user.photoURL || ''
+        });
+      } else {
+        this.setCurrentUser(null);
+      }
     });
   }
 
-  async loginWithGitHub(): Promise<void> {
+  setCurrentUser(user: UserResponse | null): void {
+    this.currentUserSubject.next(user);
+  }
+
+  // Sign in with GitHub
+  loginWithGitHub(): Observable<void> {
     const provider = new GithubAuthProvider();
-    try {
-      const result = await signInWithPopup(this.auth, provider);
-      const token = await result.user?.getIdToken();
+    const auth = getAuth();
 
-      // Call your backend to log in the user
-      await this.http.post(`${environment.apiUrl}/auth/login`, { token }).toPromise();
-    } catch (error) {
-      console.error('GitHub sign-in error:', error);
-    }
+    return new Observable<void>(observer => {
+      signInWithPopup(auth, provider)
+        .then(result => {
+          if (result.user) {
+            const user = result.user;
+
+            // Log the entire user object to check the details
+            console.log('GitHub User Info:', user);
+
+            // Handle successful login and set user info
+            this.setCurrentUser({
+              uid: user.uid,
+              name: user.displayName || 'Guest',
+              photoURL: user.photoURL || ''
+            });
+
+            // Log specific user details for additional debugging
+            console.log(`User UID: ${user.uid}`);
+            console.log(`User Name: ${user.displayName}`);
+            console.log(`User PhotoURL: ${user.photoURL}`);
+
+            observer.next();
+            observer.complete();
+          } else {
+            observer.error('No user found');
+          }
+        })
+        .catch(error => {
+          console.error('GitHub login error:', error);
+          observer.error(error);
+        });
+    });
   }
 
-  async logout(): Promise<void> {
-    try {
-      await signOut(this.auth);
-      // Call your backend to log out the user
-      await this.http.post(`${environment.apiUrl}/auth/logout`, {}).toPromise();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+
+  // Sign out
+  logout(): Observable<void> {
+    return new Observable<void>(observer => {
+      signOut(getAuth())
+        .then(() => {
+          this.setCurrentUser(null);
+          observer.next();
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.user$.pipe(map(user => !!user));
-  }
-
-  getCurrentUser(): Observable<User | null> {
-    return this.user$.pipe(
-      catchError(error => {
-        console.error('Error fetching user:', error);
-        return of(null);
-      })
+  // Get the current user's UID
+  getUserUID(): Observable<string | null> {
+    return this.currentUser$.pipe(
+      map(user => user ? user.uid : null) // Return null instead of empty string
     );
   }
+  isAuthenticated(): Observable<boolean> {
+    return this.currentUser$.pipe(
+      map(user => !!user) // Returns true if user is authenticated, false otherwise
+    );
+  }
+
 }

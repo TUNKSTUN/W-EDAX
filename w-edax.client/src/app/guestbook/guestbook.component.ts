@@ -1,10 +1,12 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../Services/auth.service';
-import { MessageService } from '../Services/message.service';
-import { GuestBookModel } from '../models/guestbook.model.';
-import { Auth, signInWithPopup, GithubAuthProvider, User } from '@angular/fire/auth';
+import { GuestBookModel } from '../models/guestbook.model';
+import { GuestbookScroller } from './guestbook.scroller';
+import { IdGeneratorService } from '../Services/id-gen.service';
+import { GuestBookService } from '../Services/guestbook.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-guestbook',
@@ -13,106 +15,244 @@ import { Auth, signInWithPopup, GithubAuthProvider, User } from '@angular/fire/a
   templateUrl: './guestbook.component.html',
   styleUrls: ['./guestbook.component.scss'],
 })
-export class GuestbookComponent {
+export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   username: string = 'Guest';
   messageContent: string = '';
   messages: GuestBookModel[] = [];
   isEmojiPickerVisible: boolean = false;
-  emojis: string[] = ['😊', '😂', '😍', '🥺', '😎', '👍'];
+  IsLoggedIn: boolean = false;
+  isSubmitting: boolean = false;
+  userId: string = '';
+  profilePicUrl: string = '';
+  emojis: string[] = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇'];
+  isLoading: boolean = false;
 
-  private auth: Auth = inject(Auth);
-  private authService: AuthService = inject(AuthService);
-  private messageService: MessageService = inject(MessageService);
-  isLoggedIn$ = this.authService.isLoggedIn();
-  isLoggedIn: boolean = false;
+  @ViewChild('chatbox') private chatbox!: ElementRef;
+  @ViewChild('messageTextArea') private messageTextArea!: ElementRef;
+  @ViewChild('emojiPicker') private emojiPicker!: ElementRef;
 
-  constructor() {
-    this.authService.isLoggedIn().subscribe(status => {
-      this.isLoggedIn = status;
-      if (this.isLoggedIn) {
-        this.authService.getCurrentUser().subscribe(user => {
-          this.username = user?.displayName ?? 'Guest';
-          this.loadMessages();
-        });
-      } else {
-        this.username = 'Guest';
-        this.messages = [];
-      }
+  private guestbookScroller: GuestbookScroller;
+  private userSubscription: Subscription = new Subscription();
+  private messageSubscription: Subscription = new Subscription();
+
+  constructor(
+    private authService: AuthService,
+    private cd: ChangeDetectorRef,
+    private renderer: Renderer2,
+    private idGeneratorService: IdGeneratorService,
+    private guestBookService: GuestBookService
+  ) {
+    this.guestbookScroller = new GuestbookScroller(renderer);
+  }
+
+  ngOnInit(): void {
+    this.userSubscription = this.authService.currentUser$.subscribe(user => this.handleUserState(user));
+    this.loadAllMessages();
+
+    // Subscribe to incoming messages in GuestBookService
+    this.messageSubscription = this.guestBookService.onMessage((message: GuestBookModel) => {
+      this.onMessageReceived(message); // Process single incoming message
     });
   }
 
-  async toggleAuth(): Promise<void> {
-    if (this.isLoggedIn) {
-      try {
-        await this.auth.signOut(); // Ensure no arguments
-        await this.authService.logout();
-        this.username = 'Guest';
-        this.messages = [];
-        console.log('User logged out');
-      } catch (error) {
-        console.error('Logout error:', error);
-      }
-    } else {
-      try {
-        await this.authService.loginWithGitHub(); // No arguments required
-        const user = await this.auth.currentUser; // Get the user from the auth service
-        this.username = user?.displayName ?? 'Guest';
-        console.log('User logged in:', this.username);
-      } catch (error) {
-        console.error('Login error:', error);
-      }
+  ngAfterViewInit(): void {
+    if (this.chatbox) {
+      this.guestbookScroller.setChatbox(this.chatbox.nativeElement);
     }
   }
 
+  ngOnDestroy(): void {
+    // Unsubscribe to prevent memory leaks
+    this.userSubscription.unsubscribe();
+    this.messageSubscription.unsubscribe();
+  }
+
+  private populateMessages(data: GuestBookModel[]): void {
+    if (Array.isArray(data) && data.length > 0) {
+      this.messages = data.sort((a, b) => new Date(b.DatePosted).getTime() - new Date(a.DatePosted).getTime());
+    } else {
+      this.messages = []; // Handle empty state
+    }
+    this.cd.detectChanges(); // Ensure the view is updated
+  }
+
+  private onMessageReceived(newMessage: GuestBookModel): void {
+    // Prevent duplicate messages
+    if (!this.messages.some(message => message.MessageId === newMessage.MessageId)) {
+      this.messages.unshift(newMessage); // Prepend the new message
+      this.cd.detectChanges(); // Ensure the view updates
+    }
+  }
+
+  private handleUserState(user: any): void {
+    this.IsLoggedIn = !!user;
+    if (this.IsLoggedIn) {
+      this.username = user.name || 'Guest';
+      this.userId = user.uid || '';
+      this.profilePicUrl = user.photoURL || '';
+    } else {
+      this.resetUserState();
+    }
+  }
+
+  toggleAuth(): void {
+    this.isLoading = true;
+    this.IsLoggedIn ? this.logoutUser() : this.loginUser();
+  }
+
+  private loginUser(): void {
+    this.authService.loginWithGitHub().subscribe({
+      next: () => {
+        this.isLoading = false;
+        console.log('User logged in');
+      },
+      error: (error: any) => {
+        console.error('Login error:', error);
+        this.isLoading = false;
+        alert('Login failed. Please try again.');
+      },
+    });
+  }
+
+  private logoutUser(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.resetUserState();
+        console.log('User logged out');
+      },
+      error: (error: any) => {
+        console.error('Logout error:', error);
+        this.isLoading = false;
+        alert('Logout failed. Please try again.');
+      },
+    });
+  }
+
+  private resetUserState(): void {
+    this.IsLoggedIn = false;
+    this.username = 'Guest';
+    this.userId = '';
+    this.profilePicUrl = '';
+    this.messages = [];
+    this.isLoading = false;
+  }
 
   submitMessage(): void {
-    if (this.messageContent.trim()) {
-      const newMessage: GuestBookModel = {
-        guestName: this.username,
-        message: this.messageContent,
-        datePosted: new Date(),
-        email: '',
-        isApproved: false,
-        accessToken: ''
-      };
+    if (this.isValidMessage() && !this.isSubmitting) {
+      this.isSubmitting = true;
+      const newMessage: GuestBookModel = this.createNewMessage();
 
-      this.messageService.addMessage(newMessage).subscribe({
+      // Send message to GunDB first
+      this.guestBookService.addMessage(newMessage).subscribe({
         next: () => {
-          this.messages.push(newMessage);
-          this.messageContent = '';
+          this.onMessageSent(newMessage); // Call to prepend the message
+          // Saving message to Firebase, ensuring proper error handling
+          this.guestBookService.saveMessageToFirebase(newMessage).subscribe({
+            next: () => {
+              console.log('Message saved to Firebase successfully.');
+            },
+            error: (error: any) => {
+              console.error('Error saving message to Firebase:', error);
+              alert('Failed to save message to Firebase.');
+            }
+          });
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error sending message:', error);
-        }
+          alert('Message sending failed. Please try again.');
+          this.isSubmitting = false;
+        },
       });
+    } else {
+      console.error('User must be logged in to submit a message or message is already submitting.');
+      alert('You must be logged in to submit a message.');
     }
   }
 
-  loadMessages(): void {
-    this.messageService.getMessages().subscribe({
-      next: (data: GuestBookModel[]) => {
-        this.messages = data;
-      },
-      error: (error) => {
-        console.error('Error loading messages:', error);
-      }
-    });
+  private isValidMessage(): boolean {
+    return this.messageContent.trim() !== '' && this.IsLoggedIn;
   }
 
-  toggleEmojiPicker(): void {
-    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+  private createNewMessage(): GuestBookModel {
+    const messageId = this.idGeneratorService.generateMessageId();
+    return {
+      GitHubUsername: this.username,
+      Message: this.messageContent,
+      MessageId: messageId,
+      DatePosted: new Date(),
+      IsApproved: false,
+      ProfilePicUrl: this.profilePicUrl,
+      UserId: this.userId,
+      Uid: this.userId,
+    };
+  }
+
+  private onMessageSent(newMessage: GuestBookModel): void {
+    // Prepend the new message to the messages array
+    this.onMessageReceived(newMessage); // Add new message to the top
+    this.messageContent = ''; // Clear the input after sending
+    this.isSubmitting = false;
+    this.cd.detectChanges(); // Trigger change detection to update the view
+  }
+
+  loadAllMessages(): void {
+    this.isLoading = true;
+
+    // Directly check if the user is logged in
+    if (!this.IsLoggedIn) {
+      console.error('User is not logged in');
+      this.isLoading = false; // Stop loading spinner if not logged in
+      return; // Exit the method early if user is not logged in
+    }
+
+    // If the user is logged in, get the user ID
+    this.authService.getUserUID().subscribe(userId => {
+      if (!userId) {
+        console.error('User ID is not available');
+        this.isLoading = false;
+        return;
+      }
+
+      this.guestBookService.getAllMessages(userId).subscribe({
+        next: (data: GuestBookModel[]) => {
+          console.log('Fetched Messages:', data);
+          this.populateMessages(data);
+          this.isLoading = false;
+        },
+        error: (error: any) => {
+          console.error('Error loading messages:', error);
+          this.isLoading = false; // Stop loading spinner on error
+        },
+      });
+    });
   }
 
   addEmoji(emoji: string): void {
     this.messageContent += emoji;
-    this.isEmojiPickerVisible = false;
+    this.cd.detectChanges();
+    this.messageTextArea.nativeElement.focus();
   }
 
-  @HostListener('window:keydown.enter', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.target instanceof HTMLTextAreaElement && event.target === document.activeElement) {
-      event.preventDefault();
+  private onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (this.isEmojiPickerVisible &&
+      !this.emojiPicker.nativeElement.contains(target) &&
+      !this.messageTextArea.nativeElement.contains(target)) {
+      this.isEmojiPickerVisible = false;
+      this.cd.detectChanges();
+    }
+  }
+
+  onEnter(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && this.messageContent.trim() !== '') {
       this.submitMessage();
+    }
+  }
+
+  toggleEmojiPicker(): void {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
+    if (this.isEmojiPickerVisible) {
+      this.renderer.listen('document', 'click', event => this.onDocumentClick(event));
     }
   }
 }

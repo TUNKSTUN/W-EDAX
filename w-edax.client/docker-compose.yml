@@ -1,0 +1,13 @@
+services:
+  webapi:
+    build:
+      context: ./W-EDAX.Server
+      dockerfile: Dockerfile
+    ports:
+      - "54353:8081"
+    networks:
+      - wedaxserver-2
+
+networks:
+  mynetwork:
+    driver: bridge

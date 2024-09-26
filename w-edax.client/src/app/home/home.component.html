@@ -1,81 +1,115 @@
-<!-- Section 1: Today's Articles and Top Articles -->
-<div class="section-1 container-fluid mt-4">
-  <div class="row">
-    <!-- Left Section: Today's Articles -->
-    <div class="col-lg-8 col-md-7 col-sm-12 mb-4">
-      <h2>Today's Articles</h2>
-      <div class="article-cards d-flex flex-wrap">
-        <!-- Loop through 'articles' array -->
-        <a *ngFor="let article of articles" [routerLink]="['/article', article.articleId]" class="article-card rectangle">
-          <div class="card-content">
-            <h3>{{ article.articleHeadline }}</h3>
-            <p>{{ article.articleDescription }}</p>
-          </div>
-        </a>
+<div class="home-page" [class.loaded]="!isLoading">
+  <div class="left-section">
+    <!-- Big Article Section -->
+    <div class="article-grid">
+      <!-- Skeleton Loader for Big Article -->
+      <div *ngIf="isLoading" class="big-article-card skeleton">
+        <div class="skeleton-image"></div>
+        <div class="big-card-content">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
+        </div>
       </div>
-    </div>
 
-    <!-- Right Section: Top Articles -->
-    <div class="col-lg-4 col-md-5 col-sm-12 mb-4">
-      <h3>Top Articles</h3>
-      <div class="hot-articles-container">
-        <!-- Loop through 'topArticles' array -->
-        <a *ngFor="let article of topArticles" [routerLink]="['/article', article.articleId]" class="article-card rectangle">
-          <div class="card-content">
-            <h3>{{ article.articleHeadline }}</h3>
-            <p>{{ article.articleDescription }}</p>
+      <!-- Actual Big Article -->
+      <ng-container *ngIf="!isLoading && articles && articles.length > 0">
+        <a [routerLink]="['/article', articles?.[0]?.articleId]" class="big-article-card">
+          <img [src]="articles?.[0]?.mediaFileUrls?.[0] ? articles?.[0]?.mediaFileUrls?.[0] : 'https://via.placeholder.com/754x400.png?text=Placeholder+Image'"
+               alt="{{ articles?.[0]?.articleHeadline || 'No headline' }}"
+               class="big-article-image">
+          <div class="big-card-content">
+            <h3>{{ articles?.[0]?.articleHeadline }}</h3>
+            <p>{{ articles?.[0]?.articleDescription }}</p>
           </div>
         </a>
-      </div>
+      </ng-container>
+
+
+      <!-- Skeleton Loader for Small Articles -->
+      <ng-container *ngIf="isLoading">
+        <div *ngFor="let i of [1,2,3,4,5]" class="small-article-card skeleton">
+          <div class="skeleton-image"></div>
+          <div class="small-card-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-text"></div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Actual Small Articles -->
+      <ng-container *ngIf="!isLoading && articles && articles.length > 1">
+        <div *ngFor="let article of articles.slice(1, 10)" class="small-article-card">
+          <a [routerLink]="['/article', article?.articleId]">
+            <img [src]="article?.mediaFileUrls?.[0] ? article?.mediaFileUrls?.[0] : 'https://via.placeholder.com/150x100.png?text=No+Image'"
+                 alt="{{ article?.articleHeadline || 'No headline' }}"
+                 class="small-article-image">
+            <div class="small-card-content">
+              <h3>{{ article?.articleHeadline }}</h3>
+              <p>{{ article?.articleDescription }}</p>
+            </div>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <!-- Right Section Content -->
+    <h3>Top Articles</h3>
+    <div class="article-cards">
+      <!-- Skeleton Loader for Top Articles -->
+      <ng-container *ngIf="isLoading">
+        <div *ngFor="let i of [1,2]" class="article-card skeleton">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
+        </div>
+      </ng-container>
+      <!-- Actual Top Articles -->
+      <ng-container *ngIf="!isLoading && topArticles.length > 0">
+        <a *ngFor="let article of topArticles" [routerLink]="['/article', article?.articleId]" class="article-card">
+          <h3>{{ article?.articleHeadline }}</h3>
+          <p>{{ article?.articleDescription }}</p>
+        </a>
+      </ng-container>
     </div>
   </div>
 </div>
 
-
 <!-- Second Page: Banner -->
 <section id="banner" class="banner">
   <div class="banner-content">
-    <div class="container">
-      <div class="banner-text text-center">
-        <h2>Community Events</h2>
-        <p>Stay connected and engaged with our vibrant community. Explore upcoming events and activities!</p>
-      </div>
-      <div class="banner-form">
-        <h3>Stay Updated</h3>
-        <p>Sign up for our newsletter to get the latest updates on community events directly to your inbox.</p>
-        <form action="#submit" method="post" class="form-inline">
-          <input type="email" name="email" placeholder="Enter your email" required class="form-input" aria-label="Email address">
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
-        <a href="#next-page" class="btn btn-secondary mt-2">Learn More</a>
-      </div>
+    <h2>Community Events</h2>
+    <p>Stay connected and engaged with our vibrant community. Explore upcoming events and activities!</p>
+    <div class="banner-form">
+      <h3>Stay Updated</h3>
+      <p>Sign up for our newsletter to get the latest updates on articles and community events.</p>
+      <form action="#submit" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address">
+        <button type="submit">Subscribe</button>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- Third Page: Topic Articles -->
 <section id="topic-articles" class="topic-articles-section">
-  <div class="container mt-4">
-    <header class="topic-articles-header text-center">
-      <h2 class="section-title">Insights and Innovations</h2>
-      <p class="section-description">Explore topics and advancements in cloud computing, ethical hacking, network security, and programming.</p>
-    </header>
-    <div class="topic-articles-content">
-      <div class="row">
-        <div class="col-md-12 mb-4">
-          <h3 class="main-heading">Cutting-Edge Topics</h3>
-          <p class="main-description">Stay ahead with the latest insights and advancements in technology.</p>
-        </div>
-        <div class="col-md-12">
-          <div class="topic-articles-cards d-flex flex-wrap">
-            <!-- Loop through 'topicArticles' array -->
-            <div *ngFor="let article of topicArticles" class="card">
-              <h4 class="card-title">{{ article.articleHeadline }}</h4>
-              <p class="card-description">{{ article.articleDescription }}</p>
-              <a [routerLink]="['/article', article.articleId]" class="card-button btn btn-primary">Read More</a>
-            </div>
-          </div>
-        </div>
+  <header class="topic-articles-header">
+    <h2 class="section-title">Insights and Innovations</h2>
+    <p class="section-description">Explore topics and advancements in cloud computing, ethical hacking, network security, and programming.</p>
+  </header>
+  <div class="topic-articles-content">
+    <div class="main-content">
+      <h3 class="main-heading">Cutting-Edge Topics</h3>
+      <p class="main-description">Stay ahead with the latest insights and advancements in technology.</p>
+    </div>
+    <div class="topic-articles-cards">
+      <!-- Loop through 'topicArticles' array -->
+      <div *ngFor="let article of topicArticles" class="card">
+        <h4 class="card-title">{{ article?.articleHeadline }}</h4>
+        <p class="card-description">{{ article?.articleDescription }}</p>
+        <a [routerLink]="['/article', article?.articleId]" class="card-button">Read More</a>
       </div>
     </div>
   </div>

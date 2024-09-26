@@ -13,12 +13,13 @@ EXPOSE 8081
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS with-node
 WORKDIR /src
-RUN curl https://nodejs.org/dist/v18.18.0/node-v18.18.0-win-x64.zip --output node.zip
+RUN curl https://nodejs.org/dist/v18.19.0/node-v18.19.0-win-x64.zip --output node.zip
 RUN tar -xf node.zip
 USER ContainerAdministrator
-RUN setx /M path "%path%;C:\src\node-v18.18.0-win-x64"
+RUN setx /M path "%path%;C:\src\node-v18.19.0-win-x64"
 USER ContainerUser
 RUN npm install -g @angular/cli
+RUN npm install -g npm@10.8.3
 
 FROM with-node AS build
 ARG BUILD_CONFIGURATION=Release

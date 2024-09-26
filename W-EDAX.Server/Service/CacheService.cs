@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 public class CachingService
 {
     private readonly IMemoryCache _memoryCache;
-    private readonly FirebaseService _firebaseService;
+    private readonly ArticleService _firebaseService;
     private const string AllArticlesKey = "all_articles";
     private const string AllGuestBookEntriesKey = "all_guestbook_entries";
 
-    public CachingService(IMemoryCache memoryCache, FirebaseService firebaseService)
+    public CachingService(IMemoryCache memoryCache, ArticleService firebaseService)
     {
         _memoryCache = memoryCache;
         _firebaseService = firebaseService;

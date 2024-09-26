@@ -1,54 +1,98 @@
-<div class="guest-book">
+<div class="guest-book cursor-animated">
   <div class="content-lx">
     <h2>Guest Book</h2>
     <p>
-      Welcome to the WEDAX community guestbook! Here, you can share your thoughts, insights, and feedback on ethical hacking, cloud security, and cybersecurity.
-      After logging in through GitHub, feel free to leave a message—whether it's a question, a comment on recent exploits and mitigation strategies, or your experiences
-      in the cybersecurity world. Together, let's build a stronger, more informed community that stays ahead of the latest threats.
+      Welcome to the WEDAX community guestbook! Share your thoughts, insights, and feedback on ethical hacking and cloud security.
+      After logging in through GitHub, feel free to leave a message—whether it's a question, a comment, or an experience.
+      Together, let's build a stronger cybersecurity community.
     </p>
 
     <div class="login-button">
-      <button (click)="toggleAuth()" class="github-button">
-        <i class="fa-brands fa-github"></i> {{ isLoggedIn ? 'Logout' : 'Login with GitHub' }}
+      <button (click)="toggleAuth()" class="github-button" [class.loading]="isLoading">
+        <span *ngIf="isLoading" class="loading-dots">...</span>
+        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login with GitHub' }}</span>
       </button>
     </div>
 
     <br />
 
-    <h3>Interested in Contributing Articles?</h3>
+    <h3>Contribute Articles</h3>
     <p>
-      If you're passionate about sharing your knowledge, reach out to us at
-      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> to contribute articles on cybersecurity, ethical hacking, or cloud security.
+      If you're passionate about sharing your knowledge, contact us at
+      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> to contribute articles on cybersecurity or ethical hacking.
     </p>
   </div>
 
   <div class="guestbook-boxing">
-    <div class="chatbox">
-      <div class="message" *ngFor="let msg of messages">
-        <div class="message-header">
-          <strong>{{ msg.guestName }}</strong>
-          <span class="timestamp">{{ msg.datePosted | date:'short' }}</span>
+    <!-- Messages Section -->
+    <div class="chatbox" #chatbox>
+      <!-- Loading Message -->
+      <div *ngIf="isLoading" class="loading">Loading messages...</div>
+
+      <div *ngIf="messages.length === 0 && !isLoading" class="no-messages">
+        No messages found.
+      </div>
+
+      <div *ngFor="let msg of messages" class="message">
+        <div class="message-content">
+          <div class="profile-pic">
+            <!-- Display Profile Pic if Available -->
+            <img *ngIf="msg?.ProfilePicUrl; else defaultPic" [src]="msg?.ProfilePicUrl" alt="Profile Picture">
+
+            <!-- Fallback to Default Inline SVG if No Profile Picture URL -->
+            <ng-template #defaultPic>
+              <svg width="50" height="50" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; border:1px solid var(--primary-color)">
+                <rect width="500" height="500" fill="#var(--background-color)" />
+                <path d="M336 176.135C318.312 232.921 296.355 263.73 249.39 274C200.596 266.147 182.298 235.337 164 176.135C164 122.085 164 91.5601 249.39 68C336 91.5601 336 122.085 336 176.135Z" fill="var(--primary-color)" />
+                <path d="M402 500C402 439.851 402 394.74 402 343.321C402 302.748 293.408 300.978 249.5 274C207.529 302.305 97 302.748 97 343.321C97 430.121 97 455.331 97 500H249.5H402Z" fill="var(--primary-color)" />
+                <path d="M219 243.5H280V292.5H219V243.5Z" fill="var(--primary-color)" />
+              </svg>
+            </ng-template>
+          </div>
+
+          <div class="message-details">
+            <div class="header-details">
+              <strong class="username">{{ msg?.GitHubUsername || 'Anonymous' }}</strong>
+              <span class="timestamp">{{ msg?.DatePosted || 'Invalid Date'}}</span>
+            </div>
+            <div class="message-body">{{ msg?.Message || 'No content' }}</div>
+          </div>
         </div>
-        <div class="message-body">{{ msg.message }}</div>
       </div>
     </div>
 
+    <!-- Message Input Section -->
     <div class="message-input">
-      <textarea [(ngModel)]="messageContent"
-                placeholder="{{ isLoggedIn ? 'Type your message...' : 'Please log in to leave a message' }}"
-                rows="3"
-                [disabled]="!isLoggedIn">
-      </textarea>
-      <div class="emoji-and-send">
-        <button class="emoji-button" (click)="toggleEmojiPicker()" [disabled]="!isLoggedIn">😊</button>
+      <form>
+        <textarea #messageTextArea [(ngModel)]="messageContent"
+                  name="messageContent"
+                  rows="8"
+                  cols="10"
+                  placeholder="{{ IsLoggedIn ? 'Type your message...' : 'Please log in to leave a message' }}"
+                  [disabled]="!IsLoggedIn"
+                  (keydown)="onEnter($event)">
+        </textarea>
+      </form>
 
-        <div class="emoji-picker" *ngIf="isEmojiPickerVisible && isLoggedIn">
-          <button *ngFor="let emoji of emojis" (click)="addEmoji(emoji)">
-            {{ emoji }}
+      <div class="emoji-and-send">
+        <!-- Emoji Button -->
+        <div class="emoji-picker-container">
+          <button (click)="toggleEmojiPicker()" class="emoji-picker-btn" aria-label="Open emoji picker">
+            😊
           </button>
+          <div *ngIf="isEmojiPickerVisible" class="emoji-picker">
+            <div class="emoji-list">
+              <button *ngFor="let emoji of emojis" (click)="addEmoji(emoji)" class="emoji-item">
+                {{emoji}}
+              </button>
+            </div>
+          </div>
         </div>
 
-        <button class="send-button" (click)="submitMessage()" [disabled]="!isLoggedIn || !messageContent.trim()">Send</button>
+        <!-- Send Button -->
+        <button (click)="submitMessage()" [disabled]="!IsLoggedIn || !messageContent.trim()">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send
+        </button>
       </div>
     </div>
   </div>

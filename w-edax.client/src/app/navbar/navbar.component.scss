@@ -9,17 +9,16 @@
 }
 
 .navbar-brand {
-    text-transform: uppercase;
-    font-family: "Pixelify Sans", sans-serif;
-    font-weight: 400;
-    font-optical-sizing: 36px;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-size: 48px;
-    text-decoration: none;
-    transition: color 0.2s ease, letter-spacing 0.2s ease-in-out; // Smooth color transition
+  text-transform: uppercase;
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 400;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 44px;
+  text-decoration: none;
+  transition: color 0.2s ease, letter-spacing 0.1s ease-in; // Smooth color transition
 }
 
 .navbar-top .navbar-brand:hover {
@@ -29,15 +28,19 @@
 
 /* Add this to your navbar.component.scss or a global stylesheet */
 
-.navbar-text {
+.navbar-text{
     position: relative;
     display: inline-flex;
     font-family: 'Courier New', monospace;
-    margin-bottom: 2px;
-    padding: 1px;
+    font-style: oblique;
     color: var(--primary-text-color);
     width: auto; /* Use auto width for better text and blinker management */
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+    
 }
+
 
 .navbar-text::after {
     content: '_';
@@ -62,12 +65,14 @@
     flex-direction: column;
     justify-content: start;
     text-align: start;
+    padding: 0;
+    margin: 0;
 
 }
 
 
 .navbar-top .nav-link i {
-    font-size: 24px;
+    font-size: 26px;
     margin-right: 5px;
 }
 
@@ -88,14 +93,14 @@
 
 @media (max-width: 991px) {
     .navbar-top .navbar-brand {
-        font-optical-sizing: 26px;
+        font-size: 26px;
         display: flex;
         justify-content: start;
         width: 100%;
     }
 
     .navbar-top .navbar-text {
-        font-size: 12px;
+        font-size: 10px;
         display: flex;
         justify-content: center;
         width: 100%;
@@ -109,89 +114,92 @@
         margin-bottom: 5px;
     }
 
-    .navbar-top .nav-link {
-        padding: 0 20px;
-
-    }
-
     .navbar-top .toggler {
         display: block;
         /* Ensure toggler is visible */
-        font-size: 16px;
+        font-size: 20px;
         background-color: inherit;
         color: var(--text-color);
         border: none;
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease-in-out;
+        width: 10px
     }
 }
+   
 
 // Styles for navbar-bottom
 /* Navbar bottom styles */
 .navbar-bottom {
-    background-color: var(--background-color);
-    padding: 5px 10px;
-    border-top: 1px solid var(--border-color); // Use border color variable
-    border-bottom: 1px solid var(--border-color); // Use border color variable
+  background-color: var(--background-color);
+  padding: 10px;
+  border-top: 1px solid var(--border-color); // Use border color variable
+  border-bottom: 1px solid var(--border-color); // Use border color variable
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  /* Center the entire navbar content */
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.3s ease, opacity 0.3s ease;
+  right: 0;
+  
+
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* Create space between links */
     width: 100%;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    /* Center the entire navbar content */
-    align-items: center;
+    max-width: 600px;
+    /* Optional: Limit the width of the links container */
+  }
+
+  .nav-item {
+    flex-grow: 1;
     text-align: center;
-    transition: background-color 0.2s ease, transform 0.3s ease, opacity 0.3s ease;
+  }
 
-    .navbar-nav {
-        flex-direction: row;
-        justify-content: space-between;
-        /* Create space between links */
-        width: 100%;
-        max-width: 600px;
-        /* Optional: Limit the width of the links container */
-    }
+  .nav-link {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 5px;
+    transition: color 0.2s ease, letter-spacing 0.2s ease-in-out;
+  }
 
-    .nav-item {
-        flex-grow: 1;
-        text-align: center;
-    }
+  .nav-link:hover {
+    color: var(--primary-color); // Use primary color on hover
+    letter-spacing: 2px;
+  }
 
-    .nav-link {
-        font-family: "Pixelify Sans", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        padding: 5px;
-        transition: color 0.2s ease, letter-spacing 0.2s ease-in-out;
-    }
+  &.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1020;
+    /* Make sure it's above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Optional shadow for depth */
+    animation: slideDown 0.3s ease forwards;
+  }
 
-    .nav-link:hover {
-        color: var(--primary-color); // Use primary color on hover
-        letter-spacing: 2px;
-    }
+  &.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 
-    &.sticky {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1020;
-        /* Make sure it's above other content */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        /* Optional shadow for depth */
-        animation: slideDown 0.3s ease forwards;
-    }
-
-    &.hidden {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    #navbarBottomLinks {
-        justify-content: space-around;
-        display: flex;
-        width: 100%;
+  #navbarBottomLinks {
+    justify-content: space-around;
+    display: flex;
+    width: 100%;
+  }
+}
+@media(max-width:768px){
+    .navbar-bottom .nav-link{
+        font-size: 18px;
     }
 }
-
 @keyframes slideDown {
     from {
         transform: translateY(-100%);

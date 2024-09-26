@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "dist/w-edax.client",
+    "site": "w2edax",
+    "public": "dist\\w-edax.client\\browser",
     "ignore": [
       "firebase.json",
       "**/.*",

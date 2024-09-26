@@ -1,90 +1,176 @@
-/* Marquee Section */
-.marquee-section {
-  background-color: var(--background-color-oppo);
-  padding: 10px 0;
-  margin-bottom: 20px;
-}
-
-.marquee-container {
-  text-align: center;
-}
-
-.marquee-text {
-  font-family: var(--font-secondary);
-  font-size: 18px;
-  color: var(--text-color-oppo);
-  text-shadow: 1px 1px var(--primary-color-oppo);
-}
-
-/* Hover effect for marquee */
-.marquee-text:hover {
-  color: var(--hover);
-  text-shadow: 2px 2px var(--primary-color-oppo);
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
 /* home.component.scss */
-h2 {
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: 26px;
-  font-weight: 400;
-  color: var(--primary-color);
+
+* {
+  box-sizing: border-box;
 }
 
-h3 {
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: 22px;
-  font-weight: 400;
-  color: var(--primary-color);
+/* Apply transition to specific properties */
+.home-page,
+.article-card,
+.hot-articles-container,
+.topic-articles-section,
+.banner {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Today's Articles and Hot Articles */
-.row {
+/* Home Page Styles */
+.home-page {
   background-size: cover;
   display: flex;
-  padding: 10px;
-  margin: 0 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+  opacity: 0; // Start with hidden opacity
+  transform: translateY(20px); // Start with a bit of offset
+  margin-bottom: 40px;
+
+  &.loaded {
+    opacity: 1;
+    transform: translateY(0); // Smoothly animate to final position
+  }
+}
+
+.left-section {
+  flex: 1;
+  padding: 20px;
+
+  h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-family: "Pixelify Sans", sans-serif;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fill, minmax(200px, auto)); /* Ensure responsive row height */
+    gap: 16px;
+
+    a {
+      text-decoration: none;
+    }
+
+    .big-article-card {
+      grid-column: span 2; /* Span across 2 columns */
+      grid-row: span 2; /* Span across 2 rows */
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: var(--card-background);
+      transition: transform 0.3s, box-shadow 0.3s; /* Add hover effect */
+
+      &:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+      }
+
+      .big-card-content {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .big-article-image {
+          width: 100%;
+          height: auto;
+          border-radius: 8px; /* Round image corners */
+        }
+
+        h3 {
+          margin-top: 10px;
+          font-size: 1.4rem; /* Increase font size */
+          text-align: center; /* Center text */
+          color: var(--primary-color);
+        }
+
+        p {
+          margin-top: 5px;
+          font-size: 1rem;
+          color: var(--text-color);
+          text-align: center; /* Center text */
+        }
+      }
+    }
+
+    .small-article-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: var(--card-background);
+      transition: transform 0.3s, box-shadow 0.3s; /* Add hover effect */
+
+      &:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+      }
+
+      .small-card-content {
+        padding: 10px;
+
+        h3 {
+          font-size: 1.2rem; /* Increase font size for consistency */
+          color: var(--primary-color);
+        }
+
+        p {
+          font-size: 0.9rem;
+          color: var(--text-color);
+        }
+      }
+    }
+  }
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 100%;
+  background-color: var(--primary-color-oppo);
+  border-radius: 8px;
+  border-left: 5px solid var(--primary-color);
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+
+  h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-family: "Pixelify Sans", sans-serif;
+  }
 }
 
 .article-cards {
-  background: cover;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 40px; /* Space below the article cards */
+  margin-top: 20px;
 }
 
 .article-card {
-  flex: 0 1 calc(33.333% - 16px);
-  background-color: var(--background-color); // Use theme background color
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 16px;
+  flex: 1 1 calc(50% - 16px);
+  background-color: var(--card-background);
+  border-bottom: 3px groove lightgray;
+  border-right: 2px groove lightgray;
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 14px;
   text-decoration: none;
-  color: var(--text-color); // Use theme text color
-  box-shadow: 0 2px 4px rgba(39, 236, 0, 0.408);
-  transition: box-shadow 0.3s ease-in-out;
-  overflow: hidden; // Ensure content doesn't overflow card boundaries
-  display: flex;
-  flex-direction: column; // Ensure vertical stacking
-}
+  color: var(--text-color);
+  transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
 
-.article-card h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
-}
+  &:hover {
+    transform: scale(.9999); // Slightly scale up for a smooth effect
+    border: 1px solid var(--background-color);
+  }
 
-.article-card p {
-  margin-bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.article-card:hover {
-  box-shadow: 0 4px 8px rgba(26, 255, 0, 0.534);
-  transform: scale(101%);
-  transition: transform 0.2s ease-in-out;
+  h3 {
+    font-size: 20px;
+  }
 }
 
 /* Top Articles Container */
@@ -92,43 +178,91 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: auto;
-  overflow-y: auto;
   padding: 10px;
-  margin-bottom: 40px; /* Space below hot articles */
 }
 
-.hot-articles-container::-webkit-scrollbar {
-  width: 5px;
-}
+/* Banner Section */
+.banner {
+  background: url('https://images.unsplash.com/photo-1568027762272-e4da8b386fe9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww') no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.hot-articles-container::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 10px;
-}
+  .banner-content {
+    background: rgba(66, 66, 66, 0.5);
+    backdrop-filter: blur(5px); // Translucent overlay
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
-@media (max-width: 991px) {
-  .article-card {
-    flex: 0 1 calc(50% - 16px); // Two cards per row on tablets
-  }
-}
+    h2 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-family: "Pixelify Sans", sans-serif;
+    }
 
-@media (max-width: 576px) {
-  .article-card {
-    flex: 0 1 100%; // Full width on mobile
-    max-width: 100%; // Ensure no exceeding of parent width
+    p {
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .banner-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h3 {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+
+        input {
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ddd;
+        }
+
+        button {
+          background-color: var(--primary-color);
+          color: var(--text-color);
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: var(--hover);
+          }
+        }
+      }
+    }
   }
 }
 
 /* Topic Articles Section */
 .topic-articles-section {
   background-color: var(--background-color); // Use theme background color
-  padding: 40px 0;
+  padding: 40px 20px;
 
   .topic-articles-header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     text-align: center;
-    color: var(--primary-color);
 
     .section-title {
       font-size: 2.5rem;
@@ -147,40 +281,42 @@ h3 {
   }
 
   .topic-articles-content {
-    .row {
-      text-align: center;
+    text-align: center;
 
-      .main-heading {
-        font-size: 2rem;
-        color: var(--primary-color); // Use theme text color
-        margin-bottom: 10px;
-      }
+    .main-heading {
+      font-size: 2rem;
+      color: var(--primary-color); // Use theme text color
+      margin-bottom: 10px;
+    }
 
-      .main-description {
-        font-size: 1.1rem;
-        color: var(--text-color); // Use theme text color
-        line-height: 1.6;
-      }
+    .main-description {
+      font-size: 1.1rem;
+      color: var(--text-color); // Use theme text color
+      line-height: 1.6;
     }
   }
 
   .topic-articles-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
+    width: auto;
 
     .card {
       background: var(--background-color); // Use theme background color
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(32, 194, 0, 0.5);
+      border-bottom: 3px groove lightgray;
+      border-right: 2px groove lightgray;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      width: calc(50% - 20px);
+      width: auto;
       max-width: 300px;
       text-align: center;
       display: flex;
-      flex-direction: column; // Make card a column flex container
-      justify-content: space-between; // Space between content and button
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
 
       .card-title {
         font-size: 1.5rem;
@@ -195,8 +331,8 @@ h3 {
       }
 
       .card-button {
-        background-color: var(--hover);
-        color: var(--text-color); // Use theme text color
+        background-color: var(--primary-color);
+        color: var(--text-color);
         border: none;
         padding: 10px 15px;
         border-radius: 5px;
@@ -204,117 +340,112 @@ h3 {
         font-size: 1rem;
         transition: background-color 0.3s;
         margin-top: auto; // Push button to the bottom of the card
-      }
-
-      .card-button:hover {
-        background-color: var(--primary-color); // Use primary color
-      }
-    }
-  }
-
-  @media (max-width: 767px) {
-    .topic-articles-cards .card {
-      width: 100%;
-    }
-  }
-}
-
-/* Banner Section */
-.banner {
-  background: url('https://images.unsplash.com/photo-1568027762272-e4da8b386fe9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww') no-repeat center center;
-  background-size: cover;
-  height: 60vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; // Center content by default
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  .row {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .banner-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .banner-content {
-    display: flex;
-    background: rgba(66, 66, 66, 0.4);
-    backdrop-filter: blur(5px); // Translucent overlay
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center; // Center text by default
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-left: auto; // Default to left alignment
-  }
-
-  h2 {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-family: "Pixelify Sans", sans-serif;
-    font-weight: 400;
-  }
-
-  p {
-    font-size: 1rem;
-    color: white;
-  }
-
-  .banner-form {
-    h3 {
-      font-size: 1.2rem;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1rem;
-      color: white;
-      margin-bottom: 15px;
-    }
-
-    form {
-      display: flex;
-      flex-wrap: wrap; // Wrap form elements on smaller screens
-      gap: 10px;
-      justify-content: center;
-
-      input, button {
-        width: 100%; // Full width for inputs and button on mobile
-      }
-
-      button {
-        margin-top: 10px;
-        background-color: var(--primary-color); // Use primary color
-        color: var(--text-color); // Use theme text color
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
         cursor: pointer;
-        transition: background-color 0.3s;
 
         &:hover {
           background-color: var(--hover); // Use hover color
         }
       }
+
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+        transform: scale(.9999); // Slightly scale up for a smooth effect
+        border: 1px solid var(--background-color);
+      }
     }
   }
 }
 
-/* Add responsive media queries as needed to ensure mobile-first approach */
+@media (max-width: 991px) {
+  .article-card {
+    flex: 0 1 calc(50% - 16px);
+  }
+
+  h3, h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .article-card {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+
+  .home-page {
+    flex-direction: column;
+  }
+
+  .left-section,
+  .right-section {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .right-section {
+    border-left: none;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .topic-articles-cards .card {
+    width: 100%;
+    display: flex;
+  }
+
+  .topic-articles-cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+/* Add these styles to your existing home.component.scss file */
+
+/* Skeleton Loader Styles */
+.skeleton {
+  background: #f0f0f0;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100% );
+  transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 200px;
+  background-color: #e0e0e0;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 10px;
+  background-color: #e0e0e0;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+  background-color: #e0e0e0;
+}
+
+/* Add any additional styles specific to your layout */

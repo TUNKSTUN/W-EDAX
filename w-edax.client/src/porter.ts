@@ -25,7 +25,7 @@ const getContainerPort = (containerName: string): Promise<string | null> => {
   });
 };
 
-const updateEnvironmentFile = (port: string) => {
+const updateEnvironmentFile = (port: string): void => {
   const envFilePath = path.resolve(__dirname, '.', 'environments', 'environment.ts');
   const envContent = `
 export const environment = {
@@ -46,7 +46,7 @@ export const environment = {
   console.log(`Updated ${envFilePath} with port ${port}`);
 };
 
-const updateProxyConfFile = (port: string) => {
+const updateProxyConfFile = (port: string): void => {
   const proxyFilePath = path.resolve(__dirname, '.', 'proxy.conf.js');
   const proxyContent = `
 const { env } = require('process');

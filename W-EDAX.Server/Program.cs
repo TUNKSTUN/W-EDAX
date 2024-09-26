@@ -1,32 +1,18 @@
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using FireSharp.Config;
+using FireSharp.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Load configuration from appsettings.json
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-// Register FirebaseService
-builder.Services.AddSingleton<FirebaseService>();
-
-// Register CachingService
-builder.Services.AddMemoryCache();
-builder.Services.AddSingleton<CachingService>(); // or AddScoped/AddTransient based on your use case
-
-// Configure CORS
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("https://localhost:4200")
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
-    });
-});
-
-// Configure Serilog
+// Configure Serilog for logging
 builder.Host.UseSerilog((context, services, configuration) =>
 {
     configuration
@@ -37,13 +23,48 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day);
 });
 
-// Add Swagger for API documentation
+// Register Firebase configuration
+builder.Services.AddSingleton<IFirebaseConfig>(new FirebaseConfig
+{
+    AuthSecret = builder.Configuration["Firebase:AuthSecret"],
+    BasePath = builder.Configuration["Firebase:BasePath"]
+});
+
+// Register Firebase client
+builder.Services.AddSingleton<IFirebaseClient>(provider =>
+{
+    var config = provider.GetRequiredService<IFirebaseConfig>();
+    return new FireSharp.FirebaseClient(config);
+});
+
+// Register services
+builder.Services.AddTransient<ArticleService>();
+builder.Services.AddTransient<GuestBookService>();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+// Add services to the DI container
+builder.Services.AddControllers();
+
+// Configure Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
+
+// Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -52,21 +73,20 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
-// Use CORS before other middleware
-app.UseCors();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+// Use CORS before routing
+app.UseCors("AllowAll");
+
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseDeveloperExceptionPage();
-
 
 app.Run();
