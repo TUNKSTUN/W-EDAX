@@ -1,19 +1,31 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../Services/auth.service';
 import { GuestBookModel } from '../models/guestbook.model';
 import { GuestbookScroller } from './guestbook.scroller';
 import { IdGeneratorService } from '../Services/id-gen.service';
 import { GuestBookService } from '../Services/guestbook.service';
-import { Subscription } from 'rxjs';
+import { debounceTime, fromEvent, Subscription } from 'rxjs';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-guestbook',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './guestbook.component.html',
-  styleUrls: ['./guestbook.component.scss'],
+  styleUrls: ['./guestbook.component.scss'], animations: [
+    trigger('messageAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-100%)' }), // Start from the top
+        animate('300ms ease-in', style({ opacity: 1, transform: 'translateY(0)' })), // Slide into place
+      ]),
+      transition(':leave', [
+        animate('300ms ease-out', style({ opacity: 0, transform: 'translateY(-100%)' })) // Slide out to the top
+      ])
+    ]),
+  ],
 })
 export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   username: string = 'Guest';
@@ -67,22 +79,16 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
     this.messageSubscription.unsubscribe();
   }
 
-  private populateMessages(data: GuestBookModel[]): void {
-    if (Array.isArray(data) && data.length > 0) {
-      this.messages = data.sort((a, b) => new Date(b.DatePosted).getTime() - new Date(a.DatePosted).getTime());
-    } else {
-      this.messages = []; // Handle empty state
-    }
-    this.cd.detectChanges(); // Ensure the view is updated
-  }
-
   private onMessageReceived(newMessage: GuestBookModel): void {
     // Prevent duplicate messages
     if (!this.messages.some(message => message.MessageId === newMessage.MessageId)) {
+      newMessage.DatePosted = newMessage.DatePosted.toLocaleString() // Format date accordingly
       this.messages.unshift(newMessage); // Prepend the new message
       this.cd.detectChanges(); // Ensure the view updates
     }
   }
+
+
 
   private handleUserState(user: any): void {
     this.IsLoggedIn = !!user;
@@ -136,38 +142,54 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
     this.messages = [];
     this.isLoading = false;
   }
+  onEnter(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && this.messageContent.trim() !== '' && !event.shiftKey) {
+      event.preventDefault(); // Prevent new line when Enter is pressed without Shift
+
+      const newMessage: GuestBookModel = this.createNewMessage();
+
+      // Immediately add the new message to the chatbox UI
+      this.onMessageReceived(newMessage);
+      this.messageContent = ''; // Clear the input field
+
+      // Trigger message submission
+      this.submitMessage();
+    }
+  }
+
 
   submitMessage(): void {
     if (this.isValidMessage() && !this.isSubmitting) {
-      this.isSubmitting = true;
+      this.isSubmitting = true; // Set submitting flag
       const newMessage: GuestBookModel = this.createNewMessage();
 
       // Send message to GunDB first
       this.guestBookService.addMessage(newMessage).subscribe({
         next: () => {
-          this.onMessageSent(newMessage); // Call to prepend the message
-          // Saving message to Firebase, ensuring proper error handling
+          // Update UI after successful GunDB addition
+          this.onMessageSent(newMessage);
+
+          // Optionally save message to Firebase after confirming GunDB success
           this.guestBookService.saveMessageToFirebase(newMessage).subscribe({
             next: () => {
               console.log('Message saved to Firebase successfully.');
             },
             error: (error: any) => {
               console.error('Error saving message to Firebase:', error);
-              alert('Failed to save message to Firebase.');
             }
           });
         },
         error: (error: any) => {
-          console.error('Error sending message:', error);
-          alert('Message sending failed. Please try again.');
-          this.isSubmitting = false;
+          console.error('Error sending message to GunDB:', error);
+          this.isSubmitting = false; // Reset submitting flag on failure
         },
       });
     } else {
       console.error('User must be logged in to submit a message or message is already submitting.');
-      alert('You must be logged in to submit a message.');
     }
   }
+
+
 
   private isValidMessage(): boolean {
     return this.messageContent.trim() !== '' && this.IsLoggedIn;
@@ -179,7 +201,7 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
       GitHubUsername: this.username,
       Message: this.messageContent,
       MessageId: messageId,
-      DatePosted: new Date(),
+      DatePosted: new Date().toLocaleString(), // Store the date as an ISO string
       IsApproved: false,
       ProfilePicUrl: this.profilePicUrl,
       UserId: this.userId,
@@ -198,33 +220,31 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   loadAllMessages(): void {
     this.isLoading = true;
 
-    // Directly check if the user is logged in
-    if (!this.IsLoggedIn) {
-      console.error('User is not logged in');
-      this.isLoading = false; // Stop loading spinner if not logged in
-      return; // Exit the method early if user is not logged in
-    }
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        const userId = user.uid;
 
-    // If the user is logged in, get the user ID
-    this.authService.getUserUID().subscribe(userId => {
-      if (!userId) {
-        console.error('User ID is not available');
+        this.guestBookService.getAllMessages(userId).subscribe({
+          next: (data: GuestBookModel[]) => {
+            console.log('Fetched Messages:', data);
+            this.populateMessages(data); // Show messages filtered by userId
+            this.isLoading = false;
+          },
+          error: (error: any) => {
+            console.error('Error loading messages:', error);
+            this.isLoading = false;
+          },
+        });
+      } else {
         this.isLoading = false;
-        return;
+        console.error('No user is logged in');
       }
-
-      this.guestBookService.getAllMessages(userId).subscribe({
-        next: (data: GuestBookModel[]) => {
-          console.log('Fetched Messages:', data);
-          this.populateMessages(data);
-          this.isLoading = false;
-        },
-        error: (error: any) => {
-          console.error('Error loading messages:', error);
-          this.isLoading = false; // Stop loading spinner on error
-        },
-      });
     });
+  }
+
+  private populateMessages(data: GuestBookModel[]): void {
+    this.messages = data.sort((a, b) => new Date(b.DatePosted).getTime() - new Date(a.DatePosted).getTime());
+    this.cd.detectChanges();
   }
 
   addEmoji(emoji: string): void {
@@ -242,17 +262,11 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cd.detectChanges();
     }
   }
-
-  onEnter(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && this.messageContent.trim() !== '') {
-      this.submitMessage();
-    }
-  }
-
   toggleEmojiPicker(): void {
     this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
     if (this.isEmojiPickerVisible) {
       this.renderer.listen('document', 'click', event => this.onDocumentClick(event));
     }
   }
+
 }

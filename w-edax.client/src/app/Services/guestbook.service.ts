@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { GuestBookModel } from '../models/guestbook.model';
 import Gun from 'gun';
 import { AuthService } from './auth.service';
+import { debounceTime } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class GuestBookService {
   public messages$ = this.messagesSubject.asObservable();
   private messageSubject = new Subject<GuestBookModel>();
   private gun: any;
-
+  private gun_node = "GuestBook";
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -29,16 +30,14 @@ export class GuestBookService {
 
   private initGun(): void {
     // Update the peer address to your relay server's address
-    const peerRelays = ['wss://34.211.200.85:10000']; // Replace with your actual relay server address
+    const peerRelays = ['https://gun-relay-server-zk8u.onrender.com/gun']; // Replace with your actual relay server address
     this.gun = Gun({ peers: peerRelays, localStorage: true, retry: Infinity });
   }
 
-  getAllMessages(userId: string): Observable<GuestBookModel[]> {
-    return this.db.list<GuestBookModel>(`Guestbook/${userId}/messages`).valueChanges().pipe(
-      tap(messages => this.syncMessagesToGunDB(messages)),
-      catchError(this.handleError('fetching all messages'))
-    );
+  private sendMessageToGunDB(message: GuestBookModel): void {
+    this.gun.get(this.gun_node).set(message); // Store message globally
   }
+
 
   addMessage(entry: GuestBookModel): Observable<void> {
     return this.authService.currentUser$.pipe(
@@ -49,7 +48,7 @@ export class GuestBookService {
           UserId: user.uid,
           GitHubUsername: user.name || 'Guest',
           ProfilePicUrl: user.photoURL || '',
-          DatePosted: new Date().toISOString(),
+          DatePosted: new Date().toLocaleTimeString().toString(),
           IsApproved: false,
         };
       }),
@@ -60,11 +59,55 @@ export class GuestBookService {
     );
   }
 
+  getAllMessages(userId: string): Observable<GuestBookModel[]> {
+    return new Observable<GuestBookModel[]>(observer => {
+      const messages: GuestBookModel[] = [];
+
+      // Fetch messages from GunDB for the user
+      this.gun.get(this.gun_node).map().once((message: GuestBookModel, key: string) => {
+        if (message) {
+          message.MessageId = key; // Assign GunDB key as MessageId
+          message.DatePosted = new Date(message.DatePosted).toLocaleTimeString(); // Ensure the DatePosted is a Date object
+          messages.push(message);
+        }
+      });
+
+      // Once done fetching, emit the messages
+      setTimeout(() => {
+        observer.next(messages);
+        observer.complete();
+
+        // Sync the messages to Firebase (optional)
+        this.syncMessagesToFirebase(messages, userId);
+        this.messagesSubject.next(messages); // Update the BehaviorSubject with the messages
+      }, 1000); // Allow some time for GunDB to fetch the data
+
+    }).pipe(
+      catchError(this.handleError('fetching messages from GunDB'))
+    );
+  }
+
+  private syncMessagesToFirebase(messages: GuestBookModel[], userId: string): void {
+    messages.forEach(message => {
+      const messageId = message.MessageId;
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 7);
+
+      // Update or add message to Firebase
+      this.db.object(`Guestbook/${userId}/messages/${messageId}`).update({
+        ...message,
+        expirationDate: expirationDate.toISOString(),
+      }).catch(error => {
+        console.error('Error syncing message to Firebase:', error);
+      });
+    });
+  }
+
+
   public saveMessageToFirebase(entry: GuestBookModel): Observable<void> {
     return this.authService.currentUser$.pipe(
       switchMap(user => {
-        if (!user) throw new Error('User must be logged in to save a message');
-        const userId = user.uid;
+        const userId = user?.uid;
         const newMessageRef = this.db.list(`Guestbook/${userId}/messages`).push(entry);
         const messageId = newMessageRef.key;
         const expirationDate = new Date();
@@ -80,9 +123,6 @@ export class GuestBookService {
     );
   }
 
-  private sendMessageToGunDB(message: GuestBookModel): void {
-    this.gun.get(`Guestbook/${message.UserId}/messages`).set(message);
-  }
 
   private syncMessagesToGunDB(messages: GuestBookModel[]): void {
     messages.forEach(message => this.sendMessageToGunDB(message));
@@ -96,17 +136,24 @@ export class GuestBookService {
   }
 
   private setupMessageListener(): void {
-    this.gun.get('messages').map().on((message: GuestBookModel, key: string) => {
+    this.gun.get(this.gun_node).map().on((message: GuestBookModel, key: string) => {
       if (message) {
+        // Make sure to check for duplicate messages here if needed
         message.MessageId = key;
-        if (typeof message.DatePosted === 'string') {
-          message.DatePosted = new Date(message.DatePosted);
+        message.DatePosted = typeof message.DatePosted === 'string' ? new Date(message.DatePosted): message.DatePosted;
+
+        // Ensure the message is not already present
+        const existingMessage = this.messagesSubject.value.find(m => m.MessageId === message.MessageId);
+        if (!existingMessage) {
+          this.messagesSubject.next([...this.messagesSubject.value, message]);
+          this.messageSubject.next(message); // Emit the message to subscribers
+
         }
-        this.messagesSubject.next(this.messagesSubject.value.concat(message));
-        this.messageSubject.next(message); // Emit the message to subscribers
       }
     });
   }
+
+
 
   public onMessage(callback: (message: GuestBookModel) => void): Subscription {
     return this.messageSubject.subscribe(callback); // Return the subscription

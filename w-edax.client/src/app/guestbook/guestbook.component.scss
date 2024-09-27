@@ -52,10 +52,9 @@
 
   @media (max-width: 991px) {
     width: 100%;
-    border:1px solid lightgray;
-    border-radius: 5px;
   }
 }
+
 
 // Chatbox area (scrollable messages)
 .chatbox {
@@ -64,9 +63,29 @@
   padding: 10px;
   color: var(--primary-color);
   overflow-y: auto;
-  scroll-behavior: smooth;
-  box-shadow:inset black;
+  position: relative; // Make sure we can position elements absolutely
+  box-shadow: inset black;
+  // Transition for smooth scrolling effect
+  transition: max-height 0.5s ease-in-out;
 }
+
+// Message structure
+.message {
+  position: relative; // Enable absolute positioning of child elements
+  border-bottom: 2px dashed var(--primary-color);
+  padding: 10px 0;
+  font-family: 'Cascadia Code';
+  font-style: revert;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-10px); // Start slightly above
+}
+
+// When the message enters the view
+.message-enter {
+  opacity: 1;
+  transform: translateY(0); // Move into place
+}
+
 
 
 
@@ -90,15 +109,6 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-}
-
-// Message structure
-.message {
-  display: flex;
-  border-bottom: 2px dashed var(--primary-color);
-  padding: 10px 0;
-  font-family: 'Cascadia Code';
-  font-style: revert;
 }
 
 .message-content {
@@ -154,7 +164,7 @@
   /* Simplified input area for a cleaner look */
   form {
     width: 100%;
-    gap:20px;
+    gap: 20px;
   }
 
   textarea {
@@ -273,6 +283,8 @@
     background-color: var(--primary-color);
     color: var(--text-color-oppo);
     width: 100px;
+    padding: 4px;
+    margin-bottom: 20px;
 
 
     &:hover {

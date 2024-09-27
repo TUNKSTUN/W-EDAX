@@ -276,3 +276,53 @@ img{
     border-radius: 100%;
     background-color: var(--primary-color);
 }
+
+.container {
+  perspective: 1000px; /* Adding perspective for a 3D effect */
+}
+
+.image {
+  width: 220px; /* Adjust size as needed */
+  height: 220px; /* Adjust size as needed */
+  position: relative;
+  transition: transform 0.6s; /* Smooth transition */
+  transform-style: preserve-3d; /* Preserve 3D style */
+}
+
+.image.flipped {
+  transform: rotateY(180deg); /* Flip horizontally */
+}
+
+.image-face {
+  position: absolute;
+  backface-visibility: hidden; /* Hide the back face */
+  width: 100%; /* Make image fill the container */
+  height: 100%; /* Make image fill the container */
+  display: flex; /* Center content */
+  justify-content: center; /* Center content */
+  align-items: center; /* Center content */
+}
+
+.front {
+  /* Front side specific styles */
+}
+
+.back {
+  transform: rotateY(180deg); /* Rotate back side */
+  text-align: center; /* Center text */
+  background-color: none;
+}
+
+.social-media a {
+  flex-direction: column;
+  display: flex; /* Stack social links vertically */
+  margin: 5px 0; /* Space between links */
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Link color */
+  border-radius: 100%;
+  align-items:center;
+}
+
+.social-media a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}

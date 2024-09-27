@@ -1,9 +1,11 @@
 <div class="contact-page">
-  <div class="quote-section" *ngIf="currentQuote">
-    <img [src]="currentQuote.pic" alt="{{currentQuote.author}}" />
-    <h1>{{ currentQuote.text }}</h1>
-    <p>- {{ currentQuote.author }}</p>
+  <div class="quote-section">
+    <img [src]="currentQuote.pic" [ngClass]="{ 'fade-out': fadeOut, 'fade-in': fadeIn }" alt="Quote Image" />
+    <h1 [ngClass]="{ 'fade-out': fadeOut, 'fade-in': fadeIn }">{{ currentQuote.text }}</h1>
+    <p [ngClass]="{ 'fade-out': fadeOut, 'fade-in': fadeIn }">- {{ currentQuote.author }}</p>
   </div>
+
+
   <div class="form-section">
     <h2>Contact Us</h2>
     <form>

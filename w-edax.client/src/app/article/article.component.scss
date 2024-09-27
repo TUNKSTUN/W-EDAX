@@ -163,13 +163,12 @@
     min-height: 1100px;
     width: 100%;
     max-width: 800px;
-    padding: 20px;
+    padding: 30px;
     background-color: var(--background-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
     transition: opacity 0.3s ease-in-out;
-    text-align: justify;
+    text-align: justify-all;
 
     .auth-date-container {
       font-family: "Courier Prime", monospace;

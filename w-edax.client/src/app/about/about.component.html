@@ -72,7 +72,22 @@
     <h2>Meet the Author</h2>
     <div class="team-member">
       <div class="image-container">
-        <img src="assets/Anim.gif" alt="Author" class="Image">
+        <div class="container" (mouseenter)="flipImage()" (mouseleave)="resetImage()">
+          <div class="image" #image>
+            <div class="image-face front" >
+              <img style="background-color: var(--text-color)"src="https://avatars.githubusercontent.com/u/113438526?v=4" alt="image" /> <!-- Your profile picture -->
+            </div>
+            <div class="image-face back">
+              <div class="social-media">
+                <!--<h3>tunkstun.80</h3>-->
+                <a href="https://signal.me/#eu/k3smQcH4yPOkWWetuk03BfBYXmgDZNo-Rr1Sq45CwIXb1sJ4cqtMGLyGf2vpKbM8" target="_blank" rel="noopener noreferrer">
+                <img style="background-color: var(--card-color); border: none; width:120%" src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fsignal.png?alt=media&token=df42d786-63a3-49af-b49a-1fd6238275bd" alt="Profile Picture" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <h3>Yahya</h3>
       <p>
@@ -82,7 +97,6 @@
       </p>
       <div class="container-socials">
         <div class="icons">
-          <a href="https://signal.org" target="_blank"><i class="fa-brands fa-signal-messenger signal"></i></a>
           <a href="https://www.instagram.com/solo_perfecto24" target="_blank"><i class="fa-brands fa-square-instagram instagram"></i></a>
           <a href="https://www.linkedin.com/in/ykinw24" target="_blank"><i class="fab fa-linkedin-in linkedin"></i></a>
           <a href="https://tunkstun.web.app"><i class="link fa-sharp-duotone fa-solid fa-link"></i></a>

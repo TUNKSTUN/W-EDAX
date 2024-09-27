@@ -24,6 +24,7 @@
   transform: translateY(20px); // Start with a bit of offset
   margin-bottom: 40px;
 
+
   &.loaded {
     opacity: 1;
     transform: translateY(0); // Smoothly animate to final position
@@ -33,13 +34,6 @@
 .left-section {
   flex: 1;
   padding: 20px;
-
-  h2 {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    font-family: "Pixelify Sans", sans-serif;
-  }
 
   .article-grid {
     display: grid;
@@ -56,14 +50,15 @@
       grid-row: span 2; /* Span across 2 rows */
       display: flex;
       flex-direction: column;
-      border: 1px solid #ccc;
+      border: 1px solid var(--text-color);
       border-radius: 8px;
       overflow: hidden;
+      color: var(--primary-color);
       background-color: var(--card-background);
       transition: transform 0.3s, box-shadow 0.3s; /* Add hover effect */
 
       &:hover {
-        transform: translateY(-5px); /* Lift effect on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
       }
 
@@ -81,9 +76,10 @@
 
         h3 {
           margin-top: 10px;
-          font-size: 1.4rem; /* Increase font size */
+          font-size: 2rem; /* Increase font size */
           text-align: center; /* Center text */
           color: var(--primary-color);
+          font-family: "Pixelify Sans", sans-serif;
         }
 
         p {
@@ -96,7 +92,7 @@
     }
 
     .small-article-card {
-      border: 1px solid #ccc;
+      border: 1px solid var(--text-color);
       border-radius: 8px;
       overflow: hidden;
       background-color: var(--card-background);
@@ -113,6 +109,7 @@
         h3 {
           font-size: 1.2rem; /* Increase font size for consistency */
           color: var(--primary-color);
+          font-family: "Pixelify Sans", sans-serif;
         }
 
         p {
@@ -129,15 +126,16 @@
   flex-direction: column;
   max-width: 300px;
   width: 100%;
-  background-color: var(--primary-color-oppo);
+  background-color: var(--dark-d);
   border-radius: 8px;
-  border-left: 5px solid var(--primary-color);
   padding: 20px;
   margin-top: 20px;
   text-align: center;
+  border: 1px solid var(--text-color);
+
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 15px;
     font-family: "Pixelify Sans", sans-serif;
@@ -169,7 +167,10 @@
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 22px;
+  }
+  p{
+      font-size: 14px;
   }
 }
 

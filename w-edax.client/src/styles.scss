@@ -44,8 +44,9 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --text-color-oppo: #dff6ff;
   --message-back: hsl(144, 100%, 79%);
   --card-background: #b0eb8a;
-  --data-red: #ff7474;
-  --data-blue:#7393ff;
+  --data-red: #ab0000;
+  --data-blue: #0029b6;
+  --dark-d: #08160b;
 }
 
 .dark-theme {
@@ -61,8 +62,9 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --text-color-oppo: #272727;
   --message-back: hwb(144 18% 69%);
   --card-background: #374b2b;
-  --data-red: #ab0000;
-  --data-blue: #0029b6;
+  --data-red: #ff7474;
+  --data-blue: #7393ff;
+  --dark-d: #08160b;
 }
 
 body {

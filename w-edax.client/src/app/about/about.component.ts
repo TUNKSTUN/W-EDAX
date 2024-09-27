@@ -27,6 +27,16 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  public flipImage(): void {
+    const image = this.el.nativeElement.querySelector('.image');
+    this.renderer.addClass(image, 'flipped'); // Add the flip class to start the animation
+  }
+
+  public resetImage(): void {
+    const image = this.el.nativeElement.querySelector('.image');
+    this.renderer.removeClass(image, 'flipped'); // Remove the flip class to reset the animation
+  }
+
   handleScroll() {
     const scrollPosition = window.scrollY;
     const blocks = this.el.nativeElement.querySelectorAll('.wavy-grid-container > div');

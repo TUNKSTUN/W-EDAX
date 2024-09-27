@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// Import the JSON data
 import * as InspireJson from '../assets/Inspire.json';
 
 @Component({
@@ -16,13 +14,14 @@ export class ContactComponent implements OnInit, OnDestroy {
   currentQuote!: { text: string, author: string, pic: string };
   private quoteIndex = 0;
   private interval: any;
+  public fadeOut: boolean = false; // Control fade-out state
+  public fadeIn: boolean = true; // Control fade-in state
 
   ngOnInit() {
-    // Access the quotes array from the `currentQuote` property
-    this.quotes = InspireJson.currentQuote; // Fix the structure here
+    this.quotes = InspireJson.currentQuote; // Ensure this points to the correct array
     if (this.quotes.length > 0) {
       this.currentQuote = this.quotes[0];
-      this.preloadImages(); // Preload images
+      this.preloadImages();
       this.startQuoteCycle();
     }
   }
@@ -36,9 +35,22 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   startQuoteCycle() {
     this.interval = setInterval(() => {
-      this.quoteIndex = (this.quoteIndex + 1) % this.quotes.length;
-      this.currentQuote = this.quotes[this.quoteIndex];
-    }, 6000); // Cycle every 6 seconds
+      this.fadeOut = true; // Trigger fade-out
+
+      // Delay to allow for fade-out duration
+      setTimeout(() => {
+        this.quoteIndex = (this.quoteIndex + 1) % this.quotes.length;
+        this.currentQuote = this.quotes[this.quoteIndex];
+
+        this.fadeOut = false; // Reset fade-out
+        this.fadeIn = true; // Trigger fade-in
+
+        // Delay to allow for fade-in duration
+        setTimeout(() => {
+          this.fadeIn = false; // Reset fade-in
+        }, 1000); // Delay for fade-in duration
+      }, 1000); // Delay for fade-out duration
+    }, 6000); // Change quote every 6 seconds
   }
 
   ngOnDestroy() {
