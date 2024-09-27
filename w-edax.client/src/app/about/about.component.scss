@@ -60,6 +60,7 @@ $hover-color-link: var(--primary-color);
   text-align: start;
   justify-content: center;
   display: flex;
+  padding: 0 40px;
   flex-direction: column;
   align-items: center;
   font-family: "Courier New", monospace;
@@ -67,7 +68,7 @@ $hover-color-link: var(--primary-color);
 
 .about-content {
   display: flex;
-    padding: 20px;
+    padding: 30px;
   justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
@@ -131,7 +132,7 @@ h2, h3{
   display: flex;
   flex-direction: column;
   margin-top: $padding;
-  padding: $padding;
+  padding: $padding - 20px;
   width: auto;
   border-bottom: 3px groove var(--text-color);
   background-color: var(--card-background);
