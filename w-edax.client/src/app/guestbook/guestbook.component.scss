@@ -104,6 +104,17 @@
   background: var(--background-color); /* Scrollbar background */
 }
 
+@media(max-width: 786px){
+  .chatbox {
+    border-top: 5px double var(--primary-color);
+  }
+  .guestbook-boxing{
+    border-left: none;
+    padding-left: 0;
+
+  }
+}
+
 .no-messages {
   color: var(--text-color);
   text-align: center;
