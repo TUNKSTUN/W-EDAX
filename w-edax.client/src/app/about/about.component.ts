@@ -1,13 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, AfterViewInit, Renderer2, ElementRef, OnDestroy } from '@angular/core';
+import contentJson from '../assets/content.json'; // Use default import for JSON
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-about',
+  imports:[NgFor],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
   standalone: true,
 })
 export class AboutComponent implements AfterViewInit, OnDestroy {
   private scrollHandler: (() => void) | undefined;
+  public content: any = contentJson; // Bind the JSON content here
 
   constructor(private renderer: Renderer2, private el: ElementRef) { }
 

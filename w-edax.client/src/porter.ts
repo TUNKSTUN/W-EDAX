@@ -72,7 +72,7 @@ module.exports = PROXY_CONFIG;
 };
 
 (async () => {
-  const containerName = 'W-EDAX.Server' || 'W-EDAX.Server_1'; // Replace with your container name
+  const containerName = 'W-EDAX.Server_1' || 'W-EDAX.Server'; // Replace with your container name
   try {
     const port = await getContainerPort(containerName);
     if (port) {

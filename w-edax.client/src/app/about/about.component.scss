@@ -14,6 +14,7 @@ $hover-color-link: var(--primary-color);
 
 // about.component.scss
 .wavy-grid-container {
+  background-color: var(--card-background); 
   width: 50vh;
   height: 50vh;
   position: relative;
@@ -23,8 +24,8 @@ $hover-color-link: var(--primary-color);
   gap: 5px; // Adjust the gap between blocks
   // Creating the wavy effect for the blocks
   & > div {
-      align-items: center;
-      justify-content: center;
+    align-items: center;
+    justify-content: center;
     background-color: var(--primary-color); // Semi-transparent green
     left: 12px;
     top: 12px;
@@ -56,7 +57,7 @@ $hover-color-link: var(--primary-color);
 }
 
 .about {
-  padding: $padding;
+  padding: $padding -20px;
   text-align: start;
   justify-content: center;
   display: flex;
@@ -68,71 +69,74 @@ $hover-color-link: var(--primary-color);
 
 .about-content {
   display: flex;
-    padding: 30px;
+  padding: 30px;
   justify-content: space-between;
-  max-width: 1400px;
   margin: 0 auto;
   gap: $gap + 50;
   align-items: center;
+  text-align: justify;
 }
-p{
-    text-align: justify;
+
+.team-member p {
+  text-align: center;
+  font-size: 16px;
 }
 
 .left-section, .right-section {
-    flex: 1;
-    min-width: $min-width;
+  flex: 1;
+  min-width: $min-width;
 }
 
 .left-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .right-section {
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-    justify-content: center;
-}
-h2, h3{
-    font-family: "Pixelify Sans", sans-serif;
-    font-size: 36px;
-    font-weight: 400;
-    color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  justify-content: center;
 }
 
-.meet-author h2, h3{
-    color: var(--primary-color);
+h2, h3 {
+  font-family: --font-pixel;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--primary-color);
 }
-.meet-author h3{
-    border-bottom:  solid thick var(--background-color-oppo);
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
+
+.meet-author h2, h3 {
+  color: var(--primary-color);
+}
+
+.meet-author h3 {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
 // Section Styles
 .intro, .mission {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .history {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .meet-author {
   border-right: 2px groove var(--text-color);
-  border-radius: 2%;
-  text-align: center;
+  border-radius: 20px;
+  text-align: justify-all;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
   margin-top: $padding;
-  padding: $padding - 20px;
   width: auto;
   border-bottom: 3px groove var(--text-color);
   background-color: var(--card-background);
@@ -142,61 +146,69 @@ h2, h3{
 
 // Team Member Styles
 .team-member {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    padding: 10px;
-    align-items: center;
-    text-align: center;
-
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 50px;
+  margin: 10px;
+  align-items: center;
+  text-align: center;
+  background-color: var(--background-color);
 }
 
 .image-container {
-    width: 250px;
-    height: 250px;
-    overflow: hidden;
-    margin-bottom: 20px;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: solid 2px var(--primary-color)
 }
-.meet-author h2{
-    font-size: 36px;
-    padding: 10px;
+
+.meet-author h2 {
+  font-size: 36px;
+  padding: 10px;
+  margin-top: 20px;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  font-size: 3rem;
+
 }
+
 .team-member h3 {
-    margin-top: 10px;
-    font-size: 36px;
+  margin-top: 10px;
+  font-size: 36px;
 }
 
 .team-member p {
-    max-width: 600px;
-    margin-bottom: 20px;
-    text-align: justify;
+  max-width: 600px;
+  margin-bottom: 20px;
+  text-align: justify;
 }
 
 // Icons Section Styles
 .icons {
-    display: flex;
-    justify-content: space-between;
-    width: auto;
-    gap: 15px;
-    border-radius: 5px;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  gap: 15px;
+  border-radius: 5px;
+  align-items: center;
 }
 
 .socials {
-    margin-top: 5px;
-    color: var(--text-color);
+  margin-top: 5px;
+  color: var(--text-color);
 }
 
 .icons i {
-  
   color: var(--text-color);
-  font-size: $icon-size - 5;
+  font-size: $icon-size + 10px;
   transition: color $transition-duration ease, transform $transition-duration ease;
   cursor: pointer;
 
@@ -228,54 +240,77 @@ h2, h3{
     min-height: 50vh;
 
     & > div {
-        left: 10px;
-    }
-    }
-
-    .about-content {
-      flex-direction: column;
-    }
-
-    .left-section, .right-section {
-      margin-bottom: 20px;
-      gap:0;
-    }
-
-    .meet-author {
-      width: 100%;
-    }
-
-    .icons i {
-      font-size: $icon-size - 10;
-    }
-
-    .icons {
-      width: 50%;
-    }
-    .history{
-        gap: 0;
+      left: 10px;
     }
   }
-.container-socials{
-    display: flex;
-    justify-content: end;
+
+  .about-content {
+    flex-direction: column;
+  }
+
+  .left-section, .right-section {
+    margin-bottom: 20px;
+    gap: 0;
+  }
+
+  .meet-author {
     width: 100%;
-    gap: 20px;
-    align-items: center ;
+    .team-member{
+        padding: 20px;
+    }
+    image-container{
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    img{
+        max-width: 80%;
+        max-height: 80%;
+        margin: 0;
+    }
+    h3{
+        font-size: 2rem;
+        margin: 0;
+    }
+    p{
+        margin-top: 10px;
+    }
+  }
+
+  .icons i {
+    font-size: $icon-size - 10;
+  }
+
+  .icons {
+    width: 50%;
+  }
+
+  .history {
+    gap: 0;
+  }
 }
-.website{
-    background-color: var(--background-color-oppo);
-    margin: 0;
-    padding: 0;
+
+.container-socials {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
 }
-img{
-    border-style: groove;
-    border-width: 1px;
-    border-color: var(--background-color);
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    background-color: var(--primary-color);
+
+.website {
+  background-color: var(--background-color-oppo);
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border-style: groove;
+  border-width: 1px;
+  border-color: var(--background-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: var(--primary-color);
 }
 
 .container {
@@ -321,7 +356,7 @@ img{
   text-decoration: none; /* Remove underline */
   color: #007bff; /* Link color */
   border-radius: 100%;
-  align-items:center;
+  align-items: center;
 }
 
 .social-media a:hover {

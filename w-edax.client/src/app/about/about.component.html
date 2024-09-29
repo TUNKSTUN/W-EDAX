@@ -32,76 +32,64 @@
       <div></div>
       <div></div>
     </div>
-
-    <div class="left-section">
-      <!-- Introduction -->
-      <div class="intro">
-        <h2>About</h2>
-        <p>
-          Welcome to W2EDAX, where we blend the art of ethical hacking with the passion of a student's curiosity.
-          We're on a mission to demystify cybersecurity through insightful blogs and research. Our goal is to equip
-          you with knowledge to stay ahead of potential threats and navigate the digital landscape confidently.
-        </p>
-      </div>
-
-      <!-- Mission -->
-      <div class="mission">
-        <h2>Mission</h2>
-        <p>
-          At W2EDAX, we lead the charge in ethical hacking and cybersecurity awareness. Our mission is to provide
-          valuable information that helps people worldwide protect themselves from cyber threats, building a global
-          community dedicated to safeguarding the digital world.
-        </p>
-      </div>
-    </div>
-
-    <div class="right-section">
-      <!-- Our Story -->
-      <div class="history">
-        <h2>Story</h2>
-        <p>
-          Our journey began when Yahya, the founder, experienced his own personal account breaches. After recovering
-          and understanding how these breaches occurred, Yahya decided to share his knowledge through W2EDAX—a blog
-          dedicated to cybersecurity, vulnerabilities, and solutions.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="meet-author">
-    <h2>Meet the Author</h2>
-    <div class="team-member">
-      <div class="image-container">
-        <div class="container" (mouseenter)="flipImage()" (mouseleave)="resetImage()">
-          <div class="image" #image>
-            <div class="image-face front" >
-              <img style="background-color: var(--text-color)"src="https://avatars.githubusercontent.com/u/113438526?v=4" alt="image" /> <!-- Your profile picture -->
+        <div class="left-section">
+          <!-- Welcome Section -->
+          <div class="intro">
+            <h2>{{ content.About.Welcome.headline }}</h2>
+            <div *ngFor="let paragraph of content.About.Welcome.paragraphs">
+              <p>{{ paragraph }}</p>
             </div>
-            <div class="image-face back">
-              <div class="social-media">
-                <!--<h3>tunkstun.80</h3>-->
-                <a href="https://signal.me/#eu/k3smQcH4yPOkWWetuk03BfBYXmgDZNo-Rr1Sq45CwIXb1sJ4cqtMGLyGf2vpKbM8" target="_blank" rel="noopener noreferrer">
-                <img style="background-color: var(--card-color); border: none; width:120%" src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fsignal.png?alt=media&token=df42d786-63a3-49af-b49a-1fd6238275bd" alt="Profile Picture" />
-                </a>
-              </div>
+          </div>
+
+          <!-- Mission Section -->
+          <div class="mission">
+            <h2>{{ content.About.Mission.headline }}</h2>
+            <div *ngFor="let paragraph of content.About.Mission.paragraphs">
+              <p>{{ paragraph }}</p>
             </div>
           </div>
         </div>
 
-      </div>
-      <h3>Yahya</h3>
-      <p>
-        Yahya is a computer science engineer that has a profound interest in many working disciplines and technologies, he is a ethical hacking and cybersecurity enthusiast. His background in DevOps, networking, and cloud computing
-        led him to start W2EDAX. With a deep passion for understanding digital vulnerabilities, Yahya shares insights that
-        help others secure their digital lives.
-      </p>
-      <div class="container-socials">
-        <div class="icons">
-          <a href="https://www.instagram.com/solo_perfecto24" target="_blank"><i class="fa-brands fa-square-instagram instagram"></i></a>
-          <a href="https://www.linkedin.com/in/ykinw24" target="_blank"><i class="fab fa-linkedin-in linkedin"></i></a>
-          <a href="https://tunkstun.web.app"><i class="link fa-sharp-duotone fa-solid fa-link"></i></a>
+        <div class="right-section">
+          <!-- Story Section -->
+          <div class="history">
+            <h2>{{ content.About.Story.headline }}</h2>
+            <div *ngFor="let paragraph of content.About.Story.paragraphs">
+              
+              <p>{{ paragraph }}</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+
+      <div class="meet-author">
+        <h2>{{ content.About.Author.headline }}</h2>
+        <div class="team-member">
+          <div class="image-container">
+            <div class="container" (mouseenter)="flipImage()" (mouseleave)="resetImage()">
+              <div class="image" #image>
+                <div class="image-face front">
+                  <img style="background-color: var(--text-color)" src="https://avatars.githubusercontent.com/u/113438526?v=4" alt="image" />
+                </div>
+                <div class="image-face back">
+                  <div class="social-media">
+                    <a href="https://signal.me/#eu/k3smQcH4yPOkWWetuk03BfBYXmgDZNo-Rr1Sq45CwIXb1sJ4cqtMGLyGf2vpKbM8" target="_blank" rel="noopener noreferrer">
+                      <img style="background-color: var(--card-color); border: none; width:120%" src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fsignal.png?alt=media&token=df42d786-63a3-49af-b49a-1fd6238275bd" alt="Profile Picture" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3>Yahya</h3>
+          <p *ngFor="let paragraph of content.About.Author.paragraphs">{{ paragraph }}</p>
+          <div class="container-socials">
+            <div class="icons">
+              <a href="https://www.instagram.com/solo_perfecto24" target="_blank"><i class="fa-brands fa-square-instagram instagram"></i></a>
+              <a href="https://www.linkedin.com/in/ykinw24" target="_blank"><i class="fab fa-linkedin-in linkedin"></i></a>
+              <a href="https://tunkstun.web.app"><i class="link fa-sharp-duotone fa-solid fa-link"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
