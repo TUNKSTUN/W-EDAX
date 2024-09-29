@@ -6,9 +6,9 @@ import { environment } from '../../environments/environment';
 import { GuestBookModel } from '../models/guestbook.model';
 import Gun from 'gun';
 import { AuthService } from './auth.service';
+import { debounceTime } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { format } from 'date-fns';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +35,10 @@ export class GuestBookService {
   }
 
   private sendMessageToGunDB(message: GuestBookModel): void {
-    message.DatePosted = new Date().toISOString();
+    console.log('Sending message to GunDB:', message); // Log the message
+    message.DatePosted = new Date().toISOString(); // Use current time for posting
+
+    // Set the message in GunDB
     this.gun.get(this.gun_node).set(message, (ack: any) => {
       if (ack.err) {
         console.error('Error sending message to GunDB:', ack.err);
@@ -45,6 +48,8 @@ export class GuestBookService {
     });
   }
 
+
+  // Save the message first to GunDB, then Firebase
   addMessage(entry: GuestBookModel): Observable<void> {
     return this.authService.currentUser$.pipe(
       map(user => {
@@ -54,35 +59,43 @@ export class GuestBookService {
           UserId: user.uid,
           GitHubUsername: user.name || 'Guest',
           ProfilePicUrl: user.photoURL || '',
-          DatePosted: new Date(),
+          DatePosted: new Date(), // Set to ISO string format directly
           IsApproved: false,
         };
       }),
       tap(message => {
+        // Immediately update the chatbox before sending to GunDB
         this.messagesSubject.next([...this.messagesSubject.value, message]);
-        this.sendMessageToGunDB(message);
+        this.sendMessageToGunDB(message); // Store in GunDB
       }),
       switchMap(message => this.saveMessageToFirebase(message)),
       catchError(this.handleError('adding message')),
-      map(() => void 0)
+      map(() => void 0) // Return void after completion
     );
   }
+
 
   getAllMessages(): Observable<GuestBookModel[]> {
     return new Observable<GuestBookModel[]>(observer => {
       const messages: GuestBookModel[] = [];
+
+      // Fetch messages from GunDB
       this.gun.get(this.gun_node).map().once((message: GuestBookModel, key: string) => {
         if (message) {
-          message.MessageId = key;
+          message.MessageId = key; // Assign GunDB key as MessageId
+
+          // Parse and format DatePosted to ISO string
           message.DatePosted = this.parseData(message.DatePosted);
+
           messages.push(message);
         }
       });
 
+      // Once done fetching, emit the messages
       setTimeout(() => {
         observer.next(messages);
         observer.complete();
-        this.messagesSubject.next(messages);
+        this.messagesSubject.next(messages); // Update local cache
       }, 1000);
     }).pipe(
       catchError(this.handleError('fetching messages from GunDB'))
@@ -95,16 +108,19 @@ export class GuestBookService {
     if (typeof dateInput === 'string') {
       date = new Date(dateInput);
     } else {
-      date = dateInput;
+      date = dateInput; // Directly assign if it's already a Date object
     }
 
     if (isNaN(date.getTime())) {
-      return 'Invalid date';
+
+      return 'Invalid date'; // Handle invalid date case
     }
 
-    return format(date, 'MMM d, yyyy h:mm a');
+    return format(date, 'MMM d, yyyy h:mm a'); // Format the date as needed
   }
 
+
+  // No longer syncing GunDB to Firebase automatically
   public saveMessageToFirebase(entry: GuestBookModel): Observable<void> {
     return this.authService.currentUser$.pipe(
       switchMap(user => {
@@ -136,6 +152,8 @@ export class GuestBookService {
       if (message) {
         message.MessageId = key;
         message.DatePosted = new Date(message.DatePosted).toISOString();
+
+        // Prevent duplicates before updating messages
         const existingMessage = this.messagesSubject.value.find(m => m.MessageId === message.MessageId);
         if (!existingMessage) {
           this.messagesSubject.next([...this.messagesSubject.value, message]);
@@ -145,13 +163,19 @@ export class GuestBookService {
     });
   }
 
+
+
   public onMessage(callback: (message: GuestBookModel) => void): Subscription {
-    return this.messageSubject.subscribe(callback);
+    return this.messageSubject.subscribe(callback); // Return the subscription  
   }
 
   private mapDataToMessageModel(data: any): GuestBookModel {
+    // Implement mapping logic based on your data structure
     return {
+      // Map your properties here
       DatePosted: data.DatePosted,
+      // Other properties...
     } as GuestBookModel;
   }
 }
+

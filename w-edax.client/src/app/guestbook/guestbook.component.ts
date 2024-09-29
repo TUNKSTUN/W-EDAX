@@ -209,7 +209,7 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMessageSent(newMessage: GuestBookModel): void {
-    this.onMessageReceived(newMessage);
+    //this.onMessageReceived(newMessage); // this part was showing double messages in chatbox
     this.messageContent = '';
     this.isSubmitting = false;
     this.cd.detectChanges();
