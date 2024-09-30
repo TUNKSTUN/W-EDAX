@@ -7,6 +7,7 @@
       ProfilePicUrl: string;
       UserId: string;
       Uid: string;
+      ExpirationDate: Date | string;
     }
 
     export interface UserMessages {

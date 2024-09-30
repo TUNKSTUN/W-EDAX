@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { debounceTime } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { format } from 'date-fns';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +28,7 @@ export class GuestBookService {
   ) {
     this.initGun();
     this.setupMessageListener();
+    this.startCleanupSchedule(); // Start the cleanup schedule
   }
 
   private initGun(): void {
@@ -34,9 +36,42 @@ export class GuestBookService {
     this.gun = Gun({ peers: peerRelays, localStorage: true, retry: Infinity });
   }
 
+  private getExpirationDate(): string {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 7);
+    return expirationDate.toISOString();
+  }
+
+  private clearExpiredMessages(): void {
+    const currentTime = new Date().getTime();
+
+    // Fetch all messages from GunDB
+    this.gun.get(this.gun_node).map().once((message: GuestBookModel, key: string) => {
+      if (message && message.ExpirationDate) {
+        const expirationTime = new Date(message.ExpirationDate).getTime();
+        if (currentTime > expirationTime) {
+          // Remove expired message
+          this.gun.get(this.gun_node).get(key).put(null); // Remove the message by key
+          console.log(`Cleared expired message: ${key}`);
+        }
+      }
+    });
+  }
+
+  private startCleanupSchedule(): void {
+    // Initial cleanup run when the service is instantiated
+    this.clearExpiredMessages();
+
+    // Set up an interval to run the cleanup every 24 hours
+    setInterval(() => {
+      this.clearExpiredMessages();
+    }, 86400000); // 24 hours in milliseconds
+  }
+
   private sendMessageToGunDB(message: GuestBookModel): void {
     console.log('Sending message to GunDB:', message); // Log the message
     message.DatePosted = new Date().toISOString(); // Use current time for posting
+    message.ExpirationDate = this.getExpirationDate(); // Set expiration date
 
     // Set the message in GunDB
     this.gun.get(this.gun_node).set(message, (ack: any) => {
@@ -47,7 +82,6 @@ export class GuestBookService {
       }
     });
   }
-
 
   // Save the message first to GunDB, then Firebase
   addMessage(entry: GuestBookModel): Observable<void> {
@@ -60,6 +94,7 @@ export class GuestBookService {
           GitHubUsername: user.name || 'Guest',
           ProfilePicUrl: user.photoURL || '',
           DatePosted: new Date(), // Set to ISO string format directly
+          ExpirationDate: this.getExpirationDate(), // Set expiration date
           IsApproved: false,
         };
       }),
@@ -74,7 +109,6 @@ export class GuestBookService {
     );
   }
 
-
   getAllMessages(): Observable<GuestBookModel[]> {
     return new Observable<GuestBookModel[]>(observer => {
       const messages: GuestBookModel[] = [];
@@ -83,10 +117,7 @@ export class GuestBookService {
       this.gun.get(this.gun_node).map().once((message: GuestBookModel, key: string) => {
         if (message) {
           message.MessageId = key; // Assign GunDB key as MessageId
-
-          // Parse and format DatePosted to ISO string
           message.DatePosted = this.parseData(message.DatePosted);
-
           messages.push(message);
         }
       });
@@ -102,23 +133,21 @@ export class GuestBookService {
     );
   }
 
-  private parseData(dateInput: string | Date): string {
+  public parseData(dateInput: string | Date): string {
+    console.log('Input date:', dateInput); // Log the input for debugging
     let date: Date;
-
     if (typeof dateInput === 'string') {
       date = new Date(dateInput);
+      // If it's not a valid date, try to parse it as a timestamp
+      if (isNaN(date.getTime())) {
+        const timestamp = parseInt(dateInput, 10);
+        date = new Date(timestamp);
+      }
     } else {
-      date = dateInput; // Directly assign if it's already a Date object
+      date = dateInput;
     }
-
-    if (isNaN(date.getTime())) {
-
-      return 'Invalid date'; // Handle invalid date case
-    }
-
-    return format(date, 'MMM d, yyyy h:mm a'); // Format the date as needed
+    return isNaN(date.getTime()) ? 'Invalid date' : format(date, 'MMM d, yyyy h:mm:ss a');
   }
-
 
   // No longer syncing GunDB to Firebase automatically
   public saveMessageToFirebase(entry: GuestBookModel): Observable<void> {
@@ -133,7 +162,7 @@ export class GuestBookService {
         return from(this.db.object(`Guestbook/${userId}/messages/${messageId}`).update({
           ...entry,
           MessageId: messageId,
-          expirationDate: expirationDate.toISOString(),
+          ExpirationDate: expirationDate.toISOString(), // Ensure this matches with GunDB
         }));
       }),
       catchError(this.handleError('saving message to Firebase'))
@@ -163,8 +192,6 @@ export class GuestBookService {
     });
   }
 
-
-
   public onMessage(callback: (message: GuestBookModel) => void): Subscription {
     return this.messageSubject.subscribe(callback); // Return the subscription  
   }
@@ -172,10 +199,8 @@ export class GuestBookService {
   private mapDataToMessageModel(data: any): GuestBookModel {
     // Implement mapping logic based on your data structure
     return {
-      // Map your properties here
       DatePosted: data.DatePosted,
       // Other properties...
     } as GuestBookModel;
   }
 }
-

@@ -6,14 +6,6 @@
       After logging in through GitHub, feel free to leave a message—whether it's a question, a comment, or an experience.
       Together, let's build a stronger cybersecurity community.
     </p>
-
-    <div class="login-button">
-      <button (click)="toggleAuth()" class="github-button" [class.loading]="isLoading">
-        <span *ngIf="isLoading" class="loading-dots">...</span>
-        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login with GitHub' }}</span>
-      </button>
-    </div>
-
     <br />
 
     <h3>Contribute Articles</h3>
@@ -21,6 +13,14 @@
       If you're passionate about sharing your knowledge, contact us at
       <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> to contribute articles on cybersecurity or ethical hacking.
     </p>
+    <div class="login-button">
+      <button (click)="toggleAuth()" class="github-button">
+        <span *ngIf="isLoading" class="loading-dots">...</span>
+        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login with GitHub' }}</span>
+      </button>
+    </div>
+
+
   </div>
 
   <div class="guestbook-boxing">
@@ -33,7 +33,7 @@
         No messages found.
       </div>
 
-      <div *ngFor="let msg of messages" class="message">
+      <div *ngFor="let msg of messages" class="message" >
         <div class="message-content">
           <div class="profile-pic">
             <!-- Display Profile Pic if Available -->
@@ -53,7 +53,7 @@
           <div class="message-details">
             <div class="header-details">
               <strong class="username">{{ msg?.GitHubUsername}}</strong>
-              <span class="timestamp">{{ msg?.DatePosted}}</span>
+              <span class="timestamp">{{ parseData(msg?.DatePosted)}}</span>
             </div>
             <div class="message-body">{{ msg?.Message}}</div>
           </div>
@@ -64,13 +64,13 @@
     <!-- Message Input Section -->
     <div class="message-input">
       <form>
-        <textarea #messageTextArea [(ngModel)]="messageContent"
+        <textarea #messageTextArea #messageInput [(ngModel)]="messageContent"
                   name="messageContent"
                   rows="8"
                   cols="10"
                   placeholder="{{ IsLoggedIn ? 'Type your message...' : 'Please log in to leave a message' }}"
                   [disabled]="!IsLoggedIn"
-                  (keydown)="onEnter($event)">
+                  (keydown)="onEnter($event, messageInput)">
         </textarea>
       </form>
 

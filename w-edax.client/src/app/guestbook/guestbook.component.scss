@@ -72,7 +72,7 @@
 // Message structure
 .message {
   position: relative; // Enable absolute positioning of child elements
-  border-bottom: 2px dashed var(--primary-color);
+  border-bottom: 1px dashed var(--primary-color);
   padding: 10px 0;
   font-family: 'Cascadia Code';
   font-style: revert;
@@ -125,13 +125,14 @@
 .message-content {
   display: flex;
   width: 100%;
+  font-size: 14px;
 }
 
 .profile-pic img {
   width: 40px;
   height: 40px;
   margin-right: 10px;
-  border: 1px groovy var(--background-color-oppo);
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
 }
 
@@ -152,7 +153,7 @@
 }
 
 .timestamp {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--primary-color);
 }
 
@@ -244,8 +245,8 @@
     position: absolute;
     bottom: 100%; /* Position above the button */
     right: 100%;
-    background-color: var(--background-color-oppo);
-    border: 1px solid var(--secondary-color);
+    background-color: var(--background-color);
+    border: 0.5px solid gray;
     border-radius: 5px;
     padding: 10px;
     z-index: 1000;
@@ -333,23 +334,41 @@
 
 .github-button .loading-dots {
   position: absolute;
+  display: flex;
   left: 50%;
   top: 50%;
+  width: 20px;
+  height: 10px;
   transform: translate(-50%, -50%);
-  font-size: 16px;
+  font-size: 28px;
   color: white;
   display: none;
 }
 
 .github-button.loading .loading-dots {
   display: block;
+  width: 20px;
+  height: 10px;
 }
 
 .loading {
   text-align: center;
+  height: 60vh;
   font-size: 1.2em;
-  color: var(--primary-color);
-  padding: 10px 0;
+  color: var(--primary-color); 
+  padding: 10px 0; 
+  animation: fadeIn 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 
