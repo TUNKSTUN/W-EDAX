@@ -41,7 +41,7 @@
       .skeleton-title2 {
         width: 80%;
         display: block;
-        background-color: #e0e0e0;
+        background-color: lightgray;
         margin-bottom: 10px;
         border-radius: 4px;
         height: 40px; /* Ensure height is visible */
@@ -71,7 +71,7 @@
       .skeleton-author {
         height: 20px;
         width: 10%;
-        background-color: #e0e0e0;
+        background-color: lightgray;
         border-radius: 4px;
       }
     }
@@ -91,7 +91,7 @@
       .skeleton-paragraph {
         height: 16px;
         width: 100%;
-        background-color: #e0e0e0;
+        background-color: lightgray;
         margin-bottom: 10px;
         border-radius: 4px;
       }
@@ -258,7 +258,7 @@
 .article-skeleton,
 .related-articles-skeleton {
   .skeleton-title, .skeleton-title2, .skeleton-author, .skeleton-paragraph, .skeleton-title3, .skeleton-paragraph2, .related-article-card {
-    background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+    background: linear-gradient(to right, darkgrey 8%, lightgray 18%, darkgrey 33%);
     width: auto;
     height: 100px;
     animation: shimmer 1.5s infinite linear;

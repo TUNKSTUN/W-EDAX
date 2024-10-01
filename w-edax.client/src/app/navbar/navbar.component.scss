@@ -143,10 +143,11 @@
   text-align: center;
   transition: background-color 0.2s ease, transform 0.3s ease, opacity 0.3s ease;
   right: 0;
-  
-  li{
-      list-style: none;
+
+  li {
+    list-style: none;
   }
+
   .navbar-nav {
     flex-direction: row;
     justify-content: space-evenly;
@@ -166,12 +167,12 @@
     font-size: 22px;
     font-weight: 400;
     padding: 5px;
-    transition: color 0.2s ease, letter-spacing 0.2s ease-in-out;
+    transition: color 0.2s ease;
   }
 
   .nav-link:hover {
     color: var(--primary-color); // Use primary color on hover
-    letter-spacing: 2px;
+    text-decoration: wavy;
   }
 
   &.sticky {

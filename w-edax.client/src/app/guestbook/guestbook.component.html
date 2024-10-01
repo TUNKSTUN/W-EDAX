@@ -2,23 +2,26 @@
   <div class="content-lx">
     <h2>Guest Book</h2>
     <p>
-      Welcome to the W2EDAX community guestbook! Share your thoughts, insights, and feedback on ethical hacking and cloud security.
-      After logging in through GitHub, feel free to leave a message—whether it's a question, a comment, or an experience.
-      Together, let's build a stronger cybersecurity community.
+      Welcome to the vibrant W²EDAX community guestbook! We invite you to share your thoughts, insights, and experiences on ethical hacking and cloud security. Once you log in via GitHub, unleash your creativity and drop us a message—whether it's a burning question, a thoughtful comment, or an inspiring story. Together, let’s forge a stronger and more resilient cybersecurity community!
     </p>
+    <div class="login-button">
+      <button (click)="toggleAuth()" class="github-button">
+        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login' }}</span>
+        <span *ngIf="isLoading" class="loading-dots">...</span>
+      </button>
+      <div *ngIf="!isLoading" class="user-name">
+        <img *ngIf="profilePicUrl && !isLoading" [src]="profilePicUrl" alt="Profile Picture" />
+        <p *ngIf="!isLoading">{{ IsLoggedIn ? username : 'Please login' }}</p>
+      </div>
+
+    </div>
     <br />
 
     <h3>Contribute Articles</h3>
     <p>
-      If you're passionate about sharing your knowledge, contact us at
-      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> to contribute articles on cybersecurity or ethical hacking.
+      Are you passionate about cybersecurity or ethical hacking? Join us in spreading knowledge! Reach out to us at
+      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> if you'd like to contribute articles and share your expertise with our community.
     </p>
-    <div class="login-button">
-      <button (click)="toggleAuth()" class="github-button">
-        <span *ngIf="isLoading" class="loading-dots">...</span>
-        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login with GitHub' }}</span>
-      </button>
-    </div>
 
 
   </div>
@@ -87,12 +90,12 @@
               </button>
             </div>
           </div>
-        </div>
 
         <!-- Send Button -->
-        <button (click)="submitMessage()" [disabled]="!IsLoggedIn || !messageContent.trim()">
+        <button class="send-button" (click)="submitMessage()" [disabled]="!IsLoggedIn || !messageContent.trim()">
           <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send
         </button>
+        </div>
       </div>
     </div>
   </div>

@@ -1,23 +1,43 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, AfterViewInit, Renderer2, ElementRef, OnDestroy } from '@angular/core';
-import contentJson from '../assets/content.json'; // Use default import for JSON
-import { NgFor } from '@angular/common';
+import { Component, AfterViewInit, Renderer2, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import contentJson from '../assets/content.json';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-about',
-  imports:[NgFor],
+  imports: [NgFor, CommonModule],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
   standalone: true,
 })
-export class AboutComponent implements AfterViewInit, OnDestroy {
+export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   private scrollHandler: (() => void) | undefined;
-  public content: any = contentJson; // Bind the JSON content here
+  public content: any = contentJson;
+  public frontImageSrc: string = '';
+  public backImageSrc: string = '';
 
-  constructor(private renderer: Renderer2, private el: ElementRef) { }
+  constructor(private renderer: Renderer2, private el: ElementRef, private http: HttpClient) { }
+
+  ngOnInit() {
+    this.loadImages();
+  }
+
+  private loadImages() {
+    // Load front image
+    this.http.get('assets/images/yahya-pix.png', { responseType: 'blob' })
+      .subscribe(blob => {
+        this.frontImageSrc = URL.createObjectURL(blob);
+      });
+
+    // Load back image (Signal icon)
+    this.http.get('assets/images/signal.png', { responseType: 'blob' })
+      .subscribe(blob => {
+        this.backImageSrc = URL.createObjectURL(blob);
+      });
+  }
 
   ngAfterViewInit() {
-    // Add class after a short delay
+    // Add class after a short delay  
     setTimeout(() => {
       const aboutSection = this.el.nativeElement.querySelector('.about');
       if (aboutSection) {

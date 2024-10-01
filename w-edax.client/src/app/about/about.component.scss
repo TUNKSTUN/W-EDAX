@@ -11,38 +11,37 @@ $hover-color-instagram: #f20276;
 $hover-color-linkedin: #0077b5;
 $hover-color-link: var(--primary-color);
 
-
 // about.component.scss
 .wavy-grid-container {
-  background-color: var(--card-background); 
-  width: 50vh;
-  height: 50vh;
+  background-color: var(--card-background);
+  width: 50vh; /* Adjust as needed */
+  height: 50vh; /* Adjust as needed */
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(70px, 10fr));
   grid-template-rows: repeat(auto-fill, minmax(70px, 10fr));
-  gap: 5px; // Adjust the gap between blocks
-  // Creating the wavy effect for the blocks
+  gap: 5px;
+
   & > div {
     align-items: center;
     justify-content: center;
-    background-color: var(--primary-color); // Semi-transparent green
+    background-color: var(--primary-color);
     left: 12px;
     top: 12px;
-    transform: rotate(45deg); // Initial rotation
+    transform: rotate(45deg);
     width: 70%;
-    height: 70%; // Adjust to fit within the grid
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%); // Diamond shape
-    position: relative; // Position relative to allow proper layering
+    height: 70%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
+    position: relative;
     border-radius: 200px;
-    transition: transform 0.5s ease; // Smooth transition for rotation
-    cursor: pointer; // Indicate that the blocks are clickable
-    // Gradient ripple effect on hover
+    transition: transform 0.5s ease;
+    cursor: pointer;
+
     &:hover {
-      transform: rotate(405deg); // Rotate to 360 degrees + 45 degrees from original
+      transform: rotate(405deg);
     }
   }
-  // Creating the wavy effect background
+
   &::before {
     content: '';
     position: absolute;
@@ -50,18 +49,18 @@ $hover-color-link: var(--primary-color);
     left: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient( 135deg, #00800033 0, #00800033 20px, #00800033 20px, #00800033 40px );
+    background: repeating-linear-gradient(135deg, #00800033 0, #00800033 20px, #00800033 20px, #00800033 40px);
     opacity: 1;
-    z-index: 1; // Place background behind the blocks
+    z-index: 1;
   }
 }
 
 .about {
-  padding: $padding -20px;
+  padding: 10px;
   text-align: start;
   justify-content: center;
   display: flex;
-  padding: 0 20px;
+  padding: 0 10px;
   flex-direction: column;
   align-items: center;
   font-family: "Courier New", monospace;
@@ -69,6 +68,7 @@ $hover-color-link: var(--primary-color);
 
 .about-content {
   display: flex;
+  flex-direction: row-reverse;
   padding: 30px;
   justify-content: space-between;
   margin: 0 auto;
@@ -79,7 +79,7 @@ $hover-color-link: var(--primary-color);
 
 .team-member p {
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .left-section, .right-section {
@@ -101,10 +101,16 @@ $hover-color-link: var(--primary-color);
   justify-content: center;
 }
 
-h2, h3 {
-  font-family: --font-pixel;
+h2 {
   font-family: "Pixelify Sans", sans-serif;
-  font-size: 36px;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+h3 {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 28px;
   font-weight: 400;
   color: var(--primary-color);
 }
@@ -129,108 +135,106 @@ h2, h3 {
 }
 
 .meet-author {
-  border-right: 2px groove var(--text-color);
   border-radius: 20px;
-  text-align: justify-all;
+  text-align: center;
+  background-color: var(--message-back);
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   display: flex;
   flex-direction: column;
-  margin-top: $padding;
-  width: auto;
-  border-bottom: 3px groove var(--text-color);
-  background-color: var(--card-background);
+  max-width: 80%;
+  min-width: 60%;
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: var(--text-color);
+  border: 6px var(--primary-color) groove;
 }
 
-// Team Member Styles
 .team-member {
   display: flex;
-  border-radius: 10px;
-  flex-direction: column;
-  max-width: 100%;
-  padding: 50px;
-  margin: 10px;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
   text-align: center;
-  background-color: var(--background-color);
+  background-color: none;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 3px var(--text-color) double;
+}
+
+.container {
+  perspective: 1200px;
+  margin: 50px;
+  width: 300px; // Set a fixed width for the container
+  height: 400px; // Set a fixed height for the container
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+
+  &.flipped {
+    transform: rotateY(180deg);
+  }
 }
 
 .image-container {
-  width: 250px;
-  height: 250px;
-  overflow: hidden;
-  margin-bottom: 20px;
+  width: 60%;
+  height: 100%;
+  position: relative;
+  overflow: hidden; // Hide any overflow
+}
+
+.front, .back {
+  position: absolute;
+  border: 2px solid var(--primary-color);
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden; // Hide any overflow
+}
+
+.front {
+  z-index: 2;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background-color: lightblue;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border: solid 2px var(--primary-color)
+  object-fit: cover; // This will cover the entire area, cropping if necessary
+  border-radius: 10px;
 }
 
 .meet-author h2 {
-  font-size: 36px;
+  font-size: 32px;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   font-size: 3rem;
-
 }
 
 .team-member h3 {
-  margin-top: 10px;
-  font-size: 36px;
+  font-size: 50px;
+  color: var(--text-color);
 }
 
 .team-member p {
   max-width: 600px;
-  margin-bottom: 20px;
+  padding: 0 10px;
   text-align: justify;
-}
-
-// Icons Section Styles
-.icons {
-  display: flex;
-  justify-content: space-between;
-  width: auto;
-  gap: 15px;
-  border-radius: 5px;
-  align-items: center;
-}
-
-.socials {
-  margin-top: 5px;
-  color: var(--text-color);
-}
-
-.icons i {
-  color: var(--text-color);
-  font-size: $icon-size + 10px;
-  transition: color $transition-duration ease, transform $transition-duration ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  &.signal:hover {
-    color: $hover-color-signal;
-  }
-
-  &.instagram:hover {
-    color: $hover-color-instagram;
-  }
-
-  &.linkedin:hover {
-    color: $hover-color-linkedin;
-  }
-
-  &.link:hover {
-    color: $hover-color-link
-  }
 }
 
 // Responsive Design
@@ -242,6 +246,31 @@ h2, h3 {
     & > div {
       left: 10px;
     }
+  }
+  .meet-author{
+      margin: 5px;
+      width:100%;
+      max-width: 100%;
+      padding: 10px;
+  }
+
+  .meet-author h2{
+      font-size: 2rem;
+  }
+  .container {
+    width: 250px; // Smaller container for mobile
+    height: 350px;
+  }
+  .image-container{
+      width: auto;
+  }
+  .image-container img {
+    max-width: none; // Remove max-width constraint
+  }
+
+  .team-member p {
+    text-align: center;
+    font-size: 14px;
   }
 
   .about-content {
@@ -255,46 +284,29 @@ h2, h3 {
 
   .meet-author {
     width: 100%;
-    .team-member{
-        padding: 20px;
+
+    .team-member {
+      padding: 20px;
+      flex-direction: column;
     }
-    image-container{
-        margin-bottom: 0;
-        padding: 10px;
+
+    h3 {
+      font-size: 2rem;
+      margin: 0;
     }
-    img{
-        max-width: 80%;
-        max-height: 80%;
-        margin: 0;
-    }
-    h3{
-        font-size: 2rem;
-        margin: 0;
-    }
-    p{
-        margin-top: 10px;
+
+    p {
+      margin-top: 10px;
     }
   }
-
-  .icons i {
-    font-size: $icon-size - 10;
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 0;
   }
-
-  .icons {
-    width: 50%;
-  }
-
-  .history {
-    gap: 0;
-  }
-}
-
-.container-socials {
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  gap: 20px;
-  align-items: center;
 }
 
 .website {
@@ -303,62 +315,38 @@ h2, h3 {
   padding: 0;
 }
 
-img {
-  border-style: groove;
-  border-width: 1px;
-  border-color: var(--background-color);
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background-color: var(--primary-color);
-}
-
-.container {
-  perspective: 1000px; /* Adding perspective for a 3D effect */
-}
-
-.image {
-  width: 220px; /* Adjust size as needed */
-  height: 220px; /* Adjust size as needed */
-  position: relative;
-  transition: transform 0.6s; /* Smooth transition */
-  transform-style: preserve-3d; /* Preserve 3D style */
-}
-
-.image.flipped {
-  transform: rotateY(180deg); /* Flip horizontally */
-}
-
-.image-face {
-  position: absolute;
-  backface-visibility: hidden; /* Hide the back face */
-  width: 100%; /* Make image fill the container */
-  height: 100%; /* Make image fill the container */
-  display: flex; /* Center content */
-  justify-content: center; /* Center content */
-  align-items: center; /* Center content */
-}
-
-.front {
-  /* Front side specific styles */
-}
-
-.back {
-  transform: rotateY(180deg); /* Rotate back side */
-  text-align: center; /* Center text */
-  background-color: none;
-}
-
 .social-media a {
   flex-direction: column;
-  display: flex; /* Stack social links vertically */
-  margin: 5px 0; /* Space between links */
-  text-decoration: none; /* Remove underline */
-  color: #007bff; /* Link color */
+  display: flex;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #007bff;
   border-radius: 100%;
   align-items: center;
+  justify-content: center;
 }
 
-.social-media a:hover {
-  text-decoration: underline; /* Add underline on hover */
+.social-media {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: var(--background-color-oppo);
+}
+
+.social-media img {
+  width: 100%;
+  height: auto; // Maintain aspect ratio
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
 }

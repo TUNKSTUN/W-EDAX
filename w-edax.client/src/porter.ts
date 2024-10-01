@@ -9,7 +9,7 @@ const getContainerPort = (containerName: string): Promise<string | null> => {
       console.log(`Running Docker command to get port mapping for container: ${containerName}`);
       exec(`docker port ${containerName}`, (error: Error | null, stdout: string, stderr: string) => {
         if (error) {
-          console.error(`Error getting container port: ${stderr}`);
+          console.error(`Error getting container port for ${containerName}: ${stderr}`);
           return reject(null);
         }
         const output = stdout.trim();
@@ -17,11 +17,11 @@ const getContainerPort = (containerName: string): Promise<string | null> => {
         if (match) {
           resolve(match[1]);
         } else {
-          console.error('Could not find port in Docker output');
+          console.error(`Could not find port in Docker output for ${containerName}`);
           reject(null);
         }
       });
-    }, 100);
+    }, 5000);
   });
 };
 
@@ -72,16 +72,21 @@ module.exports = PROXY_CONFIG;
 };
 
 (async () => {
-  const containerName = 'W-EDAX.Server_1' || 'W-EDAX.Server'; // Replace with your container name
-  try {
-    const port = await getContainerPort(containerName);
-    if (port) {
-      updateEnvironmentFile(port);
-      updateProxyConfFile(port);
-    } else {
-      console.log('Failed to get the container port.');
+  const containerNames = ['W-EDAX.Server_1', 'W-EDAX.Server']; // Check both container names
+
+  for (const containerName of containerNames) {
+    try {
+      const port = await getContainerPort(containerName);
+      if (port) {
+        console.log(`Port found for container ${containerName}: ${port}`);
+        updateEnvironmentFile(port);
+        updateProxyConfFile(port);
+        break; // Exit loop if a valid port is found
+      }
+    } catch (error) {
+      console.error(`Failed to get port for ${containerName}:`, error);
     }
-  } catch (error) {
-    console.error('An error occurred:', error);
   }
+
+  console.log('Finished checking containers.');
 })();

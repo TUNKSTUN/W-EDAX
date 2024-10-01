@@ -6,6 +6,8 @@ using Serilog.Events;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using FireSharp.Config;
 using FireSharp.Interfaces;
+using FluentEmail.Core;
+using FluentEmail.Mailgun;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,15 @@ builder.Services.AddSingleton<IFirebaseClient>(provider =>
 // Register services
 builder.Services.AddTransient<ArticleService>();
 builder.Services.AddTransient<GuestBookService>();
+builder.Services.AddTransient<EmailService>(); 
+
+
+// Register Mailgun sender
+var sender = new MailgunSender(
+    builder.Configuration["Mailgun:Domain"], // Mailgun Domain
+    builder.Configuration["Mailgun:ApiKey"]  // Mailgun API Key
+);
+Email.DefaultSender = sender; // Set the default sender for FluentEmail
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -82,7 +93,6 @@ app.UseStaticFiles();
 
 // Use CORS before routing
 app.UseCors("AllowAll");
-
 
 app.UseAuthentication();
 app.UseAuthorization();

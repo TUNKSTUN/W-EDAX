@@ -5,14 +5,20 @@
     <p [ngClass]="{ 'fade-out': fadeOut, 'fade-in': fadeIn }">- {{ currentQuote.author }}</p>
   </div>
 
-
   <div class="form-section">
     <h2>Get in touch</h2>
-    <form>
-      <input type="text" id="name" name="name" placeholder="Name" required>
-      <input type="email" id="email" name="email" required placeholder="Enter your Email">
-      <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Name" required>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required placeholder="Enter your Email">
+      <textarea id="message" name="message" [(ngModel)]="message" required placeholder="Your Message"></textarea>
       <button type="submit">Send Message</button>
     </form>
+
+    <div *ngIf="showSuccessMessage" class="success-message">
+      Email sent successfully!
+    </div>
+    <div *ngIf="showErrorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
   </div>
 </div>

@@ -24,7 +24,6 @@
   transform: translateY(20px); // Start with a bit of offset
   margin-bottom: 40px;
 
-
   &.loaded {
     opacity: 1;
     transform: translateY(0); // Smoothly animate to final position
@@ -99,7 +98,7 @@
       transition: transform 0.3s, box-shadow 0.3s; /* Add hover effect */
 
       &:hover {
-        transform: translateY(-5px); /* Lift effect on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
       }
 
@@ -132,7 +131,6 @@
   margin-top: 20px;
   text-align: center;
   border: 1px solid var(--text-color);
-
 
   h3 {
     font-size: 2rem;
@@ -169,8 +167,9 @@
   h3 {
     font-size: 22px;
   }
-  p{
-      font-size: 14px;
+
+  p {
+    font-size: 14px;
   }
 }
 
@@ -274,7 +273,7 @@
     }
 
     .section-description {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: var(--text-color); // Use theme text color
       max-width: 800px;
       margin: 0 auto;
@@ -285,13 +284,14 @@
     text-align: center;
 
     .main-heading {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: var(--primary-color); // Use theme text color
       margin-bottom: 10px;
+      font-family: "Pixelify Sans", sans-serif;
     }
 
     .main-description {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--text-color); // Use theme text color
       line-height: 1.6;
     }
@@ -303,105 +303,423 @@
     gap: 10px;
     justify-content: center;
     width: auto;
+    justify-content: center;
+    align-items: center;
 
     .card {
-      background: var(--background-color); // Use theme background color
-      border-radius: 8px;
-      border-bottom: 3px groove lightgray;
-      border-right: 2px groove lightgray;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: auto;
-      max-width: 300px;
-      text-align: center;
+      max-width: 60%;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
-
-      .card-title {
+      padding: 10px;
+      width: 100%;
+      background: var(--card-background); // Use theme background color
+      border-radius: 8px;
+      color: var(--text-color);
+      border: 1px groove gray;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s; /* Hover effect */
+      .card-title{
+        font-family: "Pixelify Sans", sans-serif;
         font-size: 1.5rem;
-        color: var(--primary-color); // Use theme text color
-        margin-bottom: 10px;
       }
 
       .card-description {
-        font-size: 1rem;
-        color: var(--text-color); // Use theme text color
-        margin-bottom: 20px;
-      }
 
-      .card-button {
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: background-color 0.3s;
-        margin-top: auto; // Push button to the bottom of the card
-        cursor: pointer;
-
-        &:hover {
-          background-color: var(--hover); // Use hover color
-        }
       }
 
       &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
-        transform: scale(.9999); // Slightly scale up for a smooth effect
-        border: 1px solid var(--background-color);
+        transform: translateY(-1px); /* Lift effect */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+      }
+
+      a {
+        text-decoration: none;
+        border-radius: 10px;
+        background-color: var(--primary-color);
+        color: var(--text-color-oppo);
+        border-bottom: 1px solid var(--text-color-oppo);
+        border-right: 2px solid var(--text-color-oppo);
+        transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+
+        &:hover { // Fixed the selector by adding the missing '&' symbol
+          background-color: var(--hover);
+          border: 1px solid gray;
+        }
+      }
+
+      img {
+        height: 150px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0; /* Round corners at the top */
+      }
+
+      h3 {
+        font-family: "Pixelify Sans", sans-serif;
+        color: var(--primary-color); // Use theme text color
+        padding: 10px;
+        font-size: 1.4rem;
+      }
+
+      p {
+        padding: 0 10px 10px 10px;
+        font-size: 1rem;
+        color: var(--text-color); // Use theme text color
       }
     }
   }
 }
+  .main-description{
+      margin-bottom: 40px;
+  }
+  .section-description{
 
+  }
+
+/* Styles for screens up to 991px */
 @media (max-width: 991px) {
-  .article-card {
-    flex: 0 1 calc(50% - 16px);
-  }
-
-  h3, h2 {
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 576px) {
-  .article-card {
-    flex: 0 1 100%;
-    max-width: 100%;
-  }
 
   .home-page {
-    flex-direction: column;
+    flex-direction: column; // Stack left and right sections vertically
+    padding: 10px; // Reduce padding for smaller screens
+    align-items: center;
   }
 
-  .left-section,
-  .right-section {
-    max-width: 100%;
-    padding: 16px;
+  .left-section {
+    width: 100%; // Full width for left section
+    padding: 10px; // Adjust padding for smaller screens
+    .article-grid {
+      display: flex;
+      flex-direction: column; // Stack articles vertically
+      gap: 16px; // Space between articles
+
+      a {
+        text-decoration: none; // Remove underline from links
+      }
+
+      .big-article-card {
+        width: 100%; // Full width for big article card
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 16px; // Padding inside the card
+        background-color: var(--card-background);
+      }
+
+      .small-article-card {
+        width: 100%; // Full width for small article cards
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 10px; // Padding inside the card
+        background-color: var(--card-background);
+      }
+    }
   }
 
   .right-section {
-    border-left: none;
-    margin-bottom: 20px;
+    max-width: 80%;
+    margin-top: 20px; // Add margin for separation
+    align-items: center;
+    justify-content: center;
+    .hot-articles-container {
+      padding: 10px; // Adjust padding for mobile
+      width: 80%;
+      .article-cards {
+        flex-direction: column; // Stack article cards vertically
+        gap: 10px; // Space between article cards
+
+        .article-card {
+          display: flex;
+          padding: 10px; // Adjust padding for smaller screens
+          border: 1px solid #e0e0e0; // Optional border
+          border-radius: 8px; // Rounded corners
+          background-color: #ffffff; // Background color
+        }
+      }
+    }
   }
+
+  .banner {
+      margin-top: 20px;
+    height: 80vh; // Adjust height for tablet
+    padding: 20px; // Reduce padding in banner
+  }
+
+  .topic-articles-section {
+    padding: 10px; // Adjust padding for mobile
+    margin-top: 50px;
+
+    .topic-articles-cards {
+      display: flex; // Enable flexbox for card layout
+      flex-direction: column; // Stack topic article cards vertically on smaller screens
+      gap: 8px; // Space between cards
+
+      @media (min-width: 577px) { // Styles for screens above 576px
+        flex-direction: row; // Arrange cards in a row
+        flex-wrap: wrap; // Allow wrapping to next line if needed
+
+        .card {
+          margin-top: 10px;
+          width: calc(66% - 10px); // 3 cards per row, accounting for gap
+          height: 200px; // Fixed height for square shape
+          margin: 0 5px; // Horizontal spacing between cards
+        }
+      }
+
+      @media (max-width: 576px) { // Styles for screens up to 576px
+        .card {
+          width: 100%; // Full width for each card on mobile
+          height: 200px; // Fixed height for square shape
+        }
+      }
+
+      .card {
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 12px; // Padding inside the card
+        height: auto;
+        background-color: var(--message-back); // Background color
+        display: flex; // Flexbox for content alignment
+        flex-direction: column; // Vertical alignment of content
+        justify-content: space-between; // Space between title and content
+
+        a {
+          text-decoration: none;
+          background-color: var(--primary-color);
+          border-radius: 10px;
+          color: var(--text-color-oppo);
+          border-bottom: 1px solid var(--text-color-oppo);
+          border-right: 2px solid var(--text-color-oppo);
+          transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+
+          &:hover { // Fixed the selector by adding the missing '&' symbol
+            background-color: var(--hover);
+            border: 1px solid gray;
+          }
+        }
+        // Inner content styling
+        .card-title {
+          font-size: 1.2rem; // Title size
+          color: var(--primary-color); // Theme color
+          margin-bottom: 10px; // Space below title
+          text-overflow: ellipsis;
+        }
+
+        .card-description {
+          font-size: 0.9rem; // Description size
+          color: var(--text-color); // Theme text color
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
 }
 
-@media (max-width: 767px) {
-  .topic-articles-cards .card {
-    width: 100%;
-    display: flex;
+/* Styles for screens up to 576px */
+@media (max-width: 576px) {
+  .home-page {
+    flex-direction: column; // Stack left and right sections vertically
+    padding: 10px; // Reduce padding for smaller screens
   }
 
-  .topic-articles-cards {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  .left-section {
+    width: 100%; // Full width for left section
+    padding: 10px; // Adjust padding for mobile
+    .article-grid {
+      display: flex;
+      flex-direction: column; // Stack articles vertically
+      gap: 10px; // Space between articles
+
+      a {
+        text-decoration: none; // Remove underline from links
+      }
+
+      .big-article-card {
+        width: 100%; // Full width for big article card
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 16px; // Padding inside the card
+        background-color: var(--card-background);
+      }
+      .small-article-card {
+        width: 100%; // Full width for small article cards
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 10px; // Padding inside the card
+        background-color: var(--card-background);
+      }
+    }
   }
+
+  .right-section {
+    width: 100%; // Full width for right section
+    margin-top: 20px; // Add margin for separation
+    .hot-articles-container {
+      padding: 8px; // Adjust padding for mobile
+      .article-cards {
+        flex-direction: column; // Stack article cards vertically
+        gap: 8px; // Space between article cards
+
+        .article-card {
+          flex: 1 1 100%; // Full width for each article card
+          padding: 10px; // Adjust padding for smaller screens
+          border: 1px solid #e0e0e0; // Optional border
+          border-radius: 8px; // Rounded corners
+          background-color: #ffffff; // Background color
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: 80vh; // Adjust height for mobile
+    padding: 10px; // Reduce padding in banner
+  }
+
+  .topic-articles-section {
+    padding: 10px; // Adjust padding for mobile
+
+    .topic-articles-cards {
+      display: flex; // Enable flexbox for card layout
+      flex-direction: column; // Stack topic article cards vertically on smaller screens
+      gap: 8px; // Space between cards
+
+      @media (min-width: 577px) { // Styles for screens above 576px
+        flex-direction: row; // Arrange cards in a row
+        flex-wrap: wrap; // Allow wrapping to next line if needed
+
+        .card {
+          width: calc(33.33% - 10px); // 3 cards per row, accounting for gap
+          height: 200px; // Fixed height for square shape
+          margin: 0 5px; // Horizontal spacing between cards
+        }
+      }
+
+      @media (max-width: 576px) { // Styles for screens up to 576px
+        .card {
+          width: 100%; // Full width for each card on mobile
+          height: 200px; // Fixed height for square shape
+        }
+      }
+
+      .card {
+        border: 1px solid #e0e0e0; // Optional border
+        border-radius: 8px; // Rounded corners
+        padding: 12px; // Padding inside the card
+        background-color: var(--message-back); // Background color
+        display: flex; // Flexbox for content alignment
+        flex-direction: column; // Vertical alignment of content
+        justify-content: space-between; // Space between title and content
+        card-title {
+          font-family: "Pixelify Sans", sans-serif;
+        }
+
+        a {
+          text-decoration: none;
+          background-color: var(--primary-color);
+          color: var(--text-color-oppo);
+          border-radius: 10px;
+          border-bottom: 1px solid var(--text-color-oppo);
+          border-right: 2px solid var(--text-color-oppo);
+          transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+
+          &:hover { // Fixed the selector by adding the missing '&' symbol
+            background-color: var(--hover);
+            border: 1px solid gray;
+          }
+        }
+        // Inner content styling
+        .card-title {
+          font-size: 1.2rem; // Title size
+          color: var(--primary-color); // Theme color
+          margin-bottom: 10px; // Space below title
+        }
+
+        .card-description {
+          font-size: 0.9rem; // Description size
+          color: var(--text-color); // Theme text color
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
 }
-/* Add these styles to your existing home.component.scss file */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Skeleton Loader Styles */
 .skeleton {

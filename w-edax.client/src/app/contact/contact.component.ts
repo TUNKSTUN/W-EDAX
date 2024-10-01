@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import * as InspireJson from '../assets/Inspire.json';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -14,11 +16,23 @@ export class ContactComponent implements OnInit, OnDestroy {
   currentQuote!: { text: string, author: string, pic: string };
   private quoteIndex = 0;
   private interval: any;
-  public fadeOut: boolean = false; // Control fade-out state
-  public fadeIn: boolean = true; // Control fade-in state
+  public fadeOut: boolean = false;
+  public fadeIn: boolean = true;
+
+  // Form model
+  public name: string = '';
+  public email: string = '';
+  public message: string = '';
+
+  // Success and error message visibility
+  public showSuccessMessage: boolean = false;
+  public showErrorMessage: boolean = false;
+  public errorMessage: string = '';
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.quotes = InspireJson.currentQuote; // Ensure this points to the correct array
+    this.quotes = InspireJson.currentQuote;
     if (this.quotes.length > 0) {
       this.currentQuote = this.quotes[0];
       this.preloadImages();
@@ -35,27 +49,62 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   startQuoteCycle() {
     this.interval = setInterval(() => {
-      this.fadeOut = true; // Trigger fade-out
-
-      // Delay to allow for fade-out duration
+      this.fadeOut = true;
       setTimeout(() => {
         this.quoteIndex = (this.quoteIndex + 1) % this.quotes.length;
         this.currentQuote = this.quotes[this.quoteIndex];
 
-        this.fadeOut = false; // Reset fade-out
-        this.fadeIn = true; // Trigger fade-in
-
-        // Delay to allow for fade-in duration
+        this.fadeOut = false;
+        this.fadeIn = true;
         setTimeout(() => {
-          this.fadeIn = false; // Reset fade-in
-        }, 1000); // Delay for fade-in duration
-      }, 1000); // Delay for fade-out duration
-    }, 6000); // Change quote every 6 seconds
+          this.fadeIn = false;
+        }, 1000);
+      }, 1000);
+    }, 6000);
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
     }
+  }
+
+  // Method to handle form submission
+  onSubmit() {
+    const contactData = {
+      name: this.name,
+      email: this.email,
+      message: this.message,
+      timestamp: new Date().toISOString() // Optional: Add a timestamp
+    };
+
+    // Send contact data to the server via HTTP POST request
+    this.http.post('/api/Contact', contactData)
+      .subscribe({
+        next: () => {
+          console.log('Contact data sent successfully');
+          this.showSuccessMessage = true; // Show success message
+
+          // Hide the success message after 3 seconds
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+
+          // Reset the form
+          this.name = '';
+          this.email = '';
+          this.message = '';
+        },
+        error: (error) => {
+          console.error('Error sending contact data:', error);
+          this.showErrorMessage = true; // Show error message
+          this.errorMessage = 'Failed to send message. Please try again.'; // Set the error message
+
+          // Hide the error message after 3 seconds
+          setTimeout(() => {
+            this.showErrorMessage = false;
+          }, 3000);
+        }
+      });
   }
 }

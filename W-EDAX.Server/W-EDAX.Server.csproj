@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+	  <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2" />
 	  <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
     <PackageReference Include="Authentication.GitHub.Core" Version="1.0.0" />
     <PackageReference Include="FirebaseAdmin" Version="3.0.1" />

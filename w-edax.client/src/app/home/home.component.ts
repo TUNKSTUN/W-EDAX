@@ -93,12 +93,12 @@ export class HomeComponent implements OnInit {
   }
 
   private selectRandomTopArticles(): void {
-    const numberOfTopArticles = 2;
+    const numberOfTopArticles = 3;
     this.topArticles = this.shuffleArray(this.articles).slice(0, numberOfTopArticles);
   }
 
   private selectTopicSpecificArticles(): void {
-    const keywords = ['Cloud', 'Security'];
+    const keywords = ['Cloud', 'Security','Network Segmentation'];
     this.topicArticles = this.articles.filter(article =>
       article.articleHeadline?.trim() &&
       keywords.some(keyword => article.articleHeadline.includes(keyword))

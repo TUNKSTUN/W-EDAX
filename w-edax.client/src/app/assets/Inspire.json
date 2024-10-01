@@ -3,7 +3,7 @@
     {
       "text": "Security is not a product, but a process.",
       "author": "Bruce Schneier",
-      "pic": "https://www.schneier.com/wp-content/uploads/2015/12/Bruce-Schneier-by-Claudia-Miklas.print_-scaled.jpg"
+      "pic": "https://images-na.ssl-images-amazon.com/images/S/amzn-author-media-prod/ejnr2m3msb9b5n6sng8obi20qu.jpg"
     },
     {
       "text": "The only safe system is one that's powered off, cast in a block of concrete and sealed in a lead-lined room.",
@@ -28,7 +28,7 @@
     {
       "text": "Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources.",
       "author": "NIST",
-      "pic": "https://cdn-ejfle.nitrocdn.com/oInbuPPgblAlCTrvNNwHoRPtxRxHbdKV/assets/images/optimized/rev-e2e6580/www.securitycompass.com/wp-content/uploads/NIST-Logo-300x300.png"
+      "pic": "https://www.neumetric.com/wp-content/uploads/2022/02/what-is-nist-removebg-preview.png"
     },
     {
       "text": "Privacy and security are those things you give up when you show the world what makes you extraordinary.",
@@ -38,7 +38,7 @@
     {
       "text": "If you spend more on coffee than on IT security, you will be hacked. What's more, you deserve to be hacked.",
       "author": "Richard Clarke",
-      "pic": "http://www.paladincapgroup.com/wp-content/uploads/2016/08/RAC1-1.jpg"
+      "pic": "https://www.paladincapgroup.com/wp-content/uploads/2016/08/RAC1-1.jpg"
     },
     {
       "text": "Ethical hacking is a key component of cybersecurity in the 21st century.",
@@ -58,7 +58,7 @@
     {
       "text": "Hacking is not a crime; it's a methodology.",
       "author": "Anonymous",
-      "pic": "https://www.innocentlivesfoundation.org/core/uploads/2024/06/Chris-Head-Shot-2-1024x1024.png"
+      "pic": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231a1a1a' /%3E%3Ccircle cx='50' cy='35' r='18' fill='none' stroke='%2333ff33' stroke-width='4' /%3E%3Cpath d='M28 70 Q50 90 72 70' fill='none' stroke='%2333ff33' stroke-width='4' /%3E%3Cpath d='M50 53 L50 80' stroke='%2333ff33' stroke-width='4' /%3E%3C/svg%3E"
     },
     {
       "text": "In the cloud, we trust but verify.",
@@ -68,7 +68,7 @@
     {
       "text": "It's not a matter of if, but when.",
       "author": "Anonymous",
-      "pic": "https://www.shutterstock.com/image-vector/man-silhouette-profile-picture-vector-600nw-151265393.jpg"
+      "pic": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231a1a1a' /%3E%3Ccircle cx='50' cy='35' r='18' fill='none' stroke='%2333ff33' stroke-width='4' /%3E%3Cpath d='M28 70 Q50 90 72 70' fill='none' stroke='%2333ff33' stroke-width='4' /%3E%3Cpath d='M50 53 L50 80' stroke='%2333ff33' stroke-width='4' /%3E%3C/svg%3E"
     }
   ]
 }
