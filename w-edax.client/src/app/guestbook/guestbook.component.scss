@@ -344,6 +344,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align:center;
   font-family: "Pixelify Sans", sans-serif;
   font-weight: 400;
   padding: 5px;
@@ -357,8 +358,7 @@
   border-radius: 10px;
   padding: 10px;
   height: auto;
-  border: 1px solid var(--primary-color);
-
+  background-color: var(--message-back);
   img {
     border-radius: 4px;
     width: 40px;

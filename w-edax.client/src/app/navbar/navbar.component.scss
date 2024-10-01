@@ -12,6 +12,7 @@
   font-family: "Pixelify Sans", sans-serif;
   font-weight: 400;
   display: flex;
+  display: flex;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -32,6 +33,7 @@
     display: inline-flex;
     font-family: 'Courier New', monospace;
     font-style: oblique;
+    font-size: 0.8rem;
     color: var(--primary-text-color);
     width: auto; /* Use auto width for better text and blinker management */
     z-index: 100;
@@ -60,16 +62,18 @@
 
 
 .logo-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    text-align: start;
-    padding: 0;
-    margin: 0;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: start;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-
+.navbar-top .nav-link{
+    width: 100%;
+}
 .navbar-top .nav-link i {
     font-size: 26px;
     margin-right: 5px;
@@ -131,9 +135,6 @@
 /* Navbar bottom styles */
 .navbar-bottom {
   background-color: var(--background-color);
-  padding: 10px;
-  border-top: 1px solid var(--border-color); // Use border color variable
-  border-bottom: 1px solid var(--border-color); // Use border color variable
   width: 100%;
   z-index: 1000;
   display: flex;

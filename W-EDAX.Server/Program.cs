@@ -53,14 +53,25 @@ var sender = new MailgunSender(
 Email.DefaultSender = sender; // Set the default sender for FluentEmail
 
 // Add CORS
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll",
+//        builder => builder
+//            .AllowAnyOrigin()
+//            .AllowAnyMethod()
+//            .AllowAnyHeader());
+//});
+
+// Add CORS services
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .AllowAnyOrigin()
+            .WithOrigins("https://w2edax.com") // Specify the allowed origin(s)
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
 
 // Add services to the DI container
 builder.Services.AddControllers();
@@ -88,11 +99,14 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); //uncomment to use ssl
 app.UseStaticFiles();
 
 // Use CORS before routing
-app.UseCors("AllowAll");
+//app.UseCors("AllowAll");
+// Use CORS before routing
+app.UseCors("AllowSpecificOrigin");
+
 
 app.UseAuthentication();
 app.UseAuthorization();

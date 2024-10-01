@@ -43,7 +43,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --background-color-1: rgb(69, 92, 96);
   --hover: #16a500;
   --text-color-oppo: #dff6ff;
-  --message-back: hsl(144, 22%, 49%);
+  --message-back: linear-gradient(135deg, hsl(144, 42%, 70%), hsl(144, 42%, 50%));
   --card-background: #b0eb8a;
   --data-red: #ab0000;
   --data-blue: #0029b6;
@@ -51,9 +51,9 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
 }
 
 .dark-theme {
-  --background-color: #1e1e1e;
+  --background-color: #100f0f;
   --background-color-oppo: #d8d8d8;
-  --text-color-oppo: #dff6ff;
+  --text-color-oppo: #dff6ff; 
   --text-color: #ffffff;
   --primary-color: #59e900;
   --primary-color-oppo: #41aa00;
@@ -61,8 +61,8 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --background-color-1: rgb(117, 160, 167);
   --hover: rgb(22, 168, 0);
   --text-color-oppo: #272727;
-  --message-back: rgb(22, 37, 29);
-  --card-background: #374b2b;
+  --message-back: linear-gradient(135deg, rgb(32, 47, 39), rgb(12, 27, 19));
+  --card-background: #26331f;
   --data-red: #ff7474;
   --data-blue: #7393ff;
   --dark-d: #08160b;

@@ -159,14 +159,15 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   }
 
   onArticleClick(relatedArticleId: string) {
-    this.isLoading = true; // Start loading again
+    this.isLoading = true;
+    window.scrollTo(0, 0); // Reset scroll position when clicking on a related article
     if (this.preloadedArticles[relatedArticleId]) {
       this.article = this.preloadedArticles[relatedArticleId];
       this.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.article.articleContent?.content || '');
-      // Do not set isLoading to false here to keep the loader active
+      this.isLoading = false;
     } else {
       this.articleId = relatedArticleId;
-      this.loadArticleData(); // Load the selected article
+      this.loadArticleData();
     }
   }
 

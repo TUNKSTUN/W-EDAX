@@ -307,24 +307,26 @@
     align-items: center;
 
     .card {
-      max-width: 60%;
+      max-width: 30%;
       margin-top: 10px;
       display: flex;
       flex-direction: column;
       padding: 10px;
-      width: 100%;
-      background: var(--card-background); // Use theme background color
+      width: 20%;
+      background: var(--message-back); // Use theme background color
       border-radius: 8px;
       color: var(--text-color);
       border: 1px groove gray;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s; /* Hover effect */
-      .card-title{
+      .card-title {
         font-family: "Pixelify Sans", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        color: var(--primary-color)
       }
 
       .card-description {
+          font-size: 0.8rem
 
       }
 
@@ -334,18 +336,32 @@
       }
 
       a {
-        text-decoration: none;
-        border-radius: 10px;
+        display: inline-block;
+        position: relative;
+        margin-top: 0px;
+        height: 42px;
+        max-width: 100%;
+        padding: 10px 20px;
+        font-size: 0.9rem;
         background-color: var(--primary-color);
         color: var(--text-color-oppo);
-        border-bottom: 1px solid var(--text-color-oppo);
-        border-right: 2px solid var(--text-color-oppo);
-        transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+        border-bottom: 3px solid var(--text-color-oppo);
+        border-right: 3px solid var(--text-color-oppo);
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, border 0.2s ease-in-out;
+      }
 
-        &:hover { // Fixed the selector by adding the missing '&' symbol
-          background-color: var(--hover);
-          border: 1px solid gray;
-        }
+      a:hover {
+        background-color: var(--hover);
+        color: var(--text-color-oppo);
+        border-top: 1px solid var(--hover);
+        border-left: 1px solid var(--hover);
+        border-bottom: 0.5px solid var(--text-color-oppo);
+        border-right: 0.5px solid var(--text-color-oppo);
       }
 
       img {
@@ -372,9 +388,6 @@
 }
   .main-description{
       margin-bottom: 40px;
-  }
-  .section-description{
-
   }
 
 /* Styles for screens up to 991px */
@@ -461,6 +474,7 @@
         .card {
           margin-top: 10px;
           width: calc(66% - 10px); // 3 cards per row, accounting for gap
+          max-width: 100%;
           height: 200px; // Fixed height for square shape
           margin: 0 5px; // Horizontal spacing between cards
         }
@@ -469,7 +483,8 @@
       @media (max-width: 576px) { // Styles for screens up to 576px
         .card {
           width: 100%; // Full width for each card on mobile
-          height: 200px; // Fixed height for square shape
+          height: auto; // Fixed height for square shape
+          text-overflow: ellipsis;
         }
       }
 
@@ -482,20 +497,36 @@
         display: flex; // Flexbox for content alignment
         flex-direction: column; // Vertical alignment of content
         justify-content: space-between; // Space between title and content
+        max-width: 100%;
+
 
         a {
-          text-decoration: none;
+          display: inline-block;
+          position: relative;
+          margin-top: 0px;
+          height: 42px;
+          max-width: 100%;
+          padding: 10px 20px;
+          font-size: 0.9rem;
           background-color: var(--primary-color);
-          border-radius: 10px;
           color: var(--text-color-oppo);
-          border-bottom: 1px solid var(--text-color-oppo);
-          border-right: 2px solid var(--text-color-oppo);
-          transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+          border-bottom: 3px solid var(--text-color-oppo);
+          border-right: 3px solid var(--text-color-oppo);
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          outline: none;
+          transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, border 0.2s ease-in-out;
+        }
 
-          &:hover { // Fixed the selector by adding the missing '&' symbol
-            background-color: var(--hover);
-            border: 1px solid gray;
-          }
+        a:hover {
+          background-color: var(--hover);
+          color: var(--text-color-oppo);
+          border-top: 1px solid var(--hover);
+          border-left: 1px solid var(--hover);
+          border-bottom: 0.5px solid var(--text-color-oppo);
+          border-right: 0.5px solid var(--text-color-oppo);
         }
         // Inner content styling
         .card-title {
@@ -509,6 +540,8 @@
           font-size: 0.9rem; // Description size
           color: var(--text-color); // Theme text color
           text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
@@ -593,6 +626,7 @@
           width: calc(33.33% - 10px); // 3 cards per row, accounting for gap
           height: 200px; // Fixed height for square shape
           margin: 0 5px; // Horizontal spacing between cards
+          max-width: 100%;
         }
       }
 
@@ -610,24 +644,40 @@
         background-color: var(--message-back); // Background color
         display: flex; // Flexbox for content alignment
         flex-direction: column; // Vertical alignment of content
+        max-width: 100%;
         justify-content: space-between; // Space between title and content
+
         card-title {
           font-family: "Pixelify Sans", sans-serif;
         }
 
         a {
-          text-decoration: none;
+          display: inline-block;
+          position: relative;
+          margin-top: 0px;
+          height: 42px;
+          max-width: 100%;
+          padding: 10px 20px;
+          font-size: 0.9rem;
           background-color: var(--primary-color);
           color: var(--text-color-oppo);
-          border-radius: 10px;
-          border-bottom: 1px solid var(--text-color-oppo);
-          border-right: 2px solid var(--text-color-oppo);
-          transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+          border-bottom: 3px solid var(--text-color-oppo);
+          border-right: 3px solid var(--text-color-oppo);
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          outline: none;
+          transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, border 0.2s ease-in-out;
+        }
 
-          &:hover { // Fixed the selector by adding the missing '&' symbol
-            background-color: var(--hover);
-            border: 1px solid gray;
-          }
+        a:hover {
+          background-color: var(--hover);
+          color: var(--text-color-oppo);
+          border-top: 1px solid var(--hover);
+          border-left: 1px solid var(--hover);
+          border-bottom: 0.5px solid var(--text-color-oppo);
+          border-right: 0.5px solid var(--text-color-oppo);
         }
         // Inner content styling
         .card-title {
@@ -640,6 +690,9 @@
           font-size: 0.9rem; // Description size
           color: var(--text-color); // Theme text color
           text-overflow: ellipsis;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
