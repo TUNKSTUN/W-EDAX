@@ -1,6 +1,14 @@
-<div class="book-container" *ngIf="books && books.length > 0">
-  <!-- First section for the featured book -->
-   <h1 class="heading">~ Books Review ~</h1>
+<div class="book-container" *ngIf="books && books.length > 0; else loadingSkeleton">
+  <div class="book-opener">
+    <h1 class="heading">~ Books Review ~</h1>
+    <p>
+      Welcome to the Books Review page, where I curate a selection of insightful reads.<br>
+      Although my reading may be limited, I am passionate about exploring good ideas and advancements.<br>
+      This space is dedicated to sharing my thoughts on books that have impacted my understanding of technology &amp; productivity.<br>
+      Join me in discovering valuable resources for enhancing your knowledge in this ever-evolving field.
+    </p>
+  </div>
+
   <section class="featured-book">
     <div class="left-container">
       <img [src]="selectedBook?.image" alt="{{ selectedBook?.title }}" class="book-image" />
@@ -20,7 +28,6 @@
     </div>
   </section>
 
-  <!-- Second section for the list of other books -->
   <section class="book-list">
     <h2>Other Books</h2>
     <div class="books-grid">
@@ -32,3 +39,41 @@
     </div>
   </section>
 </div>
+
+<!-- Skeleton loading state -->
+<ng-template #loadingSkeleton>
+  <div class="book-opener skeleton-opener">
+    <div class="skeleton skeleton-title"></div>
+    <div class="skeleton skeleton-paragraph"></div>
+    <div class="skeleton skeleton-paragraph"></div>
+    <div class="skeleton skeleton-paragraph"></div>
+  </div>
+
+  <div class="featured-book">
+    <div class="left-container">
+      <div class="skeleton skeleton-image"></div>
+      <div class="skeleton skeleton-title"></div>
+      <div class="book-meta-data skeleton-meta-data"> <!-- Adding skeleton for book metadata -->
+        <div class="skeleton skeleton-meta"></div>
+        <div class="skeleton skeleton-meta"></div>
+        <div class="skeleton skeleton-meta"></div>
+        <div class="skeleton skeleton-meta"></div>
+      </div>
+    </div>
+    <div class="right-container">
+      <h3 class="skeleton skeleton-title"></h3>
+      <div>
+        <div class="skeleton skeleton-meta"></div>
+        <div class="skeleton skeleton-meta"></div>
+        <div class="skeleton skeleton-meta"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="book-list">
+    <h2>Loading Other Books...</h2>
+    <div class="books-grid">
+      <div class="skeleton-item" *ngFor="let book of [1, 2, 3, 4, 5, 6]"></div>
+    </div>
+  </section>
+</ng-template>

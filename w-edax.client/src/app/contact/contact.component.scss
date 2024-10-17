@@ -62,12 +62,12 @@ h2 {
 
 .form-section button {
   margin-top: 20px;
-  max-width: 50%;
+  max-width: 80%;
   height: 50px;
   padding: 8px;
   background-color: var(--primary-color);
   color: var(--text-color-oppo);
-  border-bottom: 2px solid #fff; 
+  border-bottom: 2px solid #fff;
   border-right: 2px solid #fff;
   cursor: pointer;
   font-size: 0.9rem;
@@ -76,8 +76,8 @@ h2 {
 
 .form-section button:hover {
   background-color: var(--hover);
-  transform: translateY(2px); 
-  border-top: 2px solid var(--hover-dark); 
+  transform: translateY(2px);
+  border-top: 2px solid var(--hover-dark);
   border-left: 2px solid var(--hover-dark);
   border-bottom: 0.5px solid #fff;
   border-right: 0.5px solid #fff;

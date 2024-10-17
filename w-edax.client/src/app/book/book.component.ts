@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import booksJson from '../assets/books.json'; // Import the JSON file directly
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BookService, Book } from '../Services/book.service'; // Ensure correct path
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { delay } from 'rxjs/operators'; // Import delay operator
 
 @Component({
   selector: 'app-book',
@@ -9,20 +11,47 @@ import { CommonModule } from '@angular/common';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss'],
 })
-export class BookComponent implements OnInit {
-  public books = booksJson; // Directly assign the imported JSON
-  public selectedBook: any; // Variable to hold the selected book details
+export class BookComponent implements OnInit, OnDestroy {
+  public books: Book[] = [];
+  public selectedBook: Book | null = null;
+  public loading: boolean = true;
+  public error: string | null = null;
+  private subscription: Subscription = new Subscription();
 
-  constructor() {
-    // Set the initial selected book to the first one
-    this.selectedBook = this.books[0]; // Ensure this is the book you want as the featured one
-  }
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
-      }
+    this.loadBooks();
+  }
 
-  // Method to handle book selection
-  selectBook(book: any): void {
-    this.selectedBook = book; // Update selectedBook to the clicked book
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  loadBooks(): void {
+    this.loading = true;
+    const booksSubscription = this.bookService.getBooks()
+      .pipe(
+        delay(500) // Add a delay of 2 seconds
+      )
+      .subscribe({
+        next: (books: Book[]) => {
+          this.books = books;
+          this.selectedBook = this.books[0] || null;
+          this.loading = false;
+        },
+        error: (err: any) => {
+          this.error = 'Failed to load books.';
+          this.loading = false;
+        },
+      });
+
+    this.subscription.add(booksSubscription);
+  }
+
+  selectBook(book: Book): void {
+    this.selectedBook = book;
   }
 }
