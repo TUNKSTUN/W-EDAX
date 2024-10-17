@@ -9,6 +9,7 @@
   color: var(--text-color);
   font-family: "Courier New", monospace;
   box-sizing: border-box;
+  justify-content: center;
 
   @media (max-width: 991px) {
     flex-direction: column;
@@ -23,7 +24,6 @@
   width: 30%;
   color: var(--text-color);
 
-
   @media (max-width: 991px) {
     width: 100%;
     margin-bottom: 20px;
@@ -34,9 +34,10 @@
     font-size: 0.9rem;
   }
 
-  h2, h3 {
-    font-family: "Pixelify Sans", sans-serif;
-    font-size: 2.0rem;
+  h2,
+  h3 {
+    font-family: var(--font-pixel);
+    font-size: 2rem;
     font-weight: 400;
     color: var(--primary-color);
   }
@@ -56,7 +57,6 @@
   }
 }
 
-
 // Chatbox area (scrollable messages)
 .chatbox {
   max-height: 87.62%;
@@ -75,7 +75,7 @@
   position: relative; // Enable absolute positioning of child elements
   border-bottom: 1px dashed var(--primary-color);
   padding: 10px 0;
-  font-family: 'Cascadia Code';
+  font-family: "Cascadia Code";
   font-style: revert;
   transition: transform 0.3s ease, opacity 0.3s ease;
   transform: translateY(-10px); // Start slightly above
@@ -87,9 +87,6 @@
   transform: translateY(0); // Move into place
 }
 
-
-
-
 .chatbox::-webkit-scrollbar {
   width: 5px; /* Width of the scrollbar */
   background-blend-mode: soft-light;
@@ -98,21 +95,32 @@
 .chatbox::-webkit-scrollbar-thumb {
   background-color: var(--primary-color); /* Color of the scrollbar handle */
   border-radius: 1px; /* Rounded scrollbar */
-
 }
 
 .chatbox::-webkit-scrollbar-track {
   background: var(--background-color); /* Scrollbar background */
 }
 
-@media(max-width: 786px){
+@media (max-width: 786px) {
   .chatbox {
     border-top: 5px double var(--primary-color);
   }
-  .guestbook-boxing{
+  .emoji-picker-btn {
+    display: none;
+  }
+  .guestbook-boxing {
     border-left: none;
     padding-left: 0;
-
+  }
+  textarea {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--primary-color);
+    font-family: "Courier New", monospace;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    width: 100%;
   }
 }
 
@@ -208,7 +216,6 @@
   textarea::-webkit-scrollbar-track {
     background: var(--background-color); /* Scrollbar background */
   }
-
 
   &:focus {
     border-bottom-color: var(--hover);
@@ -330,43 +337,86 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  transition: opacity 0.5s ease, transform 0.5s ease; // Define the transition properties
+  opacity: 0; // Start hidden
+  transform: translateY(20px); // Start with a slight downward translation
+
+  &.show {
+    opacity: 1; // Fully visible
+    transform: translateY(0); // Reset translation
+  }
+}
+
+.profile-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: var(--message-back);
+  height: 200px;
+}
+
+.spinner {
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-left-color: var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
   p {
     text-align: start;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
-  border: 2px solid var(--primary-color);
-}
 .user-name {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align:center;
-  font-family: "Pixelify Sans", sans-serif;
+  text-align: center;
+  font-family: var(--font-pixel);
   font-weight: 400;
   padding: 5px;
   gap: 5px;
   color: var(--text-color);
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
+  align-items: center;
   min-width: 30%;
   min-height: 110%;
   max-width: 80%;
   border-radius: 10px;
   padding: 10px;
   height: auto;
-  background-color: var(--message-back);
   img {
     border-radius: 4px;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border: 1px solid var(--primary-color);
   }
+  p{
+    font-size: 16px;
+    text-align: center;
+  font-family: var(--font-pixel);
+    color: var(--primary-color)
+  }
 }
-
 
 .github-button {
   position: relative;
@@ -377,8 +427,8 @@
   font-size: 0.9rem;
   background-color: black;
   color: white;
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
+  border-bottom: 2px solid gray;
+  border-right: 2px solid gray;
   border-radius: 5px;
   cursor: pointer;
   outline: none;
@@ -394,7 +444,6 @@
   border-bottom: 0.5px solid #fff;
   border-right: 0.5px solid #fff;
 }
-
 
 .github-button .loading-dots {
   position: absolute;
@@ -417,20 +466,24 @@
 }
 
 .loading {
-position: sticky;
+  position: relative; // Use fixed positioning to cover the viewport
+  top: 0; // Align to the top
+  left: 0; // Align to the left
+  width: auto; // Full width of the viewport
+  height: auto; // Full height of the viewport
   text-align: center;
-  height: 60vh;
+  align-items: center;
   font-size: 1.2em;
   color: var(--primary-color);
   padding: 10px 0;
+  overflow: hidden; // Prevent internal overflow
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards, pulse 1.5s ease-in-out infinite;
-  z-index: 1000;
+  z-index: 1000; // Ensure it sits above other content
 }
-  
 
 
 @keyframes fadeIn {
@@ -460,6 +513,65 @@ position: sticky;
   }
 }
 
+@media (max-width: 991px) {
+  .login-button {
+    display: flex;
+    flex-direction: column-reverse; // Adjusting to stack items vertically
+    justify-content: space-between; // Centering items in the column
+    align-items: center; // Centering items horizontally
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid var(--background-color-oppo);
+    height: auto;
+    padding: 10px;
+    width: 100%; // Adjust width as necessary for mobile
 
 
+    .user-name {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: auto;
+      height: auto;
+      align-items: center; // Center contents horizontally
+      margin: 0;
+      text-align: center; // Center text for better appearance
 
+      img {
+        border-radius: 4px; // Circular profile picture
+        width: 80px; // Adjust size
+        height: 80px; // Adjust size
+        margin-bottom: 5px; // Space below the image
+      }
+
+      p {
+        font-size: calc(16px + 1vw); // Font size for username display
+        font-weight: 400;
+        color: var(--primary-color); // Ensuring the text color is readable
+      }
+    }
+
+    .github-button {
+      position: relative;
+      margin-top: 10px; // Add space between user info and button
+      height: 42px; // Maintain height
+      width: 120px; // Maintain width
+      padding: 10px 20px; // Padding for button
+      font-size: 0.9rem; // Font size for button text
+      background-color: black; // Button background
+      color: white; // Button text color
+      border-bottom: 2px solid #fff; // Border for button
+      border-right: 2px solid #fff; // Border for button
+      border-radius: 5px; // Rounded corners
+      cursor: pointer; // Pointer on hover
+      outline: none; // Remove default outline
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out; // Smooth transitions
+
+      &:hover {
+        background-color: #333; // Darken on hover
+        transform: scale(1.05); // Slightly enlarge on hover
+      }
+    }
+  }
+}

@@ -12,8 +12,8 @@
 /* Defining font variables */
 :root {
   --font-primary: 'Roboto', sans-serif;
-  --font-secondary: 'Open Sans', sans-serif;
-  --font-pixel: 'Orbitron', sans-serif;
+  --font-secondary: 'Courier Prime', monospace;
+  --font-pixel: 'Pixelify sans', sans-serif;
 
 }
 h2, h3{
@@ -25,15 +25,18 @@ h2, h3{
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-primary); // Apply primary font
+  font-family: var(--font-primary);
   transition: background-color 0.2s, color 0.2s;
 }
 body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   margin: 0;
   padding: 0;
 }
+p{
+  font-family: var(--font-primary);
+}
 .light-theme {
-  --background-color: #d9d5d5;
+  --background-color: #f1f1f1;
   --text-color: #2c2c2c;
   --text-color-oppo: #dff6ff;
   --background-color-oppo: #272727;
@@ -43,8 +46,8 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --background-color-1: rgb(69, 92, 96);
   --hover: #16a500;
   --text-color-oppo: #dff6ff;
-  --message-back: linear-gradient(135deg, hsl(144, 42%, 70%), hsl(144, 42%, 50%));
-  --card-background: #b0eb8a;
+  --message-back: #b5e7bd;
+  --card-background: #a1c79e;
   --data-red: #ab0000;
   --data-blue: #0029b6;
   --dark-d: #08160b;
@@ -53,7 +56,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
 .dark-theme {
   --background-color: #100f0f;
   --background-color-oppo: #d8d8d8;
-  --text-color-oppo: #dff6ff; 
+  --text-color-oppo: #dff6ff;
   --text-color: #ffffff;
   --primary-color: #59e900;
   --primary-color-oppo: #41aa00;
@@ -61,7 +64,7 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol {
   --background-color-1: rgb(117, 160, 167);
   --hover: rgb(22, 168, 0);
   --text-color-oppo: #272727;
-  --message-back: linear-gradient(135deg, rgb(32, 47, 39), rgb(12, 27, 19));
+  --message-back: #1b2c24;
   --card-background: #26331f;
   --data-red: #ff7474;
   --data-blue: #7393ff;

@@ -2,63 +2,107 @@
   <div class="content-lx">
     <h2>Guest Book</h2>
     <p>
-      Welcome to the vibrant W²EDAX community guestbook! We invite you to share your thoughts, insights, and experiences on ethical hacking and cloud security. Once you log in via GitHub, unleash your creativity and drop us a message—whether it's a burning question, a thoughtful comment, or an inspiring story. Together, let’s forge a stronger and more resilient cybersecurity community!
+      Welcome to the vibrant W²EDAX community guestbook! We invite you to share
+      your thoughts, insights, and experiences on ethical hacking and cloud
+      security. Once you log in via GitHub, unleash your creativity and drop us
+      a message—whether it's a burning question, a thoughtful comment, or an
+      inspiring story. Together, let’s forge a stronger and more resilient
+      cybersecurity community!
     </p>
-    <div class="login-button">
-      <button (click)="toggleAuth()" class="github-button">
-        <span *ngIf="!isLoading"><i class="fa-brands fa-github"></i> {{ IsLoggedIn ? 'Logout' : 'Login' }}</span>
-        <span *ngIf="isLoading" class="loading-dots">...</span>
-      </button>
-      <div *ngIf="!isLoading" class="user-name">
-        <img *ngIf="profilePicUrl && !isLoading" [src]="profilePicUrl" alt="Profile Picture" />
-        <p *ngIf="!isLoading">{{ IsLoggedIn ? username : 'Please login' }}</p>
-      </div>
-
+    <div *ngIf="isLoading" class="profile-loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading...</div>
     </div>
+
+    <!-- Show login button with animation after loading is complete -->
+    <div *ngIf="!isLoading" class="login-button" [ngClass]="{'show': showLoginButton}">
+      <button (click)="toggleAuth()" class="github-button">
+        <span>
+          <i class="fa-brands fa-github"></i>
+          {{ IsLoggedIn ? "Logout" : "Login" }}
+        </span>
+      </button>
+      <div class="user-name">
+        <img *ngIf="profilePicUrl" [src]="profilePicUrl" alt="Profile Picture" />
+        <p *ngIf="IsLoggedIn">{{ username }}</p>
+      </div>
+    </div>
+
     <br />
 
     <h3>Contribute Articles</h3>
     <p>
-      Are you passionate about cybersecurity or ethical hacking? Join us in spreading knowledge! Reach out to us at
-      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> if you'd like to contribute articles and share your expertise with our community.
+      Are you passionate about cybersecurity or ethical hacking? Join us in
+      spreading knowledge! Reach out to us at
+      <a href="mailto:info@w-edax.com">info&#64;w-edax.com</a> if you'd like to
+      contribute articles and share your expertise with our community.
     </p>
-
-
   </div>
 
   <div class="guestbook-boxing">
     <!-- Messages Section -->
     <div class="chatbox" #chatbox>
       <!-- Loading Message -->
-      <div *ngIf="isLoading" class="loading">Loading messages...</div>
 
       <div *ngIf="messages.length === 0 && !isLoading" class="no-messages">
         No messages found.
       </div>
 
-      <div *ngFor="let msg of messages" class="message" >
-        <div class="message-content">
-          <div class="profile-pic">
-            <!-- Display Profile Pic if Available -->
-            <img *ngIf="msg?.ProfilePicUrl; else defaultPic" [src]="msg?.ProfilePicUrl" alt="Profile Picture">
+      <div *ngIf="isLoading" class="loading">Loading messages...</div>
 
-            <!-- Fallback to Default Inline SVG if No Profile Picture URL -->
-            <ng-template #defaultPic>
-              <svg width="50" height="50" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; border:1px solid var(--primary-color)">
-                <rect width="500" height="500" fill="#var(--background-color)" />
-                <path d="M336 176.135C318.312 232.921 296.355 263.73 249.39 274C200.596 266.147 182.298 235.337 164 176.135C164 122.085 164 91.5601 249.39 68C336 91.5601 336 122.085 336 176.135Z" fill="var(--primary-color)" />
-                <path d="M402 500C402 439.851 402 394.74 402 343.321C402 302.748 293.408 300.978 249.5 274C207.529 302.305 97 302.748 97 343.321C97 430.121 97 455.331 97 500H249.5H402Z" fill="var(--primary-color)" />
-                <path d="M219 243.5H280V292.5H219V243.5Z" fill="var(--primary-color)" />
-              </svg>
-            </ng-template>
-          </div>
+      <div *ngIf="!isLoading">
+        <!-- Only show this section when not loading -->
+        <div *ngFor="let msg of messages" class="message">
+          <div class="message-content">
+            <div class="profile-pic">
+              <!-- Display Profile Pic if Available -->
+              <img
+                *ngIf="msg?.ProfilePicUrl; else defaultPic"
+                [src]="msg?.ProfilePicUrl"
+                alt="Profile Picture"
+              />
 
-          <div class="message-details">
-            <div class="header-details">
-              <strong class="username">{{ msg?.GitHubUsername}}</strong>
-              <span class="timestamp">{{ parseData(msg?.DatePosted)}}</span>
+              <!-- Fallback to Default Inline SVG if No Profile Picture URL -->
+              <ng-template #defaultPic>
+                <svg
+                  width="50"
+                  height="50"
+                  viewBox="0 0 500 500"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="
+                    margin-right: 10px;
+                    border: 1px solid var(--primary-color);
+                  "
+                >
+                  <rect
+                    width="500"
+                    height="500"
+                    fill="var(--background-color)"
+                  />
+                  <path
+                    d="M336 176.135C318.312 232.921 296.355 263.73 249.39 274C200.596 266.147 182.298 235.337 164 176.135C164 122.085 164 91.5601 249.39 68C336 91.5601 336 122.085 336 176.135Z"
+                    fill="var(--primary-color)"
+                  />
+                  <path
+                    d="M402 500C402 439.851 402 394.74 402 343.321C402 302.748 293.408 300.978 249.5 274C207.529 302.305 97 302.748 97 343.321C97 430.121 97 455.331 97 500H249.5H402Z"
+                    fill="var(--primary-color)"
+                  />
+                  <path
+                    d="M219 243.5H280V292.5H219V243.5Z"
+                    fill="var(--primary-color)"
+                  />
+                </svg>
+              </ng-template>
             </div>
-            <div class="message-body">{{ msg?.Message}}</div>
+
+            <div class="message-details">
+              <div class="header-details">
+                <strong class="username">{{ msg?.GitHubUsername }}</strong>
+                <span class="timestamp">{{ parseData(msg?.DatePosted) }}</span>
+              </div>
+              <div class="message-body">{{ msg?.Message }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -67,34 +111,54 @@
     <!-- Message Input Section -->
     <div class="message-input">
       <form>
-        <textarea #messageTextArea #messageInput [(ngModel)]="messageContent"
-                  name="messageContent"
-                  rows="8"
-                  cols="10"
-                  placeholder="{{ IsLoggedIn ? 'Type your message...' : 'Please log in to leave a message' }}"
-                  [disabled]="!IsLoggedIn"
-                  (keydown)="onEnter($event, messageInput)">
+        <textarea
+          #messageTextArea
+          #messageInput
+          [(ngModel)]="messageContent"
+          name="messageContent"
+          rows="8"
+          cols="10"
+          placeholder="{{
+            IsLoggedIn
+              ? 'Type your message...'
+              : 'Please log in to leave a message'
+          }}"
+          [disabled]="!IsLoggedIn"
+          (keydown)="onEnter($event, messageInput)"
+        >
         </textarea>
       </form>
 
       <div class="emoji-and-send">
         <!-- Emoji Button -->
         <div class="emoji-picker-container">
-          <button (click)="toggleEmojiPicker()" class="emoji-picker-btn" aria-label="Open emoji picker">
+          <button
+            (click)="toggleEmojiPicker()"
+            class="emoji-picker-btn"
+            aria-label="Open emoji picker"
+          >
             😊
           </button>
           <div *ngIf="isEmojiPickerVisible" class="emoji-picker">
             <div class="emoji-list">
-              <button *ngFor="let emoji of emojis" (click)="addEmoji(emoji)" class="emoji-item">
-                {{emoji}}
+              <button
+                *ngFor="let emoji of emojis"
+                (click)="addEmoji(emoji)"
+                class="emoji-item"
+              >
+                {{ emoji }}
               </button>
             </div>
           </div>
 
-        <!-- Send Button -->
-        <button class="send-button" (click)="submitMessage()" [disabled]="!IsLoggedIn || !messageContent.trim()">
-          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send
-        </button>
+          <!-- Send Button -->
+          <button
+            class="send-button"
+            (click)="submitMessage()"
+            [disabled]="!IsLoggedIn || !messageContent.trim()"
+          >
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send
+          </button>
         </div>
       </div>
     </div>

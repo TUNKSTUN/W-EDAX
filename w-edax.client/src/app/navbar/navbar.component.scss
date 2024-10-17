@@ -4,60 +4,64 @@
     display: flex;
     justify-items: start;
     justify-content: space-between;
+    padding-bottom: 12px;
 
+}
+.container-fluid{
+  padding: 0;
+  margin: 0;
 }
 
 .navbar-brand {
   text-transform: uppercase;
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: var(--font-pixel);
   font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--primary-color); // Use primary color on hover
   display: flex;
   display: flex;
   margin: 0;
-  padding: 0;
-  width: 100%;
-  font-size: 44px;
+  font-size: 2.2rem;
   text-decoration: none;
   transition: color 0.2s ease, letter-spacing 0.1s ease-in; // Smooth color transition
 }
 
 .navbar-top .navbar-brand:hover {
-    color: var(--primary-color); // Use primary color on hover
-    letter-spacing: 5px;
+    color: var(--text-color); // Use primary color on hover
+    letter-spacing: 0px;
 }
 
 /* Add this to your navbar.component.scss or a global stylesheet */
 
-.navbar-text{
-    position: relative;
-    display: inline-flex;
-    font-family: 'Courier New', monospace;
-    font-style: oblique;
-    font-size: 0.8rem;
-    color: var(--primary-text-color);
-    width: auto; /* Use auto width for better text and blinker management */
-    z-index: 100;
-    margin: 0;
-    padding: 0;
-    
+.navbar-text {
+  position: relative;
+  display: inline-flex;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--primary-text-color);
+  width: auto; /* Ensure width is auto for dynamic text */
+  z-index: 100;
+  margin: 0;
+  padding: 0;
 }
 
-
+/* Blinking cursor effect */
 .navbar-text::after {
-    content: '_';
-    position: absolute;
-    left: 100%; /* Positioned right after the text */
-    margin-left: 2px; /* Small margin for better spacing */
-    animation: blink 0.5s steps(1) infinite; /* Use steps to manage opacity changes */
+  content: '_';
+  position: absolute;
+  color: var(--text-color);
+  margin-left: 1px;
+  left: 100%; /* Positioned at the end of the text */
+  animation: blink 0.5s steps(1) infinite; /* Blinking effect */
 }
 
 @keyframes blink {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
+  0%, 100% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
 }
 
 
@@ -76,7 +80,7 @@
 }
 .navbar-top .nav-link i {
     font-size: 26px;
-    margin-right: 5px;
+    margin-right: 3px;
 }
 
 .navbar-top .nav-link:hover {
@@ -95,19 +99,25 @@
 }
 
 @media (max-width: 991px) {
-    .navbar-top .navbar-brand {
-        font-size: 26px;
-        display: flex;
-        justify-content: start;
-        width: 100%;
-    }
+  .navbar-top{
+    width: 100%;
+    padding-bottom: 12px;
+
+  }
+  .navbar-top .navbar-brand {
+    font-size: 26px;
+    display: flex;
+    justify-content: start;
+    width: auto;
+}
 
     .navbar-top .navbar-text {
-        font-size: 10px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
+      font-size: 10px; /* Adjust text size for mobile */
+      display: inline-flex; /* Inline-flex ensures the text flows naturally */
+      justify-content: flex-start; /* Align text to the start */
+      width: auto; /* Ensure text wraps properly */
+      white-space: nowrap; /* Prevent the text from wrapping */
+  }
 
     .navbar-top .navbar-nav {
         text-align: right;
@@ -129,7 +139,7 @@
         width: 10px
     }
 }
-   
+
 
 // Styles for navbar-bottom
 /* Navbar bottom styles */
@@ -137,21 +147,19 @@
   background-color: var(--background-color);
   width: 100%;
   z-index: 1000;
+  padding: 10px 0;
   display: flex;
-  justify-content: center;
   /* Center the entire navbar content */
   align-items: center;
   text-align: center;
   transition: background-color 0.2s ease, transform 0.3s ease, opacity 0.3s ease;
-  right: 0;
-
+  left: 0;
   li {
     list-style: none;
   }
 
   .navbar-nav {
     flex-direction: row;
-    justify-content: space-evenly;
     /* Create space between links */
     width: 100%;
     max-width: 600px;
@@ -164,10 +172,10 @@
   }
 
   .nav-link {
-    font-family: "Pixelify Sans", sans-serif;
-    font-size: 22px;
+    font-family: var(--font-pixel);
+    font-size: 24px;
     font-weight: 400;
-    padding: 5px;
+    padding: 2px;
     transition: color 0.2s ease;
   }
 
@@ -193,14 +201,15 @@
   }
 
   #navbarBottomLinks {
-    justify-content: space-around;
+    justify-content: space-evenly;
     display: flex;
     width: 100%;
   }
 }
 @media(max-width:768px){
     .navbar-bottom .nav-link{
-        font-size: 18px;
+        font-size: 16px;
+        padding: 2px;
     }
 }
 @keyframes slideDown {

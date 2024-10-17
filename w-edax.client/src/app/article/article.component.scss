@@ -5,25 +5,26 @@
 
 .article-page {
   z-index: 1;
-  margin-top: 20px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 10px;
-  background-color: var(--background-color);
+  gap: 5px;
+  padding: 5px;
   height: auto;
   max-width: 100%;
+  margin-left: 0;
+  padding-left: 0;
 
   .article-skeleton {
     width: 100%;
-    max-width: 800px;
-    padding: 20px;
+    max-width: 750px;
+    padding: 10px;
     background-color: var(--background-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px auto; /* Center horizontally */
-    gap: 10px;
+    gap: 5px;
     display: flex;
     flex-direction: column; /* Stack items vertically by default */
     align-items: center; /* Center align the items */
@@ -31,8 +32,7 @@
 
     .skeleton-header2 {
       width: 90%;
-      max-width: 800px;
-      background-color: var(--background-color);
+      max-width: 750px;
       border-bottom: 1px solid gray;
       gap: 10px;
       display: flex;
@@ -127,9 +127,8 @@
   }
   /* Related Articles Skeleton Loader */
   .related-articles-skeleton {
-    width:22rem;
+    width:19rem;
     padding: 20px;
-    background-color: var(--background-color);
     border-radius: 8px;
     margin: 10px 0;
     padding: 10px;
@@ -147,39 +146,33 @@
       margin-top: 25px;
     }
 
-    .skeleton-text {
-    }
-
     .related-article-card {
       height: 20px;
       margin-top: 27px;
       width: 100%;
-      background-color: #e0e0e0;
       margin-bottom: 10px;
       border-radius: 4px; /* Added border-radius */
     }
   }
   /* Article Detail Section */
   .article-detail {
-    min-height: 1100px;
+    min-height: 1600px;
     width: 100%;
     max-width: 800px;
     padding: 30px;
-    background-color: var(--background-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease-in-out;
     text-align: justify-all;
 
     .auth-date-container {
-      font-family: "Courier Prime", monospace;
+font-family: var(--font-secondary);
       font-weight: 400;
       display: flex;
       width: 100%;
       justify-content: space-between;
       border-bottom: 1px groove gray;
       margin: 0;
-      font-size: 10px;
       padding: 5px;
       align-items: center;
       min-height: 20px;
@@ -187,13 +180,16 @@
 
     h1 {
       margin-top: 16px;
-      font-family: "Pixelify Sans", sans-serif;
-      font-size: 2.5rem;
+      font-family: var(--font-pixel);
+      font-size: calc(24px + 1vw);
       font-weight: 400;
       color: var(--primary-color);
       transition: opacity 0.3s ease-in-out;
       margin-bottom: 10px;
       text-align: center;
+    }
+    p{
+      font-size: calc(8px + 0.5vw);
     }
 
     .desc {
@@ -202,7 +198,7 @@
       color: var(--text-color);
       border-bottom: 1px groove darkgray;
       margin: 20px;
-      font-family: "Courier Prime", monospace;
+font-family: var(--font-secondary);
       font-weight: 400;
       font-style: italic;
       transition: opacity 0.3s ease-in-out;
@@ -234,7 +230,7 @@
   /* Error Message */
   .error-message {
     color: red;
-    font-family: "Pixelify Sans", sans-serif;
+    font-family: var(--font-pixel);
     font-size: 1rem;
     text-align: center;
     padding: 10px;
@@ -268,7 +264,7 @@
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  
+
 
   .article-page {
     width: 100%;
@@ -299,18 +295,15 @@
 /* Related Articles Section */
 .related-articles-container {
   width: 100%;
-  margin: 10px;
-  padding: 10px;
+  font-size: calc(8px + 1vw);
 }
 
 .related-articles-section {
-  min-width: 22rem;
-  max-width: 30rem;
   border-radius: 8px;
   padding: 20px; // Added padding for better spacing
 
   h3 {
-    font-family: "Pixelify Sans", sans-serif;
+    font-family: var(--font-pixel);
     font-size: 1.5rem;
     color: var(--primary-color);
     margin-bottom: 20px;
@@ -326,18 +319,25 @@
 }
 
 .related-article-card {
-  text-decoration: none;
   border-radius: 4px;
-  color: var(--text-color);
-  transition: color 0.3s ease, background-color 0.3s ease; // Added transition for background
-  padding: 5px;
+  color: var(--text-color); // Default text color
+  transition: color 0.3s ease-in-out; // Transition for color changes
+  padding: 2px;
+  cursor: pointer; // Add a pointer cursor for better UX
 
+  // Change color of the entire card on hover
   &:hover {
-    background-color: var(--primary-color-oppo);
+    color: var(--primary-color); // Change the overall text color on card hover
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0; // Ensure paragraph has no margin
+    transition: color 0.3s ease-in-out; // Smooth transition for paragraph text color
   }
 
   h4 {
-    font-family: 'Cascadia Code', monospace;
+    font-family: var(--font-secondary);
     font-size: 0.9rem;
     color: var(--text-color);
     margin: 0;
@@ -398,8 +398,7 @@
 /* Styling for the Tags Container */
 .tags-container {
   color: var(--text-color-oppo);
-  font-family: 'Century Gothic';
-  font-style: oblique;
+  font-weight: 500;
   padding: 20px;
   border-top: 1px solid var(--primary-color);
   border-bottom: 1px solid var(--primary-color);
@@ -422,11 +421,12 @@
 .tag {
   background-color: var(--primary-color);
   color: var(--text-color-oppo);
-  padding: 8px 12px;
-  border-radius: 20px;
+  padding: 4px 8px;
+  border-radius: 6px;
   font-size: 0.9rem;
   display: inline-block;
   text-align: center;
+  font-family: var(--font-secondary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -458,7 +458,7 @@
     button {
       padding: 5px;
       background-color: var(--primary-color);
-      color: #fff;
+      color: var(--text-color-oppo);
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -473,6 +473,11 @@
 
 /* Responsive adjustments for mobile view */
 @media (max-width: 768px) {
+  .auth-date-container{
+    p{
+      font-size: calc(10px + 1vw);
+    }
+  }
   .container-low {
     flex-direction: column;
     gap: 10px;

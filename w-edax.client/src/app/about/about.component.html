@@ -1,9 +1,11 @@
 <section class="about">
   <div class="about-content">
-    <div class="wavy-grid-container">
-      <ng-container *ngFor="let _ of [].constructor(30); let i = index">
-        <div></div>
-      </ng-container>
+    <div class="about-designer-container">
+      <div class="wavy-grid-container">
+        <ng-container *ngFor="let _ of [].constructor(30); let i = index">
+          <div></div>
+        </ng-container>
+      </div>
     </div>
 
     <div class="left-section">
@@ -36,13 +38,12 @@
   </div>
 
   <div class="meet-author">
-    <h2>{{ content.About.Author.headline }}</h2>
     <div class="team-member">
       <div class="image-container">
         <div class="container" (mouseenter)="flipImage()" (mouseleave)="resetImage()">
           <div class="image" #image>
             <div class="image-face front">
-              <img style="background-color: var(--background-color)" src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya-pix.png?alt=media&token=e68ab68b-9b06-4a23-a741-4713b18cf216" alt="image" />
+              <img src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya-pix.png?alt=media&token=e68ab68b-9b06-4a23-a741-4713b18cf216" alt="image" />
             </div>
             <div class="image-face back">
               <div class="social-media">

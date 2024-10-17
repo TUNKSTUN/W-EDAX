@@ -11,6 +11,7 @@ import { TypewriterService } from './typewriter.service'; // Adjust path as need
 export class NavbarComponent implements OnInit, OnDestroy {
   isSticky: boolean = false;
   isHidden: boolean = false; // Keep track of navbar visibility
+  isNavbarOpen: boolean = false; // Track if the navbar is open or collapsed
   private lastScrollTop: number = 0; // Last scroll position
   private scrollThreshold: number = 50; // Set a threshold to control navbar behavior
 
@@ -72,5 +73,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     document.body.classList.toggle('dark-theme', isDarkTheme);
     document.body.classList.toggle('light-theme', !isDarkTheme);
     localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+  }
+
+  // Toggle the navbar collapse state
+  toggleNavbar() {
+    this.isNavbarOpen = !this.isNavbarOpen; // Toggle the open state
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    if (this.isNavbarOpen) {
+      navbarCollapse?.classList.remove('collapsed');
+      navbarCollapse?.classList.add('expanded');
+    } else {
+      navbarCollapse?.classList.remove('expanded');
+      navbarCollapse?.classList.add('collapsed');
+    }
   }
 }

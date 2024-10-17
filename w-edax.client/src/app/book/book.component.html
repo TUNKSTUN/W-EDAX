@@ -1,0 +1,34 @@
+<div class="book-container" *ngIf="books && books.length > 0">
+  <!-- First section for the featured book -->
+   <h1 class="heading">~ Books Review ~</h1>
+  <section class="featured-book">
+    <div class="left-container">
+      <img [src]="selectedBook?.image" alt="{{ selectedBook?.title }}" class="book-image" />
+      <h3>{{ selectedBook?.title }}</h3>
+      <div class="book-meta-data">
+        <p><strong>Author:</strong> {{ selectedBook?.author }}</p>
+        <p><strong>Publisher:</strong> {{ selectedBook?.metadata?.publisher }}</p>
+        <p><strong>Year:</strong> {{ selectedBook?.metadata?.year }}</p>
+        <p><strong>Genre:</strong> {{ selectedBook?.metadata?.genre }}</p>
+      </div>
+    </div>
+    <div class="right-container">
+      <h3>Review</h3>
+      <div *ngFor="let paragraph of selectedBook?.review">
+        <p>{{ paragraph }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second section for the list of other books -->
+  <section class="book-list">
+    <h2>Other Books</h2>
+    <div class="books-grid">
+      <div *ngFor="let book of books" class="book-item" (click)="selectBook(book)" [ngClass]="{'selected': selectedBook?.title === book.title}">
+        <img [src]="book.image" alt="{{ book.title }}" class="book-thumbnail" />
+        <h3>{{ book.title }}</h3>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+      </div>
+    </div>
+  </section>
+</div>

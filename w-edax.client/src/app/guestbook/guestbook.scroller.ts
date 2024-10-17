@@ -4,7 +4,7 @@ import { GuestBookModel } from '../models/guestbook.model';
 export class GuestbookScroller {
   private userIsInteracting: boolean = false;
   private interactionTimeout: any;
-  private scrollDelay: number = 5000; // 3 seconds delay
+  private scrollDelay: number = 10000; // 3 seconds delay
   private chatbox: HTMLElement | null = null;
 
   public newMessageArrived: boolean = false;
@@ -38,7 +38,7 @@ export class GuestbookScroller {
 
     const animateScroll = (currentTime: number) => {
       const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1); // Normalize to [0, 1]
+      const progress = Math.min(elapsedTime / duration, 5); // Normalize to [0, 1]
       const easing = 0.5 - Math.cos(progress * Math.PI) / 2; // Easing function
 
       element.scrollTop = start + change * easing; // Apply easing to scroll
@@ -79,13 +79,13 @@ export class GuestbookScroller {
     });
 
     if (this.chatbox) {
-      const lastMessageElement = this.chatbox.lastElementChild; 
+      const lastMessageElement = this.chatbox.lastElementChild;
       if (lastMessageElement) {
         this.smoothScrollTo(this.chatbox, lastMessageElement.getBoundingClientRect().top + this.chatbox.scrollTop, 100); // Smooth scroll to the last message in 1 second
       }
     }
 
-    this.newMessageArrived = true; 
+    this.newMessageArrived = true;
     return messages;
   }
 

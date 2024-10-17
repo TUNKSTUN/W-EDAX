@@ -1,0 +1,234 @@
+body.no-scroll {
+  overflow: hidden; /* Prevent scrolling */
+}
+.keyword-container {
+  overflow: hidden;
+  text-align: center;
+  margin: 20px;
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    max-width: fit-content;
+    border-bottom: 1px var(--text-color) solid;
+    box-shadow: inset 1px rgba(0, 0, 0, 0.1);
+    .keyword {
+      text-transform: capitalize;
+      position: relative;
+      margin: 5px;
+      padding: 5px 10px; /* Adjusting padding for button size */
+      height: auto; /* Allow flexibility for text size */
+      width: auto; /* Auto width based on content */
+      font-size: calc(8px + 0.5vw);
+      color: var(--text-color);
+      background-color: var(--card-background);
+      border-bottom: 2px solid gray;
+      border-right: 2px solid gray;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family:var(--font-secondary);
+      outline: none;
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    .keyword:hover {
+      color: var(--text-color); /* Maintain text color on hover */
+      transform: translateY(2px);
+      border: 0.5px solid gray;
+      border-bottom: 0.5px solid white;
+      border-right: 0.5px solid white;
+    }
+
+
+  }
+  h2{
+    color: var(--primary-color);
+    font-family: var(--font-pixel);
+    font-weight: 400;
+    font-size: calc(16px + 1vw);
+    margin-bottom: 15px;
+  }
+}
+
+.popup {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  opacity: 0; /* Start invisible */
+  visibility: hidden; /* Start hidden */
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Smooth transition */
+
+  .popup-content::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+    background-blend-mode: soft-light;
+  border-radius: 2px;
+  }
+
+  .popup-content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Color of the scrollbar handle */
+    border-radius: 1px; /* Rounded scrollbar */
+  }
+
+  .popup-content::-webkit-scrollbar-track {
+    background: var(--background-color); /* Scrollbar background */
+  }
+  .popup-content {
+    background-color: var(--background-color);
+    padding: 20px;
+    position: relative;
+  border: 1px solid var(--primary-color);
+    overflow-y: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 800px;
+    height: 600px;
+    transition: width 0.5s ease, height 0.5s ease; /* Smooth resize transition */
+    transform: scale(0.8); /* Start with a slight shrink effect */
+    transition: transform 0.3s ease-in-out; /* Smooth scale transition */
+
+
+    .article {
+      position: relative;
+      margin: 5px;
+      margin-bottom: 20px;
+      background-color: var(--message-back);
+      padding: 20px; /* Increase padding to give it a button-like feel */
+      border-radius: 10px;
+      border-bottom: 2px solid gray;
+      border-right: 2px solid gray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color:var(--text-color);
+      cursor: pointer; /* Keep cursor pointer for clickable containers */
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, color 0.2s ease-in-out;
+
+
+      a {
+        margin-left: 10px;
+        flex: 1; /* Allow link to take available space */
+        text-decoration: none;
+        color: var(--text-color);
+      }
+
+
+      .article-image {
+        margin-left: 10px; /* Space between text and image */
+        img {
+          max-width: 100px; /* Set a max width for images */
+          height: auto; /* Keep aspect ratio */
+          border-radius: 5px; /* Optional: add rounded corners */
+        }
+      }
+    }
+    .article:hover {
+      background-color: var(--card-background); /* Keep original background color */
+      transform: translateY(2px);
+      border: solid 0.5px gray;
+      border-bottom: 0.5px solid white;
+      border-right: 0.5px solid white;
+      color: var(--primary-color);
+    }
+
+
+    &.loaded { /* Class to trigger size change */
+      width: 1000px; /* New width on load */
+      height: 900px; /* New height on load */
+    }
+    h3{
+      font-family: var(--font-pixel);
+      font-weight: 400;
+      font-size: calc(24px + 0.5vw);
+      margin-bottom: 20px;
+      text-transform: capitalize;
+      text-align: center;
+      color: var(--primary-color);
+
+    }
+    a{
+      color: var(--text-color);
+      text-decoration: none;
+      padding-left: 20px;
+    }
+
+
+    h4{
+      font-family: var(--font-pixel);
+      font-size: calc(16px + 0.5vw);
+
+    }
+    p{
+      color: var(--text-color);
+      font-size: calc(8px + 0.5vw);
+      font-family: var(--font-secondary);
+      margin-top: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 28px;
+    }
+  }
+  .popup.show .popup-content {
+    transform: scale(1); /* Expand to normal size on show */
+  }
+}
+.popup.show {
+  opacity: 1; /* Fade in */
+  visibility: visible; /* Make visible */
+}
+
+.loading {
+  position: absolute; /* Use fixed positioning to cover the viewport */
+  top: 45%; /* Center vertically */
+  left: 45%; /* Center horizontally */
+  width: 50px; /* Set a fixed width */
+  height: 50px; /* Set a fixed height */
+  border: 5px solid var(--primary-color); /* Circular border */
+  border-top: 5px solid transparent; /* Transparent top for animation effect */
+  border-radius: 50%; /* Make it circular */
+  animation: spin 1s linear infinite; /* Spinning animation */
+  z-index: 1000; /* Ensure it sits above other content */
+  transform: translate(-50%, -50%); /* Center it */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.article-image {
+  margin-left: 3px; /* Space between text and image */
+  position: relative; /* Position for the placeholder */
+
+  img {
+    max-width: 100px; /* Set a max width for images */
+    height: auto; /* Keep aspect ratio */
+    border-radius: 10px; /* Optional: add rounded corners */
+    border: 1px solid var(--primary-color)
+  }
+
+  .placeholder-image {
+    max-width: 100px; /* Set a max width for the placeholder image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: add rounded corners */
+    background-color: #e0e0e0; /* Optional: background color */
+  }
+
+}
+

@@ -23,13 +23,11 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadImages() {
-    // Load front image
     this.http.get('assets/images/yahya-pix.png', { responseType: 'blob' })
       .subscribe(blob => {
         this.frontImageSrc = URL.createObjectURL(blob);
       });
 
-    // Load back image (Signal icon)
     this.http.get('assets/images/signal.png', { responseType: 'blob' })
       .subscribe(blob => {
         this.backImageSrc = URL.createObjectURL(blob);
@@ -37,15 +35,13 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // Add class after a short delay  
     setTimeout(() => {
       const aboutSection = this.el.nativeElement.querySelector('.about');
       if (aboutSection) {
         this.renderer.addClass(aboutSection, 'loaded');
       }
-    }, 300); // Adjust the delay as needed
+    }, 300);
 
-    // Add scroll event listener
     this.scrollHandler = this.handleScroll.bind(this);
     if (this.scrollHandler) {
       window.addEventListener('scroll', this.scrollHandler);
@@ -54,12 +50,12 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public flipImage(): void {
     const image = this.el.nativeElement.querySelector('.image');
-    this.renderer.addClass(image, 'flipped'); // Add the flip class to start the animation
+    this.renderer.addClass(image, 'flipped');
   }
 
   public resetImage(): void {
     const image = this.el.nativeElement.querySelector('.image');
-    this.renderer.removeClass(image, 'flipped'); // Remove the flip class to reset the animation
+    this.renderer.removeClass(image, 'flipped');
   }
 
   handleScroll() {
@@ -67,13 +63,12 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
     const blocks = this.el.nativeElement.querySelectorAll('.wavy-grid-container > div');
 
     blocks.forEach((block: HTMLElement, index: number) => {
-      const rotation = (scrollPosition / 1) + (index * 10); // Adjust values as needed
+      const rotation = (scrollPosition / 1) + (index * 10);
       this.renderer.setStyle(block, 'transform', `rotate(${rotation}deg)`);
     });
   }
 
   ngOnDestroy() {
-    // Clean up event listener on component destroy
     if (this.scrollHandler) {
       window.removeEventListener('scroll', this.scrollHandler);
     }

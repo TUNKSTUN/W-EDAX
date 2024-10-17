@@ -34,6 +34,8 @@
       color: var(--primary-color); /* Primary color for section titles */
       font-size: 1.2rem;
       margin-bottom: 10px;
+      font-family: var(--font-pixel);
+
     }
 
     ul {
@@ -47,7 +49,8 @@
         a {
           color: white; /* Default link color */
           text-decoration: none;
-          font-size: 1rem;
+          font-size: 0.8rem;
+          cursor: pointer;
 
           &:hover {
             color: darkgray; /* Blue on hover */
@@ -60,7 +63,7 @@
     p {
       color: #ccc; /* Light grey for text */
       margin: 5px 0;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
   }
 
@@ -71,7 +74,7 @@
     gap: 1.5rem;
 
     i {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
 
     li {
@@ -95,7 +98,7 @@
   .footer-bottom {
     background-color: var(--background-color); /* Background color for the bottom section */
     color: var(--text-color); /* Text color for the bottom section */
-    padding: 10px 0;
+    padding: 5px 0;
     margin-top: 20px;
     width: 100%;
     display: flex; /* Set as a flex container */
@@ -106,7 +109,7 @@
 
     p {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 10px;
     }
   }
 }

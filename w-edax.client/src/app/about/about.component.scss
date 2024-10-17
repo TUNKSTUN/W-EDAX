@@ -12,14 +12,21 @@ $hover-color-linkedin: #0077b5;
 $hover-color-link: var(--primary-color);
 
 // about.component.scss
+.about-design-container {
+  display: flex;
+  flex-direction: column;
+}
+
+// Wavy Grid Container
 .wavy-grid-container {
   background-color: var(--card-background);
-  width: 50vh; /* Adjust as needed */
-  height: 50vh; /* Adjust as needed */
+  width: 50vh;
+  height: 45vh;
   position: relative;
+  margin-bottom: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 10fr));
-  grid-template-rows: repeat(auto-fill, minmax(70px, 10fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 5fr));
+  grid-template-rows: repeat(auto-fill, minmax(70px, 5fr));
   gap: 5px;
 
   & > div {
@@ -55,14 +62,16 @@ $hover-color-link: var(--primary-color);
   }
 }
 
+// About Section
 .about {
   padding: 10px;
   text-align: start;
   justify-content: center;
   display: flex;
-  padding: 0 10px;
+  font-family: var(--font-primary);
   flex-direction: column;
   align-items: center;
+  font-weight: 400;
   font-family: "Courier New", monospace;
 }
 
@@ -74,15 +83,21 @@ $hover-color-link: var(--primary-color);
   margin: 0 auto;
   gap: $gap + 50;
   align-items: center;
-  text-align: justify;
+  text-align: start;
+
+  p {
+    font-size: 15px;
+  }
 }
 
+// Team Member Styling
 .team-member p {
-  text-align: center;
-  font-size: 20px;
+  text-align: start;
+  font-size: calc(10px + 0.5vw);
 }
 
-.left-section, .right-section {
+.left-section,
+.right-section {
   flex: 1;
   min-width: $min-width;
 }
@@ -101,22 +116,19 @@ $hover-color-link: var(--primary-color);
   justify-content: center;
 }
 
+// Headings Styling
 h2 {
-  font-family: "Pixelify Sans", sans-serif;
-  font-size: 30px;
+  font-family: var(--font-pixel);
+  font-size: calc(20px + 1vw);
   font-weight: 400;
   color: var(--primary-color);
 }
 
 h3 {
-  font-family: "Pixelify Sans", sans-serif;
-  font-size: 28px;
+  font-family: var(--font-pixel);
+  font-size: calc(20px + 2vw);
   font-weight: 400;
-  color: var(--primary-color);
-}
-
-.meet-author h2, h3 {
-  color: var(--primary-color);
+  color: var(--primary-color-oppo);
 }
 
 .meet-author h3 {
@@ -126,52 +138,45 @@ h3 {
 }
 
 // Section Styles
-.intro, .mission {
-  margin-bottom: 40px;
-}
-
+.intro,
+.mission,
 .history {
   margin-bottom: 40px;
 }
 
+// Meet Author Section
 .meet-author {
-  border-radius: 20px;
   text-align: center;
-  background-color: var(--message-back);
   align-items: center;
-  justify-content: space-around;
   display: flex;
+  width:80%;
   flex-direction: column;
-  max-width: 80%;
-  min-width: 60%;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: var(--text-color);
-  border: 6px var(--primary-color) groove;
 }
 
 .team-member {
   display: flex;
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   padding: 10px;
   text-align: center;
-  background-color: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color-oppo);
+  border-radius: 2px;
   align-items: center;
-  justify-content: space-evenly;
-  border-top: 3px var(--text-color) double;
 }
 
+// Image and Container Styling
 .container {
   perspective: 1200px;
-  margin: 50px;
-  width: 300px; // Set a fixed width for the container
-  height: 400px; // Set a fixed height for the container
+  width: 420px;
+  height: 600px;
+  padding: 0;
 }
 
 .image {
   position: relative;
-  width: 100%;
+  width: auto;
   height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -183,170 +188,233 @@ h3 {
 }
 
 .image-container {
-  width: 60%;
+  width: 100%;
   height: 100%;
   position: relative;
-  overflow: hidden; // Hide any overflow
+  padding: 20px;
+  overflow: hidden;
 }
-
-.front, .back {
+.content-container{
+  min-width: 50%;
+  height: 100%;
+  padding: 0;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  p{
+    text-align: justify;
+    color: var(--text-color-oppo)
+  }
+}
+.front,
+.back {
   position: absolute;
-  border: 2px solid var(--primary-color);
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  overflow: hidden; // Hide any overflow
-}
-
-.front {
-  z-index: 2;
+  overflow: hidden;
 }
 
 .back {
   transform: rotateY(180deg);
-  background-color: lightblue;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(173, 216, 230, 0.8), transparent 80%),
+    radial-gradient(circle at 80% 40%, rgba(144, 238, 144, 0.7), transparent 55%),
+    radial-gradient(circle at 60% 70%, rgba(135, 206, 250, 0.7), transparent 50%),
+    radial-gradient(circle at 30% 80%, rgba(152, 251, 152, 0.6), transparent 40%),
+    radial-gradient(circle at 70% 90%, rgba(0, 255, 255, 0.7), transparent 55%),
+    radial-gradient(circle at 50% 20%, rgba(240, 255, 255, 0.8), transparent 50%);
+  background-blend-mode: screen;
+  background-size: 300% 300%;
+  animation: gradientAnimation 6s ease infinite, breathingEffect 8s ease-in-out infinite;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  20% { background-position: 25% 75%; }
+  40% { background-position: 50% 25%; }
+  60% { background-position: 75% 50%; }
+  80% { background-position: 100% 75%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes breathingEffect {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 50% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes textColorAnimation {
+  0%, 100% { color: white; }
+  20%, 80% { color: black; }
+  40% { color: rgba(240, 255, 255, 0.8); }
+  60% { color: black; }
+}
+
+.back h3, a {
+  animation: textColorAnimation 6s ease infinite;
+  transition: color 0.3s ease;
 }
 
 .image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; // This will cover the entire area, cropping if necessary
-  border-radius: 10px;
-}
-
-.meet-author h2 {
-  font-size: 32px;
-  padding: 10px;
-  margin-top: 30px;
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-  font-size: 3rem;
-}
-
-.team-member h3 {
-  font-size: 50px;
-  color: var(--text-color);
-}
-
-.team-member p {
-  max-width: 600px;
-  padding: 0 10px;
-  text-align: justify;
+  min-width: 90%;
+  min-height: 90%;
 }
 
 // Responsive Design
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
   .wavy-grid-container {
-    width: 100%;
-    min-height: 50vh;
-
-    & > div {
-      left: 10px;
-    }
-  }
-  .meet-author{
-      margin: 5px;
-      width:100%;
-      max-width: 100%;
-      padding: 10px;
-  }
-
-  .meet-author h2{
-      font-size: 2rem;
-  }
-  .container {
-    width: 250px; // Smaller container for mobile
-    height: 350px;
-  }
-  .image-container{
-      width: auto;
-  }
-  .image-container img {
-    max-width: none; // Remove max-width constraint
-  }
-
-  .team-member p {
-    text-align: center;
-    font-size: 14px;
+    width: 50vw;
+    height: 50vh;
+    padding: 10px;
   }
 
   .about-content {
     flex-direction: column;
-  }
-
-  .left-section, .right-section {
-    margin-bottom: 20px;
-    gap: 0;
-  }
-
-  .meet-author {
-    width: 100%;
-
-    .team-member {
-      padding: 20px;
-      flex-direction: column;
-    }
-
-    h3 {
-      font-size: 2rem;
-      margin: 0;
-    }
-
-    p {
-      margin-top: 10px;
-    }
+    gap: 20px;
   }
   .content-container {
-    display: flex;
+    min-width:80%;
+    padding: 10px;
+    p{
+      text-align: justify;
+    }
+    h3{
+      font-size:calc(24px + 1vw);
+      color: var(--primary-color-oppo)
+    }
+  }
+
+  .team-member{
     flex-direction: column;
-    border-radius: 20px;
-    width: 100%;
-    text-align: center;
-    padding: 0;
+    padding: 10px;
+  }
+  .container{
+    width: 300px;
+    height: 400px;
+    justify-content: center;
   }
 }
 
+@media (max-width: 768px) {
+  .wavy-grid-container {
+    width: 50vw;
+    min-height: 50vh;
+  }
+
+  .about-content {
+    padding: 15px;
+  }
+  .content-container {
+    min-width:80%;
+    padding: 10px;
+    p{
+      text-align: justify;
+    }
+  }
+
+  .team-member{
+    flex-direction: column;
+    width: 100%;
+  }
+  .container{
+    width: 100%;
+    justify-content: center;
+  }
+  .image{
+    width: 100%;
+  }
+  .team-member p {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 220px;
+    height: 320px;
+  }
+
+  .image-container {
+    width: auto;
+  }
+
+  .meet-author h2 {
+    font-size: 2rem;
+  }
+}
+.content-container{
+  width: 50%;
+}
+
+@media (max-width: 576px) {
+  .wavy-grid-container {
+    margin:20px;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    width: 50vw;
+    min-height: 50vh;
+  }
+
+  .about-content {
+    flex-direction: column;
+    padding: 10px;
+  }
+.content-container {
+  min-width:100%;
+  padding: 10px;
+  p{
+    text-align: justify;
+  }
+}
+
+.team-member{
+  flex-direction: column;
+  min-width: 320px;
+
+}
+.container{
+  width: 300px;
+  height: 400px;
+}
+
+  .meet-author h2 {
+    font-size: 1.5rem;
+  }
+}
+// Website and Social Media Styling
 .website {
   background-color: var(--background-color-oppo);
   margin: 0;
   padding: 0;
 }
 
-.social-media a {
-  flex-direction: column;
+.social-media {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  font-size: xxx-large;
+  font-weight: 600;
+  height: 100%;
+}
+
+.social-media a {
   margin: 5px 0;
   text-decoration: none;
   color: #007bff;
   border-radius: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.social-media {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background-color: var(--background-color-oppo);
-}
-
 .social-media img {
-  width: 100%;
-  height: auto; // Maintain aspect ratio
-}
-
-.content-container {
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  width: 100%;
-  text-align: center;
+  width: 80%;
+  height: auto;
 }

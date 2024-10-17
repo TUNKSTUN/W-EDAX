@@ -35,6 +35,7 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   isEmojiPickerVisible: boolean = false;
   IsLoggedIn: boolean = false;
   private isSubmitting: boolean = false;
+  public showLoginButton: boolean = false; // Control visibility of login button
   userId: string = '';
   profilePicUrl: string = '';
   emojis: string[] = [
@@ -76,6 +77,12 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userSubscription = this.authService.currentUser$.subscribe(user => this.handleUserState(user));
     this.loadAllMessages();
 
+    setTimeout(() => {
+      this.isLoading = false; // Hide loading spinner
+      this.showLoginButton = true; // Show login button with animation
+    }, 2000); // Change this duration as per your loading time
+
+
     this.messageSubscription = this.guestBookService.onMessage((message: GuestBookModel) => {
       this.onMessageReceived(message);
     });
@@ -93,11 +100,12 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   private onMessageReceived(newMessage: GuestBookModel): void {
     if (!this.messages.some(message => message.MessageId === newMessage.MessageId)) {
-      newMessage.DatePosted = this.parseData(newMessage.DatePosted);
-      this.messages.unshift(newMessage); // Add message at the top
-      this.cd.detectChanges(); // Detect changes for Angular animation
+        newMessage.DatePosted = this.parseData(newMessage.DatePosted);
+        this.messages.unshift(newMessage);
+        this.cd.detectChanges();
     }
-  }
+}
+
 
 
   private handleUserState(user: any): void {
@@ -117,8 +125,12 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loginUser(): void {
+    this.isLoading = true;
     this.authService.loginWithGitHub().subscribe(() => {
-      this.isLoading = false;
+      setTimeout(() => {
+        this.isLoading = false; // Hide loading
+        this.showLoginButton = true; // Show login button after login
+      }, 1000);
     }, () => {
       this.isLoading = false;
     });
@@ -147,17 +159,26 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (this.isValidMessage() && !this.isSubmitting) {
-      this.isSubmitting = true;
+      this.isSubmitting = true; // Set to true to prevent double submission
       const newMessage: GuestBookModel = this.createNewMessage();
 
-      this.guestBookService.addMessage(newMessage).subscribe(() => {
-        this.onMessageSent(newMessage);
-        this.guestBookService.saveMessageToFirebase(newMessage).subscribe();
-      }, () => {
-        this.isSubmitting = false;
-      });
+      // Add message to the backend
+      this.guestBookService.addMessage(newMessage).subscribe(
+        () => {
+          this.onMessageSent(newMessage);
+          this.guestBookService.saveMessageToFirebase(newMessage).subscribe();
+          this.guestbookScroller.scrollToTop(); // Scroll to top on new message
+        },
+        () => {
+          this.isSubmitting = false; // Reset if there's an error
+        },
+        () => {
+          this.isSubmitting = false; // Reset after completion
+        }
+      );
     }
   }
+
 
   onEnter(event: KeyboardEvent, messageInput: HTMLTextAreaElement) {
     if (event.key === 'Enter') {
@@ -165,10 +186,10 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
         const cursorPosition = messageInput.selectionStart;
         const currentValue = messageInput.value;
         messageInput.value = currentValue.slice(0, cursorPosition) +  currentValue.slice(cursorPosition);
-        messageInput.selectionStart = messageInput.selectionEnd = cursorPosition + 1; 
+        messageInput.selectionStart = messageInput.selectionEnd = cursorPosition + 1;
       } else {
-       
-        event.preventDefault(); 
+
+        event.preventDefault();
         this.submitMessage();
       }
     }
@@ -202,11 +223,13 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loadAllMessages(): void {
     this.isLoading = true;
-    setTimeout(() => { 
+    setTimeout(() => {
     this.authService.currentUser$.subscribe(() => {
       this.guestBookService.getAllMessages().subscribe(data => {
         this.populateMessages(data);
         this.isLoading = false;
+        this.showLoginButton = true;
+
       }, () => {
         this.isLoading = false;
       });
@@ -226,7 +249,7 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public parseData(dateInput: string | Date | undefined): string {
     if (dateInput === undefined) {
-      return 'Invalid date'; 
+      return 'Invalid date';
     }
 
     let date: Date;

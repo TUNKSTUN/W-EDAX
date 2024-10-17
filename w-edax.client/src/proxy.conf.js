@@ -1,17 +1,14 @@
-const { env } = require('process');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:57924';
-
-const PROXY_CONFIG = [
-  {
-    context: [
-      "/api/**", // Ensure this matches your API path
-    ],
-    target,
-    secure: false,
-    logLevel: "debug" // Optional: helps in debugging proxy issues
-  }
-];
-
-module.exports = PROXY_CONFIG;
+module.exports = function(app) {
+    app.use(
+        '/api/**',
+        createProxyMiddleware({
+            target: 'https://w2edax-server-latest.onrender.com',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': '/api', // Adjust this path based on your API
+            },
+        })
+    );
+};

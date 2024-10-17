@@ -6,8 +6,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "update-config": "ts-node src/porter.ts",
-    "prestart": "node aspnetcore-https",
     "start:windows": "concurrently \"ng serve --host=127.0.0.1 --proxy-config src/proxy.conf.js\"",
     "start:default": "concurrently \"ng serve --host=127.0.0.1 --proxy-config src/proxy.conf.js\"",
     "start": "run-script-os"
@@ -33,7 +31,7 @@
     "date-fns": "^4.1.0",
     "emoji-picker-element": "^1.22.6",
     "express": "^4.21.0",
-    "firebase": "^10.13.1",
+    "firebase": "^10.14.1",
     "font-awesome": "^4.7.0",
     "gun": "^0.2020.1240",
     "jest-editor-support": "*",

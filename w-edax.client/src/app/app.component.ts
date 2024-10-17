@@ -8,13 +8,15 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { GuestbookComponent } from './guestbook/guestbook.component';
 import { FooterComponent } from './footer/footer.component';
+import { KeywordSearchComponent } from '../app/keyword-seach/keyword-search.component'; // Import the component
+
 
 @Component({
   selector: 'app-root',
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [ NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet],
+  imports: [ NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet, KeywordSearchComponent],
 })
 export class AppComponent {
   title: any;

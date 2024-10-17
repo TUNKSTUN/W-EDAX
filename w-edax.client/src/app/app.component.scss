@@ -1,0 +1,23 @@
+.app-component-body {
+  padding: 5px 200px; /* Default padding for desktop view */
+
+  /* Tablet view (max-width: 1024px) */
+  @media (max-width: 1024px) {
+    padding: 5px 100px; /* Adjust padding for tablets */
+  }
+
+  /* Large mobile view (max-width: 768px) */
+  @media (max-width: 768px) {
+    padding: 5px 50px; /* Adjust padding for larger mobile screens */
+  }
+
+  /* Small mobile view (max-width: 576px) */
+  @media (max-width: 576px) {
+    padding: 5px 20px; /* Adjust padding for smaller mobile screens */
+  }
+
+  /* Extra small mobile view (max-width: 400px) */
+  @media (max-width: 400px) {
+    padding: 5px; /* Remove side padding for very small mobile devices */
+  }
+}

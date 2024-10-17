@@ -1,8 +1,10 @@
+<div class="keyword-search" [class.loaded]="!isLoading">
+  <app-keyword-search></app-keyword-search>
+</div>
 <div class="home-page" [class.loaded]="!isLoading">
   <div class="left-section">
-    <!-- Big Article Section -->
     <div class="article-grid">
-      <!-- Skeleton Loader for Big Article -->
+
       <div *ngIf="isLoading" class="big-article-card skeleton">
         <div class="skeleton-image"></div>
         <div class="big-card-content">
@@ -12,21 +14,18 @@
         </div>
       </div>
 
-      <!-- Actual Big Article -->
-      <ng-container *ngIf="!isLoading && articles && articles.length > 0">
-        <a [routerLink]="['/article', articles?.[0]?.articleId]" class="big-article-card">
-          <img [src]="articles?.[0]?.mediaFileUrls?.[0] ? articles?.[0]?.mediaFileUrls?.[0] : 'https://via.placeholder.com/754x400.png?text=Placeholder+Image'"
-               alt="{{ articles?.[0]?.articleHeadline || 'No headline' }}"
+      <ng-container *ngIf="!isLoading && articles.length > 0">
+        <a [routerLink]="['/article', articles[0].articleId]" class="big-article-card">
+          <img [src]="getImageUrl(articles[0])"
+               alt="{{ articles[0]?.articleHeadline || 'No headline' }}"
                class="big-article-image">
           <div class="big-card-content">
-            <h3>{{ articles?.[0]?.articleHeadline }}</h3>
-            <p>{{ articles?.[0]?.articleDescription }}</p>
+            <h3>{{ articles[0].articleHeadline }}</h3>
+            <p>{{ articles[0].articleDescription }}</p>
           </div>
         </a>
       </ng-container>
 
-
-      <!-- Skeleton Loader for Small Articles -->
       <ng-container *ngIf="isLoading">
         <div *ngFor="let i of [1,2,3,4,5]" class="small-article-card skeleton">
           <div class="skeleton-image"></div>
@@ -37,16 +36,13 @@
         </div>
       </ng-container>
 
-      <!-- Actual Small Articles -->
-      <ng-container *ngIf="!isLoading && articles && articles.length > 1">
+      <ng-container *ngIf="!isLoading && articles.length > 1">
         <div *ngFor="let article of articles.slice(1, 10)" class="small-article-card">
-          <a [routerLink]="['/article', article?.articleId]">
-            <img [src]="article?.mediaFileUrls?.[0] ? article?.mediaFileUrls?.[0] : 'https://via.placeholder.com/150x100.png?text=No+Image'"
-                 alt="{{ article?.articleHeadline || 'No headline' }}"
-                 class="small-article-image">
+          <a [routerLink]="['/article', article.articleId]">
+            <img [src]="getImageUrl(article)" alt="Article Image" class="small-article-image"/>
             <div class="small-card-content">
-              <h3>{{ article?.articleHeadline }}</h3>
-              <p>{{ article?.articleDescription }}</p>
+              <h3>{{ article.articleHeadline }}</h3>
+              <p>{{ article.articleDescription }}</p>
             </div>
           </a>
         </div>
@@ -55,10 +51,8 @@
   </div>
 
   <div class="right-section">
-    <!-- Right Section Content -->
     <h3>Top Articles</h3>
     <div class="article-cards">
-      <!-- Skeleton Loader for Top Articles -->
       <ng-container *ngIf="isLoading">
         <div *ngFor="let i of [1,2]" class="article-card skeleton">
           <div class="skeleton-title"></div>
@@ -66,18 +60,16 @@
           <div class="skeleton-text"></div>
         </div>
       </ng-container>
-      <!-- Actual Top Articles -->
       <ng-container *ngIf="!isLoading && topArticles.length > 0">
-        <a *ngFor="let article of topArticles" [routerLink]="['/article', article?.articleId]" class="article-card">
-          <h3>{{ article?.articleHeadline }}</h3>
-          <p>{{ article?.articleDescription }}</p>
+        <a *ngFor="let article of topArticles" [routerLink]="['/article', article.articleId]" class="article-card">
+          <h3>{{ article.articleHeadline }}</h3>
+          <p>{{ article.articleDescription }}</p>
         </a>
       </ng-container>
     </div>
   </div>
 </div>
 
-<!-- Second Page: Banner -->
 <section id="banner" class="banner">
   <div class="banner-content">
     <h2>Community Events</h2>
@@ -93,7 +85,6 @@
   </div>
 </section>
 
-<!-- Third Page: Topic Articles -->
 <section id="topic-articles" class="topic-articles-section">
   <header class="topic-articles-header">
     <h2 class="section-title">Insights and Innovations</h2>
@@ -105,11 +96,10 @@
       <p class="main-description">Stay ahead with the latest insights and advancements in technology.</p>
     </div>
     <div class="topic-articles-cards">
-      <!-- Loop through 'topicArticles' array -->
       <div *ngFor="let article of topicArticles" class="card">
-        <h4 class="card-title">{{ article?.articleHeadline }}</h4>
-        <p class="card-description">{{ article?.articleDescription }}</p>
-        <a [routerLink]="['/article', article?.articleId]" class="card-button">Read More</a>
+        <h4 class="card-title">{{ article.articleHeadline }}</h4>
+        <p class="card-description">{{ article.articleDescription }}</p>
+        <a [routerLink]="['/article', article.articleId]" class="card-button">Read More</a>
       </div>
     </div>
   </div>

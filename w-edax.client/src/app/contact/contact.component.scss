@@ -16,7 +16,7 @@
 h2 {
   text-align: center;
   margin-bottom: 70px;
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: var(--font-pixel);
   font-size: calc(24px + 1.5vw);
   font-weight: 400;
   color: var(--primary-color);

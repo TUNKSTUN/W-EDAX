@@ -134,7 +134,6 @@ export class GuestBookService {
   }
 
   public parseData(dateInput: string | Date): string {
-    console.log('Input date:', dateInput); // Log the input for debugging
     let date: Date;
     if (typeof dateInput === 'string') {
       date = new Date(dateInput);
@@ -193,7 +192,7 @@ export class GuestBookService {
   }
 
   public onMessage(callback: (message: GuestBookModel) => void): Subscription {
-    return this.messageSubject.subscribe(callback); // Return the subscription  
+    return this.messageSubject.subscribe(callback); // Return the subscription
   }
 
   private mapDataToMessageModel(data: any): GuestBookModel {

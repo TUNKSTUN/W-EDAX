@@ -5,14 +5,14 @@
       <div class="skeleton-author"></div>
       <div class="skeleton-author"></div>
     </div>
-    
+
 
     <div class="skeleton-header2">
     <div class="skeleton-title"></div>
     <div class="skeleton-title2"></div>
     <div class="skeleton-paragraph2"></div>
     </div>
-    
+
 
 
     <div class="skeleton-content">
@@ -38,7 +38,7 @@
     <!-- Article Date -->
     <div class="auth-date-container">
       <div>
-        <p><strong>Author:</strong> {{ article.articleAuthor }}</p>
+        <p><strong>Author:</strong> {{ article.articleAuthor || "Yahya"}}</p>
       </div>
       <div class="article-date">
         <p><strong>Date:</strong> {{ article.articleDate | date: 'mediumDate' }}</p>
@@ -86,19 +86,6 @@
 
           <!-- Show related articles when loading is done -->
           <div *ngIf="!relatedArticlesLoading && (relatedArticles1.length > 0 || relatedArticles2.length > 0)">
-            <!-- Section for related articles from the same category -->
-            <div *ngIf="relatedArticles1.length > 0" class="related-articles-section">
-              <h3>Related Articles</h3>
-              <div class="related-article-cards">
-                <a *ngFor="let relatedArticle of relatedArticles1"
-                   class="related-article-card"
-                   [routerLink]="['/article', relatedArticle.articleId]"
-                   (click)="scroll_up()">
-                  <h4>{{ relatedArticle.articleHeadline }}</h4>
-                </a>
-              </div>
-            </div>
-
             <!-- Section for exploring more articles -->
             <div *ngIf="relatedArticles2.length > 0" class="related-articles-section">
               <h3>Explore More Articles</h3>

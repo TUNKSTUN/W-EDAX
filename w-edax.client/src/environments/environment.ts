@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:57924/api',
+  apiUrl: 'https://w2edax-server-latest.onrender.com/api',
   firebaseConfig: {
     apiKey: "AIzaSyDBK2cJVX4WsmwIoLxuykYk2NZiMj-TiyM",
     authDomain: "w-edax-b.firebaseapp.com",
