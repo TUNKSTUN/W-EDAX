@@ -23,23 +23,25 @@
 
   <nav class="navbar-bottom" [class.sticky]="isSticky">
     <div class="container-fluid">
-      <!-- Links Container -->
       <div id="navbarBottomLinks">
         <ul class="navbar-nav">
-          <!-- Centered Links with Gaps -->
-          <li class="nav-item">
-            <a class="nav-link" href="/About">About</a>
+          <li class="nav-item" [ngClass]="{ selected: isActive('/') }">
+            <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Books">Books</a>
+          <li class="nav-item" [ngClass]="{ selected: isActive('/About') }">
+            <a class="nav-link" [routerLink]="['/About']">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Guestbook">Guest Book</a>
+          <li class="nav-item" [ngClass]="{ selected: isActive('/Books') }">
+            <a class="nav-link" [routerLink]="['/Books']">Books</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Contact">Contact</a>
+          <li class="nav-item" [ngClass]="{ selected: isActive('/Guestbook') }">
+            <a class="nav-link" [routerLink]="['/Guestbook']">Guest-Book</a>
+          </li>
+          <li class="nav-item" [ngClass]="{ selected: isActive('/Contact') }">
+            <a class="nav-link" [routerLink]="['/Contact']">Contact</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+

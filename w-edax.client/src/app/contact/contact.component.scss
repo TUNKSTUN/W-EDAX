@@ -14,10 +14,10 @@
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 70px;
+  text-align: start;
+  margin-bottom: 10px;
   font-family: var(--font-pixel);
-  font-size: calc(24px + 1.5vw);
+  font-size: calc(16px + 1.5vw);
   font-weight: 400;
   color: var(--primary-color);
 }
@@ -62,9 +62,10 @@ h2 {
 
 .form-section button {
   margin-top: 20px;
-  max-width: 80%;
+  max-width: 90%;
   height: 50px;
-  padding: 8px;
+  padding: 14px;
+  border-radius: 10px;
   background-color: var(--primary-color);
   color: var(--text-color-oppo);
   border-bottom: 2px solid #fff;
@@ -117,11 +118,11 @@ img {
 }
 
 .quote-section h1 {
-  font-size: calc(16px + 1.0vw);
+  font-size: calc(10px + 1.0vw);
 }
 
 .quote-section p {
-  font-size: calc(10px + 0.2vw);
+  font-size: calc(12px + 0.2vw);
   text-align: end;
   margin-top: 20px;
 }
@@ -179,7 +180,7 @@ img {
       width: 250px;
   }
   .quote-section h1{
-      font-size: calc(10px + 1.2vw);
+      font-size: calc(5px + 1.2vw);
   }
 }
 

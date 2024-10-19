@@ -19,7 +19,7 @@
   >
     <!-- Popup container -->
     <span class="close" (click)="closePopup()">&times;</span>
-    <h3>Search Results for "{{ selectedKeyword }}"</h3>
+    <h3>{{ selectedKeyword }}:</h3>
     <div *ngIf="isLoading" class="loading"></div>
     <ng-container *ngIf="!isLoading">
       <div *ngFor="let article of filteredArticles" class="article">

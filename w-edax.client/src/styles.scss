@@ -7,13 +7,19 @@
 
 
 
+@font-face {
+  font-family: 'Tunkstun';
+  src: url('./app/assets/QhueenySignature.ttf') format('truetype');
+  font-weight: normal; /* Adjust as needed */
+  font-style: normal;  /* Adjust as needed */
+}
 
 
 /* Defining font variables */
 :root {
   --font-primary: 'Roboto', sans-serif;
   --font-secondary: 'Courier Prime', monospace;
-  --font-pixel: 'Pixelify sans', sans-serif;
+  --font-pixel: 'Silkscreen', sans-serif;
 
 }
 h2, h3{

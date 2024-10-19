@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { GuestbookComponent } from './guestbook/guestbook.component';
 import { FooterComponent } from './footer/footer.component';
 import { KeywordSearchComponent } from '../app/keyword-seach/keyword-search.component'; // Import the component
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { KeywordSearchComponent } from '../app/keyword-seach/keyword-search.comp
   templateUrl: `./app.component.html`,
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [ NavbarComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet, KeywordSearchComponent],
+  imports: [ NavbarComponent, NotFoundComponent, RouterModule, HomeComponent, AboutComponent, ContactComponent, GuestbookComponent, FooterComponent, RouterOutlet, KeywordSearchComponent],
 })
 export class AppComponent {
   title: any;

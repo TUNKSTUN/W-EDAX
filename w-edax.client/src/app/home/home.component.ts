@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private selectTopicSpecificArticles(): void {
-    const keywords = ['Cloud', 'Security', 'Network Segmentation', 'Exploit', 'Ransomware'];
+    const keywords = ['Cloud', 'Security', 'Network Segmentation'];
     this.topicArticles = this.articles.filter(article =>
       article.articleHeadline?.trim() &&
       keywords.some(keyword => article.articleHeadline.includes(keyword))

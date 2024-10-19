@@ -2,38 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Component, AfterViewInit, Renderer2, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import contentJson from '../assets/content.json';
 import { CommonModule, NgFor } from '@angular/common';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 @Component({
   selector: 'app-about',
-  imports: [NgFor, CommonModule],
+  imports: [NgFor, CommonModule, FontAwesomeModule],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
   standalone: true,
 })
-export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AboutComponent implements  AfterViewInit, OnDestroy {
+  faLinkedin = faLinkedin;
+  faGithub = faGithub;
+  faTwitter = faTwitter;
   private scrollHandler: (() => void) | undefined;
   public content: any = contentJson;
-  public frontImageSrc: string = '';
-  public backImageSrc: string = '';
 
-  constructor(private renderer: Renderer2, private el: ElementRef, private http: HttpClient) { }
 
-  ngOnInit() {
-    this.loadImages();
+  constructor(private library: FaIconLibrary, private renderer: Renderer2, private el: ElementRef, private http: HttpClient) {    this.library.addIcons(faLinkedin, faGithub, faTwitter);
   }
-
-  private loadImages() {
-    this.http.get('assets/images/yahya-pix.png', { responseType: 'blob' })
-      .subscribe(blob => {
-        this.frontImageSrc = URL.createObjectURL(blob);
-      });
-
-    this.http.get('assets/images/signal.png', { responseType: 'blob' })
-      .subscribe(blob => {
-        this.backImageSrc = URL.createObjectURL(blob);
-      });
-  }
-
   ngAfterViewInit() {
     setTimeout(() => {
       const aboutSection = this.el.nativeElement.querySelector('.about');
@@ -46,16 +34,6 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.scrollHandler) {
       window.addEventListener('scroll', this.scrollHandler);
     }
-  }
-
-  public flipImage(): void {
-    const image = this.el.nativeElement.querySelector('.image');
-    this.renderer.addClass(image, 'flipped');
-  }
-
-  public resetImage(): void {
-    const image = this.el.nativeElement.querySelector('.image');
-    this.renderer.removeClass(image, 'flipped');
   }
 
   handleScroll() {
@@ -73,4 +51,20 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
       window.removeEventListener('scroll', this.scrollHandler);
     }
   }
+
+  // Authors array with Firebase images
+  authors = [
+    {
+      name: 'Yahya',
+      image: 'https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya_1.png?alt=media&token=75420c3e-edfe-4330-a137-9a9883f38a87',
+      description: [
+        'Yahya is an accomplished Network Engineer with a solid background in infrastructure. He is continuously expanding his expertise in development and cybersecurity. Learn more about his journey at tunkstun.web.app.'
+      ],
+      socials: [
+        { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/yahya24' },
+        { platform: 'GitHub', url: 'https://github.com/tunkstun' },
+        { platform: 'Twitter', url: 'https://twitter.com/tunkstun' },
+      ]
+    }
+  ];
 }

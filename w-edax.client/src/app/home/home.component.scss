@@ -54,11 +54,9 @@
       grid-row: span 2;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--text-color);
       border-radius: 8px;
       overflow: hidden;
       color: var(--primary-color);
-      background-color: var(--card-background);
       transition: transform 0.3s, box-shadow 0.3s;
 
       &:hover {
@@ -76,7 +74,7 @@
 
         h3 {
           margin-top: 10px;
-          font-size: 2rem;
+          font-size: 1.8rem;
           text-align: center;
           color: var(--primary-color);
           font-family: var(--font-pixel);
@@ -102,10 +100,8 @@
     }
 
     .small-article-card {
-      border: 1px solid var(--text-color);
       border-radius: 8px;
       overflow: hidden;
-      background-color: var(--card-background);
       transition: transform 0.3s, box-shadow 0.3s;
 
       &:hover {
@@ -123,7 +119,7 @@
         }
 
         p {
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           margin-top: 5px;
           color: var(--text-color);
           font-family: var(--font-secondary);
@@ -146,18 +142,23 @@
   max-width: 200px;
   width: 100%;
   max-height: 60%;
-  background-color: var(--dark-d);
   border-radius: 8px;
-  padding: 20px;
   margin-top: 20px;
   text-align: left;
-  border: 1px solid var(--text-color);
 
-  h3 {
-    font-size: 1.8rem;
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
     color: var(--primary-color);
     margin-bottom: 8px;
     font-family: var(--font-pixel);
+    background-color: var(--message-back);
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  p{
+  color: var(--text-color-oppo);
   }
 }
 
@@ -169,29 +170,30 @@
 }
 
 .article-card {
-  flex: 1 1 calc(33% - 5px);
-  background-color: var(--card-background);
+  flex: 1;
   border-bottom: 3px groove lightgray;
   border-right: 2px groove lightgray;
+  border: 1px gray solid;
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px;
   font-size: 14px;
   text-decoration: none;
-  color: var(--text-color);
+  background-color: var(--dark-d);
   transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
 
   &:hover {
     transform: scale(.9999);
-    border: 1px solid var(--background-color);
   }
 
   h3 {
     font-size: 0.9rem;
+    color: var(--primary-color)
   }
 
   p {
     font-size: 0.7rem;
     font-family: var(--font-secondary);
+    color: white;
   }
 }
 
@@ -208,6 +210,8 @@
 .banner {
   background: url('https://images.unsplash.com/photo-1568027762272-e4da8b386fe9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww') no-repeat center center;
   background-size: cover;
+  margin-top: 20px;
+  border-top: 2px var(--primary-color) solid;
   height: 60vh;
   width: 100%;
   display: flex;
@@ -380,15 +384,14 @@
     }
   }
   .topic-articles-cards {
-    background-color: var(--card-background);
-    border-left: 1px solid var(--primary-color);
-    border-right: 1px solid var(--primary-color);
+
     padding: 15px;
     overflow-x: auto;
     overflow-y: hidden;
+
     display: flex;
     gap: 10px;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     align-items: stretch;
     max-height: 300px;
@@ -425,11 +428,23 @@
         color: var(--primary-color);
       }
 
-      .card-description {
+      @mixin line-clamp($lines) {
+        display: -webkit-box;                     // Required for WebKit-based browsers
+        -webkit-box-orient: vertical;             // Required for WebKit-based browsers
+        -webkit-line-clamp: $lines;               // Limits to the specified number of lines
+        overflow: hidden;                          // Hides overflow text
+        text-overflow: ellipsis;                  // Displays ellipsis
+    }
+
+    // Usage
+    .card-description {
         font-size: 0.8rem;
         font-family: var(--font-secondary);
+        line-height: 1.6em;                       // Set line height
+        max-height: (1.6em * 2);                   // Adjust based on line height and number of lines
+        @include line-clamp(2);                   // Apply the line-clamp mixin
+    }
 
-      }
 
       &:hover {
         transform: translateY(-1px);
@@ -519,18 +534,14 @@
 
       .big-article-card {
         width: 100%;
-        border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 16px;
-        background-color: var(--card-background);
       }
 
       .small-article-card {
         width: 100%;
-        border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 10px;
-        background-color: var(--card-background);
       }
     }
   }
@@ -612,7 +623,6 @@
       }
 
       .card {
-        border: 1px solid #e0e0e0; // Optional border
         border-radius: 8px; // Rounded corners
         padding: 12px; // Padding inside the card
         height: auto;
@@ -693,17 +703,13 @@
 
       .big-article-card {
         width: 100%; // Full width for big article card
-        border: 1px solid #e0e0e0; // Optional border
         border-radius: 8px; // Rounded corners
         padding: 16px; // Padding inside the card
-        background-color: var(--card-background);
       }
       .small-article-card {
         width: 100%; // Full width for small article cards
-        border: 1px solid #e0e0e0; // Optional border
         border-radius: 8px; // Rounded corners
         padding: 10px; // Padding inside the card
-        background-color: var(--card-background);
       }
     }
   }
@@ -750,7 +756,7 @@
       @media (min-width: 577px) { // Styles for screens above 576px
         flex-direction: row; // Arrange cards in a row
         flex-wrap: wrap; // Allow wrapping to next line if needed
-      width: 40%;
+        width: 40%;
 
 
         .card {

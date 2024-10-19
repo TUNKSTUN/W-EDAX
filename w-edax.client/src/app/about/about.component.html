@@ -1,18 +1,18 @@
 <section class="about">
+  <div class="pattern-container">
+    <div class="pattern-item"></div>
+    <div class="pattern-item"></div>
+    <div class="pattern-item"></div>
+    <!-- Repeat pattern items as needed -->
+  </div>
   <div class="about-content">
-    <div class="about-designer-container">
-      <div class="wavy-grid-container">
-        <ng-container *ngFor="let _ of [].constructor(30); let i = index">
-          <div></div>
-        </ng-container>
-      </div>
-    </div>
-
     <div class="left-section">
       <!-- Welcome Section -->
       <div class="intro">
         <h2>{{ content.About.Welcome.headline }}</h2>
-        <ng-container *ngFor="let paragraph of content.About.Welcome.paragraphs">
+        <ng-container
+          *ngFor="let paragraph of content.About.Welcome.paragraphs"
+        >
           <p>{{ paragraph }}</p>
         </ng-container>
       </div>
@@ -20,7 +20,9 @@
       <!-- Mission Section -->
       <div class="mission">
         <h2>{{ content.About.Mission.headline }}</h2>
-        <ng-container *ngFor="let paragraph of content.About.Mission.paragraphs">
+        <ng-container
+          *ngFor="let paragraph of content.About.Mission.paragraphs"
+        >
           <p>{{ paragraph }}</p>
         </ng-container>
       </div>
@@ -37,32 +39,44 @@
     </div>
   </div>
 
-  <div class="meet-author">
-    <div class="team-member">
-      <div class="image-container">
-        <div class="container" (mouseenter)="flipImage()" (mouseleave)="resetImage()">
-          <div class="image" #image>
-            <div class="image-face front">
-              <img src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya-pix.png?alt=media&token=e68ab68b-9b06-4a23-a741-4713b18cf216" alt="image" />
-            </div>
-            <div class="image-face back">
-              <div class="social-media">
-                <a href="https://signal.me/#eu/k3smQcH4yPOkWWetuk03BfBYXmgDZNo-Rr1Sq45CwIXb1sJ4cqtMGLyGf2vpKbM8" target="_blank" rel="noopener noreferrer">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fsignal.png?alt=media&token=df42d786-63a3-49af-b49a-1fd6238275bd" alt="Profile Picture" />
-                  <span>Signal</span>
-                  <p>Let's network!</p>
-                </a>
-              </div>
+  <!-- Meet the Authors Section -->
+  <div class="meet-authors">
+    <h2>Authors</h2>
+    <div class="authors-grid">
+      <div class="team-member" *ngFor="let author of authors">
+        <div class="image-container">
+          <div class="container">
+            <div class="image">
+              <img
+                [src]="author.image || '../assets/yahya__.png'"
+                alt="{{ author.name || 'Author Image Placeholder' }}"
+              />
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="content-container">
-        <h3>Yahya</h3>
-        <ng-container *ngFor="let paragraph of content.About.Author.paragraphs">
-          <p>{{ paragraph }}</p>
-        </ng-container>
+        <div class="content-container">
+          <h3>{{ author.name || "Author Name Placeholder" }}</h3>
+          <ng-container
+            *ngFor="
+              let paragraph of author.description || [
+                'No description available.'
+              ]
+            "
+          >
+            <p>{{ paragraph }}</p>
+            <div class="social-links">
+              <a href="https://tunkstun.web.app" alt="portfolio website">
+                <i class="fa-solid fa-link"></i>
+              </a>
+              <a *ngFor="let social of author.socials" [href]="social.url" target="_blank">
+                <fa-icon *ngIf="social.platform === 'LinkedIn'" [icon]="faLinkedin"></fa-icon>
+                <fa-icon *ngIf="social.platform === 'GitHub'" [icon]="faGithub"></fa-icon>
+                <fa-icon *ngIf="social.platform === 'Twitter'" [icon]="faTwitter"></fa-icon>
+              </a>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>

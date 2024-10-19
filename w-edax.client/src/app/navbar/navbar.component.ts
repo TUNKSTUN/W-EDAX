@@ -1,14 +1,19 @@
 import { Component, HostListener, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { TypewriterService } from './typewriter.service'; // Adjust path as needed
+import { Router, NavigationEnd } from '@angular/router'; // Correct import
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, NgClass],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  currentUrl: string = ''; // Initialize currentUrl
   isSticky: boolean = false;
   isHidden: boolean = false; // Keep track of navbar visibility
   isNavbarOpen: boolean = false; // Track if the navbar is open or collapsed
@@ -17,8 +22,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private typewriterService: TypewriterService,
-    private elementRef: ElementRef
-  ) { }
+    private elementRef: ElementRef,
+    private router: Router
+  ) {
+    // Subscribe to router events to get the current URL
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = this.router.url; // Set the current URL
+      }
+    });
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -87,5 +100,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       navbarCollapse?.classList.remove('expanded');
       navbarCollapse?.classList.add('collapsed');
     }
+  }
+
+  isActive(path: string): boolean {
+    return this.currentUrl === path; // Check if the current URL matches the path
   }
 }
