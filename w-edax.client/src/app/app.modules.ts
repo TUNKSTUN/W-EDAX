@@ -6,7 +6,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { KeywordSearchComponent } from './keyword-seach/keyword-search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { Routes } from '@angular/router';
+import { routes } from './routes';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppModule,
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'top', // Scrolls to top on route change
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

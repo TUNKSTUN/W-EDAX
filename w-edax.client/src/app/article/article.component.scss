@@ -17,8 +17,7 @@
   padding-left: 0;
 
   .article-skeleton {
-    width: 100%;
-    max-width: 750px;
+    width: 800px;
     padding: 10px;
     background-color: var(--background-color);
     border-radius: 8px;
@@ -29,9 +28,8 @@
     flex-direction: column; /* Stack items vertically by default */
     align-items: center; /* Center align the items */
 
-
     .skeleton-header2 {
-      width: 90%;
+      width: 100%;
       max-width: 750px;
       border-bottom: 1px solid gray;
       gap: 10px;
@@ -57,8 +55,6 @@
         padding-bottom: 20px;
       }
     }
-
-
 
     .skeleton-header {
       width: 100%;
@@ -103,7 +99,10 @@
       padding: 15px; /* Less padding for mobile */
       gap: 5px;
 
-      .skeleton-title, .skeleton-paragraph2, .skeleton-title3, .skeleton-title2 {
+      .skeleton-title,
+      .skeleton-paragraph2,
+      .skeleton-title3,
+      .skeleton-title2 {
         width: 100%; /* Full width for mobile */
         height: 30px; /* Adjust height for mobile */
       }
@@ -127,7 +126,7 @@
   }
   /* Related Articles Skeleton Loader */
   .related-articles-skeleton {
-    width:19rem;
+    width: 19rem;
     padding: 20px;
     border-radius: 8px;
     margin: 10px 0;
@@ -166,7 +165,7 @@
     text-align: justify-all;
 
     .auth-date-container {
-font-family: var(--font-secondary);
+      font-family: var(--font-secondary);
       font-weight: 400;
       display: flex;
       width: 100%;
@@ -181,15 +180,15 @@ font-family: var(--font-secondary);
     h1 {
       margin-top: 16px;
       font-family: var(--font-pixel);
-      font-size: calc(18px + 1vw);
+      font-size: calc(20px + 1vw);
       font-weight: 400;
       color: var(--primary-color);
       transition: opacity 0.3s ease-in-out;
       margin-bottom: 10px;
       text-align: center;
     }
-    p{
-      font-size: calc(8px + 0.5vw);
+    p {
+      font-size: calc(10px + 0.5vw);
     }
 
     .desc {
@@ -254,8 +253,19 @@ font-family: var(--font-secondary);
 
 .article-skeleton,
 .related-articles-skeleton {
-  .skeleton-title, .skeleton-title2, .skeleton-author, .skeleton-paragraph, .skeleton-title3, .skeleton-paragraph2, .related-article-card {
-    background: linear-gradient(to right, darkgrey 8%, lightgray 18%, darkgrey 33%);
+  .skeleton-title,
+  .skeleton-title2,
+  .skeleton-author,
+  .skeleton-paragraph,
+  .skeleton-title3,
+  .skeleton-paragraph2,
+  .related-article-card {
+    background: linear-gradient(
+      to right,
+      darkgrey 8%,
+      lightgray 18%,
+      darkgrey 33%
+    );
     width: auto;
     height: 100px;
     animation: shimmer 1.5s infinite linear;
@@ -264,8 +274,6 @@ font-family: var(--font-secondary);
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-
-
   .article-page {
     width: 100%;
     padding: 10px;
@@ -304,7 +312,7 @@ font-family: var(--font-secondary);
 
   h3 {
     font-family: var(--font-pixel);
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     color: var(--primary-color);
     margin-bottom: 20px;
     text-align: center; // Center-align heading for better appearance
@@ -347,18 +355,18 @@ font-family: var(--font-secondary);
 /* Responsive Styles */
 @media (max-width: 768px) {
   .related-articles-section {
-    padding: 15px; // Reduced padding for smaller screens
+    padding: 15px;
     text-align: center;
   }
 
   h3 {
-    font-size: 1.2rem; // Decrease font size for smaller screens
+    font-size: 1.0rem;
   }
 
   .related-article-card {
-    padding: 8px; // Reduced padding for smaller cards
+    padding: 8px;
     h4 {
-      font-size: 0.8rem; // Decrease font size for article titles
+      font-size: 0.8rem;
     }
   }
   .related-articles-skeleton {
@@ -383,7 +391,7 @@ font-family: var(--font-secondary);
   }
 
   h3 {
-    font-size: 1rem; // Further decrease font size
+    font-size: 0.8rem; // Further decrease font size
   }
 
   .related-article-card {
@@ -393,7 +401,6 @@ font-family: var(--font-secondary);
     }
   }
 }
-
 
 /* Styling for the Tags Container */
 .tags-container {
@@ -408,8 +415,10 @@ font-family: var(--font-secondary);
 
 .tags-container h3 {
   color: var(--primary-color);
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   margin-bottom: 10px;
+  font-family: var(--font-pixel);
+
 }
 
 .tags-section {
@@ -437,10 +446,12 @@ font-family: var(--font-secondary);
   padding: 10px;
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     gap: 5px;
     text-align: center;
     margin-bottom: 20px;
+  font-family: var(--font-pixel);
+
   }
 
   form {
@@ -473,8 +484,8 @@ font-family: var(--font-secondary);
 
 /* Responsive adjustments for mobile view */
 @media (max-width: 768px) {
-  .auth-date-container{
-    p{
+  .auth-date-container {
+    p {
       font-size: calc(10px + 1vw);
     }
   }

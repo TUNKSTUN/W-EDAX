@@ -1,47 +1,53 @@
 <nav class="navbar-top navbar-light">
-    <!-- Logo and Slogan in the Middle -->
-    <div class="logo-container">
-      <div style="margin: 0; padding: 0; align-items: center;">
-        <a class="navbar-brand" href="/">
-          W&#178;EDAX
-        </a>
-      </div>
-      <div style="margin: 0; padding: 0; align-items: center;">
-        <p class="navbar-text width: 100%">
-          <span class="typewriter-text"></span>
-        </p>
-      </div>
+  <!-- Logo and Slogan in the Middle -->
+  <div class="logo-container">
+    <div style="margin: 0; padding: 0; align-items: center;">
+      <a class="navbar-brand" href="/">
+        W&#178;EDAX
+      </a>
     </div>
-    <!-- Links on the Far Right -->
-    <div class="justify-content-end" id="navbarLinks">
-          <div class="nav-link" aria-label="Guestbook">
-            <button class="toggler" (click)="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
-          </div>
+    <div style="margin: 0; padding: 0; align-items: center;">
+      <p class="navbar-text width: 100%">
+        <span class="typewriter-text"></span>
+      </p>
     </div>
+  </div>
+  <!-- Links on the Far Right -->
+  <div class="justify-content-end" id="navbarLinks">
+    <div class="nav-link" aria-label="Guestbook">
+      <button class="toggler" (click)="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </div>
   <div class="placeholder"></div>
-  </nav>
+</nav>
 
-  <nav class="navbar-bottom" [class.sticky]="isSticky">
-    <div class="container-fluid">
-      <div id="navbarBottomLinks">
-        <ul class="navbar-nav">
-          <li class="nav-item" [ngClass]="{ selected: isActive('/') }">
-            <a class="nav-link" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [ngClass]="{ selected: isActive('/About') }">
-            <a class="nav-link" [routerLink]="['/About']">About</a>
-          </li>
-          <li class="nav-item" [ngClass]="{ selected: isActive('/Books') }">
-            <a class="nav-link" [routerLink]="['/Books']">Books</a>
-          </li>
-          <li class="nav-item" [ngClass]="{ selected: isActive('/Guestbook') }">
-            <a class="nav-link" [routerLink]="['/Guestbook']">Guest-Book</a>
-          </li>
-          <li class="nav-item" [ngClass]="{ selected: isActive('/Contact') }">
-            <a class="nav-link" [routerLink]="['/Contact']">Contact</a>
-          </li>
-        </ul>
-      </div>
+<!-- Bottom Navbar with Toggle for Mobile -->
+<!-- Bottom Navbar with Toggle for Mobile -->
+<nav class="navbar-bottom" [class.sticky]="isSticky">
+  <div class="container-fluid">
+    <button class="navbar-toggler d-md-none" (click)="toggleDropdown()" aria-expanded="false">
+      <i class="fa fa-bars"></i> <!-- FontAwesome icon for menu -->
+    </button>
+    <!-- Navbar links -->
+    <div id="navbarBottomLinks" [ngClass]="{'show': isDropdownOpen}">
+      <ul class="navbar-nav">
+        <li class="nav-item" [ngClass]="{ selected: isActive('/') }">
+          <a class="nav-link" [routerLink]="['/']">Home</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ selected: isActive('/About') }">
+          <a class="nav-link" [routerLink]="['/About']">About</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ selected: isActive('/Books') }">
+          <a class="nav-link" [routerLink]="['/Books']">Books</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ selected: isActive('/Guestbook') }">
+          <a class="nav-link" [routerLink]="['/Guestbook']">Guestbook</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ selected: isActive('/Contact') }">
+          <a class="nav-link" [routerLink]="['/Contact']">Contact</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 

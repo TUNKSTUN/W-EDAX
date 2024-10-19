@@ -2,8 +2,7 @@ import { Component, HostListener, OnInit, OnDestroy, ElementRef } from '@angular
 import { TypewriterService } from './typewriter.service'; // Adjust path as needed
 import { Router, NavigationEnd } from '@angular/router'; // Correct import
 import { RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
-
+import { NgClass, ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -13,24 +12,33 @@ import { NgClass } from '@angular/common';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  currentUrl: string = ''; // Initialize currentUrl
+  isOpen: Boolean = false;  // Unused but kept for collapsible navbar
+  currentUrl: string = '';  // Tracks the current URL
   isSticky: boolean = false;
-  isHidden: boolean = false; // Keep track of navbar visibility
-  isNavbarOpen: boolean = false; // Track if the navbar is open or collapsed
-  private lastScrollTop: number = 0; // Last scroll position
-  private scrollThreshold: number = 50; // Set a threshold to control navbar behavior
+  isHidden: boolean = false;
+  isNavbarOpen: boolean = false;
+  isDropdownOpen: boolean = false;  // Tracks if dropdown menu is open (mobile)
+  private lastScrollTop: number = 0;
+  private scrollThreshold: number = 50;
 
   constructor(
     private typewriterService: TypewriterService,
     private elementRef: ElementRef,
-    private router: Router
+    private router: Router, private viewportScroller: ViewportScroller
   ) {
-    // Subscribe to router events to get the current URL
+    // Subscribe to router events to set the current URL
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.currentUrl = this.router.url; // Set the current URL
+        this.currentUrl = this.router.url;
+        this.isDropdownOpen = false;
       }
     });
+  }
+
+
+  // Toggle the mobile dropdown menu
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   @HostListener('window:scroll', [])
@@ -38,29 +46,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const navbarHeight = document.querySelector('.navbar-top')?.clientHeight || 0;
     const offset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-    // Scrolling down
     if (offset > this.lastScrollTop && offset > navbarHeight) {
       this.isSticky = true;
-      this.isHidden = false; // Show navbar when scrolling down
+      this.isHidden = false;
       document.querySelector('.navbar-bottom')?.classList.add('sticky');
       document.querySelector('.navbar-bottom')?.classList.remove('hidden');
-    }
-    // Scrolling up and past threshold
-    else if (offset < this.lastScrollTop && offset > this.scrollThreshold) {
+    } else if (offset < this.lastScrollTop && offset > this.scrollThreshold) {
       this.isSticky = true;
-      this.isHidden = false; // Keep navbar visible when scrolling up but not hiding it too soon
+      this.isHidden = false;
       document.querySelector('.navbar-bottom')?.classList.add('sticky');
       document.querySelector('.navbar-bottom')?.classList.remove('hidden');
-    }
-    // Near the top of the page
-    else if (offset < this.scrollThreshold) {
+    } else if (offset < this.scrollThreshold) {
       this.isSticky = false;
-      this.isHidden = false; // Ensure navbar is visible when near the top
+      this.isHidden = false;
       document.querySelector('.navbar-bottom')?.classList.remove('sticky');
       document.querySelector('.navbar-bottom')?.classList.remove('hidden');
     }
 
-    this.lastScrollTop = offset <= 0 ? 0 : offset; // Update scroll position
+    this.lastScrollTop = offset <= 0 ? 0 : offset;
   }
 
   ngOnInit() {
@@ -69,10 +72,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.typewriterService.startTypewriterEffect(typewriterElement);
     }
     this.initializeTheme();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.viewportScroller.scrollToPosition([0, 0]); // Scroll to top
+      }
+    });
   }
 
   ngOnDestroy() {
-    // Clean up resources
+    // Clean up resources if necessary
   }
 
   private initializeTheme() {
@@ -88,21 +96,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
   }
 
-  // Toggle the navbar collapse state
-  toggleNavbar() {
-    this.isNavbarOpen = !this.isNavbarOpen; // Toggle the open state
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-
-    if (this.isNavbarOpen) {
-      navbarCollapse?.classList.remove('collapsed');
-      navbarCollapse?.classList.add('expanded');
-    } else {
-      navbarCollapse?.classList.remove('expanded');
-      navbarCollapse?.classList.add('collapsed');
-    }
-  }
-
   isActive(path: string): boolean {
-    return this.currentUrl === path; // Check if the current URL matches the path
+    return this.currentUrl === path;
   }
 }

@@ -1,10 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, AfterViewInit, Renderer2, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Renderer2,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import contentJson from '../assets/content.json';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, ViewportScroller } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {
+  faLinkedin,
+  faGithub,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import { Router } from '@angular/router';
+
+import { NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-about',
   imports: [NgFor, CommonModule, FontAwesomeModule],
@@ -12,15 +26,29 @@ import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-ic
   styleUrls: ['./about.component.scss'],
   standalone: true,
 })
-export class AboutComponent implements  AfterViewInit, OnDestroy {
+export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   faLinkedin = faLinkedin;
   faGithub = faGithub;
   faTwitter = faTwitter;
   private scrollHandler: (() => void) | undefined;
   public content: any = contentJson;
 
+  constructor(
+    private library: FaIconLibrary,
+    private renderer: Renderer2,
+    private router: Router,
+    private viewportScroller: ViewportScroller,
+    private el: ElementRef,
+  ) {
+    this.library.addIcons(faLinkedin, faGithub, faTwitter);
+  }
 
-  constructor(private library: FaIconLibrary, private renderer: Renderer2, private el: ElementRef, private http: HttpClient) {    this.library.addIcons(faLinkedin, faGithub, faTwitter);
+  ngOnInit() {
+    this.router.events.subscribe((event: any) => { // Specify the type for event
+      if (event instanceof NavigationEnd) {
+        this.viewportScroller.scrollToPosition([0, 0]); // Scroll to top
+      }
+    });
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -38,10 +66,12 @@ export class AboutComponent implements  AfterViewInit, OnDestroy {
 
   handleScroll() {
     const scrollPosition = window.scrollY;
-    const blocks = this.el.nativeElement.querySelectorAll('.wavy-grid-container > div');
+    const blocks = this.el.nativeElement.querySelectorAll(
+      '.wavy-grid-container > div'
+    );
 
     blocks.forEach((block: HTMLElement, index: number) => {
-      const rotation = (scrollPosition / 1) + (index * 10);
+      const rotation = scrollPosition / 1 + index * 10;
       this.renderer.setStyle(block, 'transform', `rotate(${rotation}deg)`);
     });
   }
@@ -56,15 +86,16 @@ export class AboutComponent implements  AfterViewInit, OnDestroy {
   authors = [
     {
       name: 'Yahya',
-      image: 'https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya_1.png?alt=media&token=75420c3e-edfe-4330-a137-9a9883f38a87',
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/w-edax-b.appspot.com/o/Assets%2Fyahya_1.png?alt=media&token=75420c3e-edfe-4330-a137-9a9883f38a87',
       description: [
-        'Yahya is an accomplished Network Engineer with a solid background in infrastructure. He is continuously expanding his expertise in development and cybersecurity. Learn more about his journey at tunkstun.web.app.'
+        'Yahya is an accomplished Network Engineer with a solid background in infrastructure. He is continuously expanding his expertise in development and cybersecurity. Learn more about his journey at tunkstun.web.app.',
       ],
       socials: [
         { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/yahya24' },
         { platform: 'GitHub', url: 'https://github.com/tunkstun' },
         { platform: 'Twitter', url: 'https://twitter.com/tunkstun' },
-      ]
-    }
+      ],
+    },
   ];
 }

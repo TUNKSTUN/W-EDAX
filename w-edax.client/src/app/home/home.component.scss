@@ -211,7 +211,8 @@
   background: url('https://images.unsplash.com/photo-1568027762272-e4da8b386fe9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww') no-repeat center center;
   background-size: cover;
   margin-top: 20px;
-  border-top: 2px var(--primary-color) solid;
+  border-top: 4px var(--primary-color) solid;
+  border-bottom: 4px var(--primary-color) solid;
   height: 60vh;
   width: 100%;
   display: flex;
@@ -371,7 +372,7 @@
     text-align: center;
 
     .main-heading {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: var(--primary-color);
       margin-bottom: 10px;
       font-family: var(--font-pixel);

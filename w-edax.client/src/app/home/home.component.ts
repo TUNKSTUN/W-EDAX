@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2, AfterViewInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ArticleService } from '../Services/article.services';
 import { ArticleModel } from '../models/article.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KeywordSearchComponent } from '../keyword-seach/keyword-search.component';
 import { catchError, tap } from 'rxjs/operators';
@@ -28,9 +28,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   showPopup = false;
   defaultImage = 'https://via.placeholder.com/150'; // Placeholder URL
 
-  constructor(private articleService: ArticleService, private router: Router, private renderer: Renderer2) {}
+  constructor(private articleService: ArticleService, private router: Router, private viewportScroller: ViewportScroller, private renderer: Renderer2) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.viewportScroller.scrollToPosition([0, 0]); // Scroll to top
+      }
+    });
     this.loadArticles();
   }
 
@@ -40,6 +45,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (topicCards) {
         topicCards.scrollLeft += window.scrollY - (window.scrollY - topicCards.offsetTop);
       }
+
     });
   }
 

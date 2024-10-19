@@ -20,7 +20,7 @@ body.no-scroll {
       padding: 5px 10px; /* Adjusting padding for button size */
       height: auto; /* Allow flexibility for text size */
       width: auto; /* Auto width based on content */
-      font-size: calc(8px + 0.5vw);
+      font-size: calc(10px + 0.5vw);
       color: var(--text-color);
       background-color: var(--card-background);
       border-bottom: 2px solid gray;
@@ -61,7 +61,6 @@ body.no-scroll {
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
-  border-radius: 10px;
   justify-content: center;
   opacity: 0; /* Start invisible */
   visibility: hidden; /* Start hidden */
@@ -83,14 +82,16 @@ body.no-scroll {
   }
   .popup-content {
     background-color: var(--background-color);
-    padding: 20px;
+    padding: 10px;
     position: relative;
-  border: 1px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 800px;
-    height: 600px;
+
+    width: 1100px;
+    height: 700px;
     transition: width 0.5s ease, height 0.5s ease; /* Smooth resize transition */
     transform: scale(0.8); /* Start with a slight shrink effect */
     transition: transform 0.3s ease-in-out; /* Smooth scale transition */
@@ -101,7 +102,7 @@ body.no-scroll {
       margin: 5px;
       margin-bottom: 20px;
       background-color: var(--message-back);
-      padding: 20px; /* Increase padding to give it a button-like feel */
+      padding: 10px; /* Increase padding to give it a button-like feel */
       border-radius: 10px;
       border-bottom: 2px solid gray;
       border-right: 2px solid gray;
@@ -124,7 +125,7 @@ body.no-scroll {
       .article-image {
         margin-left: 10px; /* Space between text and image */
         img {
-          max-width: 100px; /* Set a max width for images */
+          max-width: 80px; /* Set a max width for images */
           height: auto; /* Keep aspect ratio */
           border-radius: 5px; /* Optional: add rounded corners */
         }
@@ -149,6 +150,7 @@ body.no-scroll {
       font-weight: 400;
       font-size: calc(24px + 0.5vw);
       margin-bottom: 20px;
+      margin-right: 40px;
       text-transform: capitalize;
       text-align: start;
       color: var(--primary-color);
@@ -157,7 +159,7 @@ body.no-scroll {
     a{
       color: var(--text-color);
       text-decoration: none;
-      padding-left: 20px;
+      padding-left: 10px;
     }
 
 
@@ -168,7 +170,7 @@ body.no-scroll {
     }
     p{
       color: var(--text-color);
-      font-size: calc(8px + 0.5vw);
+      font-size: calc(12px + 0.5vw);
       font-family: var(--font-secondary);
       margin-top: 10px;
     }
@@ -189,6 +191,7 @@ body.no-scroll {
   opacity: 1; /* Fade in */
   visibility: visible; /* Make visible */
 }
+
 
 .loading {
   position: absolute; /* Use fixed positioning to cover the viewport */
@@ -232,3 +235,15 @@ body.no-scroll {
 
 }
 
+
+  @media(max-width: 789){
+   .popup{
+    padding: 0;
+    margin: 0;
+   }
+  .popup-content{
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+   }
+  }

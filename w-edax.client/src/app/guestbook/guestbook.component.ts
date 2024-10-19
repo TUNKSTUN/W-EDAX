@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { AuthService } from '../Services/auth.service';
 import { GuestBookModel } from '../models/guestbook.model';
 import { GuestbookScroller } from './guestbook.scroller';
@@ -9,6 +9,7 @@ import { IdGeneratorService } from '../Services/id-gen.service';
 import { GuestBookService } from '../Services/guestbook.service';
 import { Subscription } from 'rxjs';
 import { format } from 'date-fns';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-guestbook',
@@ -68,7 +69,9 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private renderer: Renderer2,
     private idGeneratorService: IdGeneratorService,
-    private guestBookService: GuestBookService
+    private guestBookService: GuestBookService,
+    private viewportScroller: ViewportScroller,
+    private router: Router
   ) {
     this.guestbookScroller = new GuestbookScroller(renderer);
   }
@@ -76,6 +79,11 @@ export class GuestbookComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.userSubscription = this.authService.currentUser$.subscribe(user => this.handleUserState(user));
     this.loadAllMessages();
+    this.router.events.subscribe((event: any) => { // Specify the type for event
+      if (event instanceof NavigationEnd) {
+        this.viewportScroller.scrollToPosition([0, 0]); // Scroll to top
+      }
+    });
 
     setTimeout(() => {
       this.isLoading = false; // Hide loading spinner

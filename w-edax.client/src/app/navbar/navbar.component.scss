@@ -1,13 +1,12 @@
 // Existing navbar styles
 .navbar-top {
-   padding: 0 40px;
-    display: flex;
-    justify-items: start;
-    justify-content: space-between;
-    padding-bottom: 12px;
-
+  padding: 0 40px;
+  display: flex;
+  justify-items: start;
+  justify-content: space-between;
+  padding-bottom: 12px;
 }
-.container-fluid{
+.container-fluid {
   padding: 0;
   margin: 0;
 }
@@ -21,14 +20,15 @@
   display: flex;
   display: flex;
   margin: 0;
+
   font-size: 2.2rem;
   text-decoration: none;
   transition: color 0.2s ease, letter-spacing 0.1s ease-in; // Smooth color transition
 }
 
 .navbar-top .navbar-brand:hover {
-    color: var(--text-color); // Use primary color on hover
-    letter-spacing: 0px;
+  color: var(--text-color); // Use primary color on hover
+  letter-spacing: 0px;
 }
 
 /* Add this to your navbar.component.scss or a global stylesheet */
@@ -36,7 +36,7 @@
 .navbar-text {
   position: relative;
   display: inline-flex;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.8rem;
   color: var(--primary-text-color);
   width: auto; /* Ensure width is auto for dynamic text */
@@ -45,9 +45,10 @@
   padding: 0;
 }
 
+
 /* Blinking cursor effect */
 .navbar-text::after {
-  content: '_';
+  content: "_";
   position: absolute;
   color: var(--text-color);
   margin-left: 1px;
@@ -56,14 +57,14 @@
 }
 
 @keyframes blink {
-  0%, 100% {
-      opacity: 1;
+  0%,
+  100% {
+    opacity: 1;
   }
   50% {
-      opacity: 0;
+    opacity: 0;
   }
 }
-
 
 .logo-container {
   display: flex;
@@ -75,73 +76,69 @@
   width: 100%;
 }
 
-.navbar-top .nav-link{
-    width: 100%;
+.navbar-top .nav-link {
+  width: 100%;
 }
 .navbar-top .nav-link i {
-    font-size: 26px;
-    margin-right: 3px;
+  font-size: 26px;
+  margin-right: 3px;
 }
 
 .navbar-top .nav-link:hover {
-    color: var(--primary-color);
-    /* Use primary color on hover */
+  color: var(--primary-color);
+  /* Use primary color on hover */
 }
 
 .navbar-top .nav-link:hover i {
-    color: var(--primary-color);
-    /* Use primary color on hover for icons */
+  color: var(--primary-color);
+  /* Use primary color on hover for icons */
 }
 
 .navbar-top .navbar-center {
-    width: 100%;
-    z-index: 1;
+  width: 100%;
+  z-index: 1;
 }
 
 @media (max-width: 991px) {
-  .navbar-top{
+  .navbar-top {
     width: 100%;
     padding-bottom: 12px;
-
   }
   .navbar-top .navbar-brand {
     font-size: 26px;
     display: flex;
     justify-content: start;
     width: auto;
-}
-
-    .navbar-top .navbar-text {
-      font-size: 10px; /* Adjust text size for mobile */
-      display: inline-flex; /* Inline-flex ensures the text flows naturally */
-      justify-content: flex-start; /* Align text to the start */
-      width: auto; /* Ensure text wraps properly */
-      white-space: nowrap; /* Prevent the text from wrapping */
   }
 
-    .navbar-top .navbar-nav {
-        text-align: right;
-    }
+  .navbar-top .navbar-text {
+    font-size: 10px; /* Adjust text size for mobile */
+    display: inline-flex; /* Inline-flex ensures the text flows naturally */
+    justify-content: flex-end; /* Align text to the start */
+    width: auto; /* Ensure text wraps properly */
+    white-space: nowrap; /* Prevent the text from wrapping */
+  }
 
-    .navbar-top .nav-item {
-        margin-bottom: 5px;
-    }
+  .navbar-top .navbar-nav {
+    text-align: right;
+  }
 
+  .navbar-top .nav-item {
+    margin-bottom: 5px;
+  }
 
-
-    .navbar-top .toggler {
-        display: block;
-        /* Ensure toggler is visible */
-        font-size: 20px;
-        background-color: inherit;
-        color: var(--text-color);
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.2s ease, color 0.2s ease-in-out;
-        width: 10px
-    }
+  .navbar-top .toggler {
+    display: block;
+    /* Ensure toggler is visible */
+    font-size: 20px;
+    background-color: inherit;
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease-in-out;
+    width: 10px;
+  }
 }
-
 
 // Styles for navbar-bottom
 /* Navbar bottom styles */
@@ -149,7 +146,7 @@
   background-color: var(--background-color);
   width: 100%;
   z-index: 100;
-  padding: 10px 30px;
+  padding: 10px 20px;
   display: flex;
   /* Center the entire navbar content */
   align-items: center;
@@ -163,10 +160,9 @@
   .navbar-nav {
     flex-direction: row;
     /* Create space between links */
-    width: 100%;
-    max-width: 800px;
+    justify-content: space-evenly;
+    width: 80%;
     border-radius: 10px;
-    gap: calc(12px + 1vw);
   }
 
   .nav-item {
@@ -176,12 +172,13 @@
 
   .nav-link {
     font-family: var(--font-pixel);
-    font-size: 20px;
+    font-size: calc(8px + 1vw);
     font-weight: 400;
     padding: 0;
     transition: color 0.2s ease;
+    white-space: pre;
   }
-  #home-item{
+  #home-item {
     border-radius: 50%;
     color: var(--text-color);
   }
@@ -205,17 +202,17 @@
     color: var(--primary-color);
     border-color: var(--text-color-oppo);
     transform: scale(1.05);
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out,
+      background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
     /* Style for the heading inside the selected class */
     h3 {
-        color: var(--text-color-oppo);
-        font-weight: 600;
+      color: var(--text-color-oppo);
+      font-weight: 600;
     }
-}
+  }
 
-
-.selected::after {
+  .selected::after {
     content: "";
     position: absolute;
     left: 0;
@@ -226,15 +223,14 @@
     border-bottom: 2px solid var(--primary-color);
     transform: scaleX(0);
     transition: transform 0.3s ease-in-out;
-}
-.selected:hover::after,
-.selected:focus::after {
+  }
+  .selected:hover::after,
+  .selected:focus::after {
     transform: scaleX(1);
   }
   .selected.selected::after {
-      transform: scaleX(1);
+    transform: scaleX(1);
   }
-
 
   &.hidden {
     transform: translateY(-100%);
@@ -242,53 +238,109 @@
   }
 
   #navbarBottomLinks {
+    align-items: center;
     justify-content: space-evenly;
+
     display: flex;
-    width: 100%;
   }
 }
-@media(max-width:768px){
-    .navbar-bottom .nav-link{
-        font-size: calc(8px + 1vw);
-    }
-    .navbar-nav{
-    gap: calc(5px + 1vw);
-    }
-}
 @keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-    }
+  from {
+    transform: translateY(-100%);
+  }
 
-    to {
-        transform: translateY(0);
-    }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .toggler {
-    background-color: inherit;
-    display: flex;
-    color: var(--text-color);
-    /* Use text color variable */
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 300;
-    transition: background-color 0.2s ease, color 0.2s ease-in-out;
+  background-color: inherit;
+  display: flex;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 300;
+  transition: background-color 0.2s ease, color 0.2s ease-in-out;
 }
 
 .toggler:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .typewriter-text {
-    width: auto;
-    display: flex;
+  width: auto;
+  display: flex;
 }
 
-#navbarLinks {
+@media (max-width: 768px) {
+  .navbar-bottom .nav-link {
+    font-size: calc(8px + 1vw);
+    padding: 10px 0;
+  }
+  .navbar-nav {
+    gap: calc(3px + 1vw);
+  }
+  #navbarLinks {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
+  /* Dropdown Menu (for mobile) */
+  #navbarBottomLinks {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    flex-direction: column;
+    width: auto;
+    width: 200px;
+    background-color: var(--background-color);
+  }
+
+  .show #navbarBottomLinks {
+    display: flex;
+    border: 1px solid var(--primary-color);
+  }
+
+  /* For Mobile Screens */
+  @media (max-width: 768px) {
+    .navbar-bottom .navbar-nav {
+      display: none;
+      flex-direction: column;
+    }
+
+    .navbar-bottom .show .navbar-nav {
+      display: flex;
+    }
+
+    .show #navbarBottomLinks {
+      display: flex;
+      border: 1px solid var(--primary-color);
+    }
+
+    .navbar-nav {
+      gap: 5px;
+    }
+    .nav-link{
+      padding: 0;
+    }
+
+    .navbar-toggler {
+      display: block;
+    }
+  }
+
+  .container-fluid{
+    display: flex;
+    justify-content: end;
+    font-size: 28px;
+    padding: 10px;
+    &:nth-child:hover{
+      a{
+        color: var(--primary-color);
+      }
+    }
+  }
 }
