@@ -98,7 +98,7 @@
   .footer-bottom {
     background-color: black; /* Background color for the bottom section */
     color: white; /* Text color for the bottom section */
-    padding: 10px;
+    padding: 5px;
     margin-top: 20px;
     width: 100%;
     display: flex; /* Set as a flex container */
@@ -108,12 +108,12 @@
     position: relative; /* Ensure correct positioning if needed */
     p {
       margin: 0;
-      font-size: 14px;
+      font-size: 10px;
     }
     a{
       font-family: "Tunkstun", "sans-serif";
       text-decoration: none;
-      font-size: 24px;
+      font-size: 16px;
       color: white;
       padding-right: 10px;
       padding-left: 10px;

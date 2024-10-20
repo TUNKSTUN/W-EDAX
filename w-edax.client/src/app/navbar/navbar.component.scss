@@ -1,6 +1,6 @@
 // Existing navbar styles
 .navbar-top {
-  padding: 0 40px;
+  padding: 0 30px;
   display: flex;
   justify-items: start;
   justify-content: space-between;
@@ -37,12 +37,18 @@
   position: relative;
   display: inline-flex;
   font-family: "Courier New", monospace;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--primary-text-color);
   width: auto; /* Ensure width is auto for dynamic text */
   z-index: 100;
   margin: 0;
+  align-items: center;
   padding: 0;
+}
+#navbarLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

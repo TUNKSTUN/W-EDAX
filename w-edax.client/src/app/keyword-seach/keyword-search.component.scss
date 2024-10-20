@@ -82,7 +82,7 @@ body.no-scroll {
   }
   .popup-content {
     background-color: var(--background-color);
-    padding: 10px;
+    padding: 20px;
     position: relative;
     border: 1px solid var(--primary-color);
     overflow-y: auto;
@@ -100,6 +100,7 @@ body.no-scroll {
     .article {
       position: relative;
       margin: 5px;
+      padding: 10px;
       margin-bottom: 20px;
       background-color: var(--message-back);
       padding: 10px; /* Increase padding to give it a button-like feel */

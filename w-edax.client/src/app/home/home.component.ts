@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private selectRandomTopArticles(): void {
-    const numberOfTopArticles = 3;
+    const numberOfTopArticles = 5;
     this.topArticles = this.shuffleArray(this.articles).slice(0, numberOfTopArticles);
   }
 
