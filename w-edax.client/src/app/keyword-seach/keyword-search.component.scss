@@ -20,7 +20,7 @@ body.no-scroll {
       padding: 5px 10px; /* Adjusting padding for button size */
       height: auto; /* Allow flexibility for text size */
       width: auto; /* Auto width based on content */
-      font-size: calc(10px + 0.5vw);
+      font-size: 16px;
       color: var(--text-color);
       background-color: var(--card-background);
       border-bottom: 2px solid gray;
@@ -33,7 +33,7 @@ body.no-scroll {
     }
 
     .keyword:hover {
-      color: var(--text-color); /* Maintain text color on hover */
+      color: var(--primary-color); /* Maintain text color on hover */
       transform: translateY(2px);
       border: 0.5px solid gray;
       border-bottom: 0.5px solid white;
@@ -151,9 +151,12 @@ body.no-scroll {
       font-weight: 400;
       font-size: calc(24px + 0.5vw);
       margin-bottom: 20px;
-      margin-right: 40px;
+      background-color: var(--card-background);
+      border-radius: 10px;
       text-transform: capitalize;
+      padding: 10px;
       text-align: start;
+      width: auto;
       color: var(--primary-color);
 
     }
@@ -178,10 +181,17 @@ body.no-scroll {
 
     .close {
       position: absolute;
-      top: 10px;
+      top: 20px;
       right: 20px;
+      color: white;
+      background-color: red;
+      padding: 5px 20px;
       cursor: pointer;
       font-size: 28px;
+      transition: background-color 0.1s ease-in-out;
+      &:hover{
+        background-color: rgba(255, 0, 0, 0.5); // Red with 50% opacity
+      }
     }
   }
   .popup.show .popup-content {
@@ -246,5 +256,9 @@ body.no-scroll {
     display: flex;
     max-width: 100%;
     width: 100%;
+
+   }
+   .keyword{
+    font-size: 10px;
    }
   }

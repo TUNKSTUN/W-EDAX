@@ -1,40 +1,40 @@
-<div class="keyword-container">
-  <div class="keywords">
-    <span
-      *ngFor="let keyword of keywords"
-      (click)="selectKeyword(keyword)"
-      class="keyword"
-    >
-      {{ keyword }}
-    </span>
+  <div class="keyword-container">
+    <div class="keywords">
+      <span
+        *ngFor="let keyword of keywords"
+        (click)="selectKeyword(keyword)"
+        class="keyword"
+      >
+        {{ keyword }}
+      </span>
+    </div>
   </div>
-</div>
 
-<div *ngIf="showPopup" class="popup" (click)="closePopup()">
-  <!-- Background overlay -->
-  <div
-    class="popup-content"
-    [ngClass]="{ loaded: isLoaded }"
-    (click)="$event.stopPropagation()"
-  >
-    <!-- Popup container -->
-    <span class="close" (click)="closePopup()">&times;</span>
-    <h3>{{ selectedKeyword }}:</h3>
-    <div *ngIf="isLoading" class="loading"></div>
-    <ng-container *ngIf="!isLoading">
-      <div *ngFor="let article of filteredArticles" class="article">
-        <div class="article-image">
-          <img
-            [src]="getImageUrl(article)"
-            alt="{{ article.articleHeadline }}"
-            class="article-image"
-          />
+  <div *ngIf="showPopup" class="popup" (click)="closePopup()">
+    <!-- Background overlay -->
+    <div
+      class="popup-content"
+      [ngClass]="{ loaded: isLoaded }"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Popup container -->
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h3>{{ selectedKeyword }}:</h3>
+      <div *ngIf="isLoading" class="loading"></div>
+      <ng-container *ngIf="!isLoading">
+        <div *ngFor="let article of filteredArticles" class="article">
+          <div class="article-image">
+            <img
+              [src]="getImageUrl(article)"
+              alt="{{ article.articleHeadline }}"
+              class="article-image"
+            />
+          </div>
+          <a [routerLink]="['/article', article.articleId]" class="article-link">
+            <h4>{{ article.articleHeadline }}</h4>
+            <p>{{ article.articleDescription }}</p>
+          </a>
         </div>
-        <a [routerLink]="['/article', article.articleId]" class="article-link">
-          <h4>{{ article.articleHeadline }}</h4>
-          <p>{{ article.articleDescription }}</p>
-        </a>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
-</div>

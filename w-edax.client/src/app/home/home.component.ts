@@ -63,9 +63,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private fetchArticlesFromService(): void {
     this.articleService.getArticles().pipe(
       tap((articles: ArticleModel[]) => {
-        this.articles = articles;
-        localStorage.setItem('articles', JSON.stringify(articles));
-        this.processArticles();
+        if (JSON.stringify(this.articles) !== JSON.stringify(articles)) { // Compare the current and fetched articles
+          this.articles = articles; // Update articles if they differ
+          localStorage.setItem('articles', JSON.stringify(articles)); // Update local storage
+          this.processArticles(); // Process the articles
+        }
       }),
       catchError(error => {
         console.error('Error fetching articles:', error);
@@ -75,6 +77,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       })
     ).subscribe();
   }
+
 
   private processArticles(): void {
     this.loadArticleImages();
@@ -91,15 +94,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private loadArticleImages(): void {
-    console.log('Loading article images...');
+    console.log('Preloading article images...');
     this.articles.forEach(article => {
       if (article.mediaFileUrls && article.mediaFileUrls.length > 0) {
-        console.log(`Article ${article.articleId} already has media URLs`, article.mediaFileUrls);
+        console.log(`Preloading media URL for article ${article.articleId}`, article.mediaFileUrls[0]);
+        this.preloadImage(article.mediaFileUrls[0]);
       } else {
-        console.log(`Fetching media URL for article ${article.articleId}`);
+        console.log(`Using default image for article ${article.articleId}`);
+        this.preloadImage(this.defaultImage);
       }
     });
   }
+
+  private preloadImage(imageUrl: string): void {
+    const img = new Image();
+    img.src = imageUrl;
+
+    // Optional: Add an event listener to confirm image is loaded
+    img.onload = () => {
+      console.log(`Image preloaded: ${imageUrl}`);
+    };
+
+    img.onerror = () => {
+      console.error(`Failed to preload image: ${imageUrl}`);
+    };
+  }
+
 
   private selectBigAndSmallArticles(): void {
     if (this.articles.length > 0) {
@@ -131,8 +151,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     alert(message);
   }
   getImageUrl(article: ArticleModel): string {
-    // Return the first media file URL, or a default image if none exists
-    return article.mediaFileUrls?.[0] || this.defaultImage;
+    const imageUrl = article.mediaFileUrls?.[0] || this.defaultImage;
+    return imageUrl.replace(/\.(jpg|png)$/, '.webp');
   }
 
 }

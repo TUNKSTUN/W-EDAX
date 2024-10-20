@@ -1,12 +1,13 @@
 .footer {
   position: relative;
   width: 100%;
-  background-color: rgb(32, 32, 32); /* Black theme background */
+  background-color: var(--card-background);
   padding: 0px 10px;
   text-align: center;
   margin-top: 20px;
   bottom: 0;
   left: 0;
+  border-radius: 10px;
   z-index: 100;
   position: relative;
 
@@ -27,7 +28,6 @@
 
   .footer-section {
     flex: 1;
-    margin: 10px;
     max-width: 200px;
 
     h4 {
@@ -47,13 +47,15 @@
         list-style: none;
 
         a {
-          color: white; /* Default link color */
+          color: var(--text-color);
+          font-weight: 600;
+      font-family: Arial, sans-serif;
           text-decoration: none;
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           cursor: pointer;
 
           &:hover {
-            color: darkgray; /* Blue on hover */
+            color: var(--primary-color); /* Blue on hover */
             transition: color 0.3s ease;
           }
         }
@@ -61,9 +63,10 @@
     }
 
     p {
-      color: #ccc; /* Light grey for text */
       margin: 5px 0;
       font-size: 0.8rem;
+      font-family: Arial, sans-serif;
+      color: var(--text-color);
     }
   }
 
@@ -96,10 +99,9 @@
   }
 
   .footer-bottom {
-    background-color: black; /* Background color for the bottom section */
+    background-color: rgb(21, 21, 21); /* Background color for the bottom section */
     color: white; /* Text color for the bottom section */
     padding: 5px;
-    margin-top: 20px;
     width: 100%;
     display: flex; /* Set as a flex container */
     justify-content: center; /* Center horizontally */
@@ -108,15 +110,13 @@
     position: relative; /* Ensure correct positioning if needed */
     p {
       margin: 0;
-      font-size: 10px;
+      font-size: 12px;
     }
     a{
       font-family: "Tunkstun", "sans-serif";
       text-decoration: none;
       font-size: 16px;
       color: white;
-      padding-right: 10px;
-      padding-left: 10px;
       transition: all 0.2s ease-in-out;
       &:hover{
         color: var(--primary-color)

@@ -4,7 +4,6 @@
 <div class="home-page" [class.loaded]="!isLoading">
   <div class="left-section">
     <div class="article-grid">
-
       <div *ngIf="isLoading" class="big-article-card skeleton">
         <div class="skeleton-image"></div>
         <div class="big-card-content">
@@ -15,10 +14,16 @@
       </div>
 
       <ng-container *ngIf="!isLoading && articles.length > 0">
-        <a [routerLink]="['/article', articles[0].articleId]" class="big-article-card">
-          <img [src]="getImageUrl(articles[0])"
-               alt="{{ articles[0]?.articleHeadline || 'No headline' }}"
-               class="big-article-image">
+        <a
+          [routerLink]="['/article', articles[0].articleId]"
+          class="big-article-card"
+        >
+          <img
+            [src]="getImageUrl(articles[0])"
+            alt="{{ articles[0]?.articleHeadline || 'No headline' }}"
+            class="big-article-image"
+          />
+
           <div class="big-card-content">
             <h3>{{ articles[0].articleHeadline }}</h3>
             <p>{{ articles[0].articleDescription }}</p>
@@ -27,7 +32,10 @@
       </ng-container>
 
       <ng-container *ngIf="isLoading">
-        <div *ngFor="let i of [1,2,3,4,5]" class="small-article-card skeleton">
+        <div
+          *ngFor="let i of [1, 2, 3, 4, 5]"
+          class="small-article-card skeleton"
+        >
           <div class="skeleton-image"></div>
           <div class="small-card-content">
             <div class="skeleton-title"></div>
@@ -37,9 +45,16 @@
       </ng-container>
 
       <ng-container *ngIf="!isLoading && articles.length > 1">
-        <div *ngFor="let article of articles.slice(1, 10)" class="small-article-card">
+        <div
+          *ngFor="let article of articles.slice(1, 10)"
+          class="small-article-card"
+        >
           <a [routerLink]="['/article', article.articleId]">
-            <img [src]="getImageUrl(article)" alt="Article Image" class="small-article-image"/>
+            <img
+              [src]="getImageUrl(article)"
+              alt="Article Image"
+              class="small-article-image"
+            />
             <div class="small-card-content">
               <h3>{{ article.articleHeadline }}</h3>
               <p>{{ article.articleDescription }}</p>
@@ -54,14 +69,18 @@
     <h2>Top Articles</h2>
     <div class="article-cards">
       <ng-container *ngIf="isLoading">
-        <div *ngFor="let i of [1,2]" class="article-card skeleton">
+        <div *ngFor="let i of [1, 2]" class="article-card skeleton">
           <div class="skeleton-title"></div>
           <div class="skeleton-text"></div>
           <div class="skeleton-text"></div>
         </div>
       </ng-container>
       <ng-container *ngIf="!isLoading && topArticles.length > 0">
-        <a *ngFor="let article of topArticles" [routerLink]="['/article', article.articleId]" class="article-card">
+        <a
+          *ngFor="let article of topArticles"
+          [routerLink]="['/article', article.articleId]"
+          class="article-card"
+        >
           <h3>{{ article.articleHeadline }}</h3>
           <p>{{ article.articleDescription }}</p>
         </a>
@@ -73,12 +92,24 @@
 <section id="banner" class="banner">
   <div class="banner-content">
     <h2>Community Events</h2>
-    <p>Stay connected and engaged with our vibrant community. Explore upcoming events and activities!</p>
+    <p>
+      Stay connected and engaged with our vibrant community. Explore upcoming
+      events and activities!
+    </p>
     <div class="banner-form">
       <h3>Stay Updated</h3>
-      <p>Sign up for our newsletter to get the latest updates on articles and community events.</p>
+      <p>
+        Sign up for our newsletter to get the latest updates on articles and
+        community events.
+      </p>
       <form action="#submit" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          aria-label="Email address"
+        />
         <button type="submit">Subscribe</button>
       </form>
     </div>
@@ -88,18 +119,25 @@
 <section id="topic-articles" class="topic-articles-section">
   <header class="topic-articles-header">
     <h2 class="section-title">Insights and Innovations</h2>
-    <p class="section-description">Explore topics and advancements in cloud computing, ethical hacking, network security, and programming.</p>
+    <p class="section-description">
+      Explore topics and advancements in cloud computing, ethical hacking,
+      network security, and programming.
+    </p>
   </header>
   <div class="topic-articles-content">
     <div class="main-content">
       <h3 class="main-heading">Cutting-Edge Topics</h3>
-      <p class="main-description">Stay ahead with the latest insights and advancements in technology.</p>
+      <p class="main-description">
+        Stay ahead with the latest insights and advancements in technology.
+      </p>
     </div>
     <div class="topic-articles-cards">
       <div *ngFor="let article of topicArticles" class="card">
         <h4 class="card-title">{{ article.articleHeadline }}</h4>
         <p class="card-description">{{ article.articleDescription }}</p>
-        <a [routerLink]="['/article', article.articleId]" class="card-button">Read More</a>
+        <a [routerLink]="['/article', article.articleId]" class="card-button"
+          >Read More</a
+        >
       </div>
     </div>
   </div>

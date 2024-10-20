@@ -166,8 +166,8 @@
   .navbar-nav {
     flex-direction: row;
     /* Create space between links */
-    justify-content: space-evenly;
-    width: 80%;
+    justify-content: space-around;
+    width: 70%;
     border-radius: 10px;
   }
 
@@ -178,7 +178,7 @@
 
   .nav-link {
     font-family: var(--font-pixel);
-    font-size: calc(8px + 1vw);
+    font-size: 20px;
     font-weight: 400;
     padding: 0;
     transition: color 0.2s ease;
